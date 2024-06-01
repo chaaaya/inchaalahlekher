@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ asset('css/accueil.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>Accueil</title>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <a href="#">Voyage<span> KCS</span></a>
+        </div>
+        <nav>
+            <button class="btn" onclick="location.href='#'"><i class="fa fa-home"></i> Accueil </button>
+            <button class="btn" onclick="location.href='{{ route('register') }}'"><i class="fa fa-user-plus"></i> S'inscrire</button>
+                <button class="dropbtn"><i class="fa fa-sign-in"></i> Se connecter</button>
+                <div class="dropdown-content">
+                    <a href="#">Admin</a>
+                    <a href="#">Responsable</a>
+                    <a href="#">Client</a>
+                </div>
+            </div>
+            <button class="btn about" onclick="location.href='#'"><i class="fa fa-info-circle"></i> A propos de nous</button>
+        </nav>
+    </header>
+    <div class="meteo">
+        <h2>Météo</h2>
+        <a class="weatherwidget-io" href="https://forecast7.com/fr/32d34n6d38/beni-mellal/" data-label_1="BENI-MELLAL" data-label_2="METEO" data-days="7" data-theme="pure">BENI-MELLAL WEATHER</a>
+        <script>
+            !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src='https://weatherwidget.io/js/widget.min.js';fjs.parentNode.insertBefore(js,fjs);}}(document,'script','weatherwidget-io-js');
+        </script>
+    </div>
+    <div class="left"></div>
+    <section>
+        <button class="consult" onclick="location.href='#'">Consulter Vols</button>
+    </section>
+    <div class="right"></div>
+    <footer>
+        <div class="legal">
+            <a href="#">Mentions légales</a>
+        </div>
+        <div class="contact">
+            <a href="#">Contact</a>
+        </div>
+        <div class="social-media">
+            <a href="#">Facebook</a>
+            <a href="#">Twitter</a>
+            <a href="#">Instagram</a>
+        </div>
+    </footer>
+</body>
+</html>

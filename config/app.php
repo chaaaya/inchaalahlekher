@@ -123,4 +123,12 @@ return [
         'store' => env('APP_MAINTENANCE_STORE', 'database'),
     ],
 
+    /*
+    |--------------------------------------------------------------------------
+    | Autres configurations...
+    |--------------------------------------------------------------------------
+    |
+    | Ajoutez ici d'autres configurations spécifiques à votre application
+    |
+    */
 ];

@@ -3,8 +3,6 @@
 namespace App\Policies;
 
 use App\Models\User;
-use App\Models\user;
-use Illuminate\Auth\Access\Response;
 
 class UserPolicy
 {
@@ -13,15 +11,17 @@ class UserPolicy
      */
     public function viewAny(User $user): bool
     {
-        //
+        // Implémentez votre logique ici
+        return $user->hasRole('admin');
     }
 
     /**
      * Determine whether the user can view the model.
      */
-    public function view(User $user, user $model): bool
+    public function view(User $user, User $model): bool
     {
-        //
+        // Implémentez votre logique ici
+        return $user->id === $model->id || $user->hasRole('admin');
     }
 
     /**
@@ -29,38 +29,43 @@ class UserPolicy
      */
     public function create(User $user): bool
     {
-        //
+        // Implémentez votre logique ici
+        return $user->hasRole('admin');
     }
 
     /**
      * Determine whether the user can update the model.
      */
-    public function update(User $user, user $model): bool
+    public function update(User $user, User $model): bool
     {
-        //
+        // Implémentez votre logique ici
+        return $user->id === $model->id || $user->hasRole('admin');
     }
 
     /**
      * Determine whether the user can delete the model.
      */
-    public function delete(User $user, user $model): bool
+    public function delete(User $user, User $model): bool
     {
-        //
+        // Implémentez votre logique ici
+        return $user->hasRole('admin');
     }
 
     /**
      * Determine whether the user can restore the model.
      */
-    public function restore(User $user, user $model): bool
+    public function restore(User $user, User $model): bool
     {
-        //
+        // Implémentez votre logique ici
+        return $user->hasRole('admin');
     }
 
     /**
      * Determine whether the user can permanently delete the model.
      */
-    public function forceDelete(User $user, user $model): bool
+    public function forceDelete(User $user, User $model): bool
     {
-        //
+        // Implémentez votre logique ici
+        return $user->hasRole('admin');
     }
 }

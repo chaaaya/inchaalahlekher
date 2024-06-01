@@ -3,7 +3,7 @@
 namespace App\Policies;
 
 use App\Models\User;
-use App\Models\compagnie;
+use App\Models\Compagnie;
 use Illuminate\Auth\Access\Response;
 
 class CompagniePolicy
@@ -13,15 +13,17 @@ class CompagniePolicy
      */
     public function viewAny(User $user): bool
     {
-        //
+        // Implémentez votre logique ici
+        return true; // Exemple : autoriser tous les utilisateurs
     }
 
     /**
      * Determine whether the user can view the model.
      */
-    public function view(User $user, compagnie $compagnie): bool
+    public function view(User $user, Compagnie $compagnie): bool
     {
-        //
+        // Implémentez votre logique ici
+        return true; // Exemple : autoriser tous les utilisateurs
     }
 
     /**
@@ -29,38 +31,43 @@ class CompagniePolicy
      */
     public function create(User $user): bool
     {
-        //
+        // Implémentez votre logique ici
+        return $user->hasRole('admin'); // Si vous avez une méthode hasRole
     }
 
     /**
      * Determine whether the user can update the model.
      */
-    public function update(User $user, compagnie $compagnie): bool
+    public function update(User $user, Compagnie $compagnie): bool
     {
-        //
+        // Implémentez votre logique ici
+        return $user->hasRole('admin'); // Si vous avez une méthode hasRole
     }
 
     /**
      * Determine whether the user can delete the model.
      */
-    public function delete(User $user, compagnie $compagnie): bool
+    public function delete(User $user, Compagnie $compagnie): bool
     {
-        //
+        // Implémentez votre logique ici
+        return $user->hasRole('admin'); // Si vous avez une méthode hasRole
     }
 
     /**
      * Determine whether the user can restore the model.
      */
-    public function restore(User $user, compagnie $compagnie): bool
+    public function restore(User $user, Compagnie $compagnie): bool
     {
-        //
+        // Implémentez votre logique ici
+        return $user->hasRole('admin'); // Si vous avez une méthode hasRole
     }
 
     /**
      * Determine whether the user can permanently delete the model.
      */
-    public function forceDelete(User $user, compagnie $compagnie): bool
+    public function forceDelete(User $user, Compagnie $compagnie): bool
     {
-        //
+        // Implémentez votre logique ici
+        return $user->hasRole('admin'); // Si vous avez une méthode hasRole
     }
 }

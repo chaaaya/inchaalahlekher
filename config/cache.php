@@ -30,13 +30,15 @@ return [
     |                    "redis", "dynamodb", "octane", "null"
     |
     */
-
     'stores' => [
-
-        'array' => [
-            'driver' => 'array',
-            'serialize' => false,
+        'database' => [
+            'driver' => 'database',
+            'table' => 'cache',
+            'connection' => null,
         ],
+        // autres configurations de cache
+    ],
+    
 
         'database' => [
             'driver' => 'database',
@@ -89,7 +91,7 @@ return [
             'driver' => 'octane',
         ],
 
-    ],
+    
 
     /*
     |--------------------------------------------------------------------------
