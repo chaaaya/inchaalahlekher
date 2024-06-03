@@ -12,7 +12,7 @@ class AdminController extends Controller
 
     public function reservationsManagement()
     {
-        return view('admin.manage-reservation');
+        return view('admin.reservation.manage-reservations');
     }
 
     public function offersManagement()
@@ -30,8 +30,12 @@ class AdminController extends Controller
         return view('admin.manage-vols');
     }
 
+   
     public function rapportsManagement()
     {
-        return view('admin.manage-rapports');
+        // Logique pour récupérer et manipuler les rapports
+        $rapports = []; // Remplacez ceci par la logique pour récupérer les rapports depuis votre modèle
+
+        return view('admin.manage-rapports', compact('rapports'));
     }
 }

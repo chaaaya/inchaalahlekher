@@ -1,21 +1,24 @@
-<!-- resources/views/partials/sidebar-respo.blade.php -->
-
-<div class="logo">
-    <a href="#">Voyage<span> KCS</span></a>
-</div>
-<nav>
-    <ul>
-       <li><a href="{{ route('manage-admins') }}" class="nav-link"><i class="fa fa-users"></i> Gérer les comptes d'administrateurs d'application</a></li>
-       <li><a href="{{ route('analyse-rapports') }}" class="nav-link"><i class="fa fa-bar-chart"></i> Analyser les rapports des administrateurs <span class="badge">5</span></a></li>
-       <li><a href="{{ route('communicate-prenantes') }}" class="nav-link"><i class="fa fa-comments"></i> Communiquer avec les parties prenantes</a></li>
-       <li><a href="{{ route('elaborer-planes') }}" class="nav-link"><i class="fa fa-clipboard"></i> Élaborer des plans de continuité</a></li>
-       <li>
-        <form action="{{ route('logout') }}" method="POST" class="logout-form">
-            @csrf
-            <button type="submit" class="nav-link logout-button" style="background: none; border: none;">
-                <i class="fas fa-sign-out-alt"></i> Se déconnecter
-            </button>
-        </form>
-    </li>  
-    </ul>
-</nav>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ asset('css/respo.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <title>@yield('title', 'Responsable Dashboard')</title>
+</head>
+<body>
+    <div class="container">
+        <aside class="sidebar">
+            @include('partials.sidebar-respo') <!-- Inclusion de la barre latérale -->
+        </aside>
+        <main class="content-respo">
+            <section id="main-content">
+                @yield('content-respo') <!-- Section pour le contenu spécifique -->
+            </section>
+        </main>
+    </div>
+</body>
+</html>

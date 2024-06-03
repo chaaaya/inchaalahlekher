@@ -1,52 +1,82 @@
-<x-guest-layout>
-    <form method="POST" action="{{ route('register') }}">
-        @csrf
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ asset('css/auth.css') }}">
+    <title>Register</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h2>Register</h2>
+        <form id="registerForm" action="{{ route('register', ['role' => $role]) }}" method="POST">
+            @csrf
+            <input type="hidden" name="role" value="{{ $role }}">
 
-        <!-- Name -->
-        <div>
-            <x-input-label for="name" :value="__('Name')" />
-            <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus autocomplete="name" />
-            <x-input-error :messages="$errors->get('name')" class="mt-2" />
-        </div>
+            <label for="name">Name</label>
+            <input type="text" id="name" name="name" required>
+            @error('name')
+                <div class="error">{{ $message }}</div>
+            @enderror
 
-        <!-- Email Address -->
-        <div class="mt-4">
-            <x-input-label for="email" :value="__('Email')" />
-            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autocomplete="username" />
-            <x-input-error :messages="$errors->get('email')" class="mt-2" />
-        </div>
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" required>
+            <span id="emailError" class="error" style="display:none;">Email already exists.</span>
+            @error('email')
+                <div class="error">{{ $message }}</div>
+            @enderror
 
-        <!-- Password -->
-        <div class="mt-4">
-            <x-input-label for="password" :value="__('Password')" />
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" required>
+            @error('password')
+                <div class="error">{{ $message }}</div>
+            @enderror
 
-            <x-text-input id="password" class="block mt-1 w-full"
-                            type="password"
-                            name="password"
-                            required autocomplete="new-password" />
+            <label for="password_confirmation">Confirm Password</label>
+            <input type="password" id="password_confirmation" name="password_confirmation" required>
+            @error('password_confirmation')
+                <div class="error">{{ $message }}</div>
+            @enderror
 
-            <x-input-error :messages="$errors->get('password')" class="mt-2" />
-        </div>
+            @if ($role === 'client')
+                <label for="subscription">Subscription</label>
+                <select id="subscription" name="subscription">
+                    <option value="none">None</option>
+                    <option value="subscribed">Subscribed</option>
+                </select>
+            @endif
 
-        <!-- Confirm Password -->
-        <div class="mt-4">
-            <x-input-label for="password_confirmation" :value="__('Confirm Password')" />
+            <button type="submit">Register</button>
+        </form>
+        <p>Already have an account? <a href="{{ route('login', ['role' => $role]) }}">Login here</a></p>
+    </div>
 
-            <x-text-input id="password_confirmation" class="block mt-1 w-full"
-                            type="password"
-                            name="password_confirmation" required autocomplete="new-password" />
+    <script>
+        $(document).ready(function() {
+            $('#email').on('blur', function() {
+                var email = $(this).val();
+                $.ajax({
+                    url: '{{ route('check-email') }}',
+                    type: 'GET',
+                    data: { email: email },
+                    success: function(data) {
+                        if(data.exists) {
+                            $('#emailError').show();
+                        } else {
+                            $('#emailError').hide();
+                        }
+                    }
+                });
+            });
 
-            <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
-        </div>
-
-        <div class="flex items-center justify-end mt-4">
-            <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('login') }}">
-                {{ __('Already registered?') }}
-            </a>
-
-            <x-primary-button class="ms-4">
-                {{ __('Register') }}
-            </x-primary-button>
-        </div>
-    </form>
-</x-guest-layout>
+            $('#registerForm').on('submit', function(event) {
+                if ($('#emailError').is(':visible')) {
+                    event.preventDefault();
+                    alert('Please use a different email address.');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

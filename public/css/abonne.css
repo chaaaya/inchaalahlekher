@@ -1,0 +1,157 @@
+/* Reset et styles généraux */
+* {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100%;
+    margin: 0;
+}
+
+body {
+    background-color: #f1f1f1;
+    color: #333;
+    line-height: 1.6;
+    display: flex;
+    flex-direction: column;
+}
+
+.container {
+    display: flex;
+    height: 100vh; /* 100% de la hauteur de la vue */
+}
+
+.logo {
+    padding: 10px;
+}
+
+.logo a {
+    color: #fff;
+    padding: 2px 20px;
+    border: 3px solid #fff;
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    text-transform: uppercase;
+    text-decoration: none;
+    font-weight: 900;
+    font-size: large;
+}
+
+.logo span {
+    color: #658faf;
+    font-weight: bold;
+    font-size: xx-large;
+}
+
+.logo a:hover {
+    color: #658faf;
+}
+
+.sidebar {
+    width: 250px;
+    background-color: #527692;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 60px 0;
+    border-right: 1px solid #ccc;
+}
+
+.sidebar nav ul {
+    list-style: none;
+    padding: 0;
+    width: 100%;
+}
+
+.sidebar nav ul li {
+    width: 100%;
+}
+
+.sidebar nav ul li a {
+    text-decoration: none;
+    color: white;
+    padding: 15px 20px;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    transition: background 0.3s;
+    box-sizing: border-box;
+}
+
+.sidebar nav ul li a i {
+    margin-right: 10px;
+}
+
+.sidebar nav ul li a:hover {
+    background-color: #658faf;
+}
+
+.content {
+    flex-grow: 1;
+    padding: 20px;
+}
+
+header {
+    position: relative;
+    height: 80px; 
+    width: 100%;
+    text-align: center;
+    padding: 10px;
+    background-color: #2c2c2c;
+}
+
+header .btn {
+    background-color: transparent;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    display: inline-block;
+}
+
+header .btn:hover {
+    background-color: #658faf;
+}
+
+#logout-btn {
+    margin-top: auto; /* Place le bouton de déconnexion en bas de la barre latérale */
+    color: #fff;
+}
+
+#logout-btn:hover {
+    background-color: #658faf;
+}
+/* Styles pour le tableau de l'historique des vols */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+table, th, td {
+    border: 1px solid #ddd;
+}
+
+th, td {
+    padding: 8px;
+    text-align: left;
+}
+
+th {
+    background-color: #527692;
+    color: white;
+}
+
+tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+tr:hover {
+    background-color: #f1f1f1;
+}

@@ -9,10 +9,9 @@ class CreateVolsTable extends Migration
     {
         Schema::create('vols', function (Blueprint $table) {
             $table->id();
-            $table->string('numero_vol')->unique();
+            $table->string('numero_vol');
             $table->dateTime('heure_depart');
             $table->dateTime('heure_arrivee');
-            // Ajoutez d'autres colonnes nécessaires pour votre table vol
             $table->timestamps();
         });
     }

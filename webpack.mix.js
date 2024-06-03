@@ -1,10 +1,14 @@
 const mix = require('laravel-mix');
 
+// webpack.mix.js
+
 mix.js('resources/js/app.js', 'public/js')
-   .vue() // Ajoutez cette ligne si vous utilisez Vue.js
    .postCss('resources/css/app.css', 'public/css', [
-      require('tailwindcss'),
+       require('postcss-import'),
+       require('tailwindcss'),
+       // Add more PostCSS plugins as needed
    ]);
+
 
 mix.webpackConfig({
    module: {

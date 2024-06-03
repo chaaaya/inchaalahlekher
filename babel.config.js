@@ -2,7 +2,8 @@
 
 module.exports = {
     presets: [
-      ['@babel/preset-env', { modules: false }], // Assurez-vous que modules est configuré correctement ici
+      '@babel/preset-env',
+      // Add more presets as needed
     ],
   };
   
