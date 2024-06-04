@@ -10,10 +10,9 @@ class UserController extends Controller
 {
     public function index()
     {
-        $users = User::all();
+        $users = User::all(); // Récupère tous les utilisateurs
         return view('admin.users.manage-users', compact('users'));
     }
-
     public function create()
     {
         return view('admin.users.create');

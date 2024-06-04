@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\Controller; // Assurez-vous que cette ligne importe correctement la classe Controller de Laravel
 use Illuminate\Foundation\Auth\ConfirmsPasswords;
 
 class ConfirmPasswordController extends Controller
+
 {
     /*
     |--------------------------------------------------------------------------
@@ -34,6 +35,6 @@ class ConfirmPasswordController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware('auth'); // Assurez-vous que la méthode middleware est correctement appelée ici
     }
 }
