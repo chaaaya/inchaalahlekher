@@ -8,6 +8,9 @@ use Illuminate\Support\Facades\Mail;
 use App\Mail\WelcomeMail;
 use App\Models\User;
 use Illuminate\Support\Facades\Log;
+use App\Mail\RegistrationSuccessMail;
+
+
 use App\Models\Reservation;
 class AuthController extends Controller
 {
@@ -40,7 +43,6 @@ class AuthController extends Controller
             'email' => 'Les informations d\'identification fournies ne correspondent pas à nos enregistrements.',
         ]);
     }
-
     public function register(Request $request, $role)
     {
         $request->validate([
@@ -48,7 +50,7 @@ class AuthController extends Controller
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|confirmed|min:8',
         ]);
-
+    
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
@@ -56,14 +58,16 @@ class AuthController extends Controller
             'role' => $role,
             'subscription' => $request->subscription ?? 'none',
         ]);
-
-        Mail::to($user->email)->send(new WelcomeMail($user));
-
+    
+        // Envoi de l'email de confirmation
+        Mail::to($user->email)->send(new RegistrationSuccessMail($user->name));
+    
         Auth::login($user);
         session()->flash('success', 'Inscription réussie ! Bienvenue ' . $user->name);
-
+    
         return $this->redirectBasedOnRole($user);
     }
+    
 
     public function logout(Request $request)
     {
@@ -83,7 +87,7 @@ class AuthController extends Controller
                 return redirect()->route('respo.dashboard');
             case 'client':
                 Log::info('Redirection vers client.dashboard');
-                return redirect()->route('client.dashboard');
+                return redirect()->route('abonne.index');
             default:
                 Log::warning('Utilisateur avec rôle non défini a essayé de se connecter', ['user_id' => $user->id]);
                 return redirect('/');

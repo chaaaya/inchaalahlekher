@@ -1,4 +1,4 @@
-<?php // app/Models/Vol.php
+<?php
 
 namespace App\Models;
 
@@ -10,11 +10,11 @@ class Vol extends Model
     use HasFactory;
 
     protected $fillable = [
-        'numero_vol', 'heure_depart', 'heure_arrivee'
+        'numero_vol',
+        'ville_depart',
+        'ville_arrivee',
+        'heure_depart',
+        'heure_arrivee',
+        'compagnie'
     ];
-
-    public function reservations()
-    {
-        return $this->hasMany(Reservation::class);
-    }
 }

@@ -16,27 +16,42 @@ use App\Http\Controllers\Respo\ReportsController;
 use App\Http\Controllers\Respo\ContinuityPlansController;
 use App\Http\Controllers\Abonne\AbonneController;
 use App\Http\Controllers\Abonne\HistoriqueVolsController;
+use App\Http\Controllers\Abonne\NewSubscriptionController;
 use App\Http\Controllers\Abonne\OffresController;
 use App\Http\Controllers\NonAbonne\NonAbonneController;
 use App\Http\Controllers\Abonne\ServicesSupplementairesController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\Abonne\SubscriptionController;
+use App\Models\Vol; // Importer le modèle Vol
+use Illuminate\Http\Request; // Importer la classe Request
+ 
 
-// Page d'accueil
 Route::get('/', function () {
     return view('accueil');
 })->name('accueil');
 
-// Authentification et gestion des rôles
-Route::get('login/{role?}', [AuthController::class, 'showLoginForm'])
-    ->name('login')
-    ->where('role', 'admin|respo|client');
+Route::get('/consulter-vols', function () {
+    $vols = Vol::all(); // Récupérer tous les vols
+    return view('consulter-vols', compact('vols'));
+})->name('consulter.vols');
+
+Route::get('/rechercher-vols', function (Request $request) {
+    $ville_depart = $request->input('ville_depart');
+    $ville_arrivee = $request->input('ville_arrivee');
+
+    $vols = Vol::where('ville_depart', 'like', "%$ville_depart%")
+                ->where('ville_arrivee', 'like', "%$ville_arrivee%")
+                ->get();
+
+    return view('consulter-vols', compact('vols'));
+})->name('rechercher.vols');
+Route::get('login/{role?}', [AuthController::class, 'showLoginForm'])->name('login')->where('role', 'admin|respo|client');
 Route::post('login', [AuthController::class, 'login']);
 Route::get('register/{role}', [AuthController::class, 'showRegisterForm'])->name('register');
 Route::post('register/{role}', [AuthController::class, 'register']);
 Route::post('logout', [AuthController::class, 'logout'])->name('logout');
 Route::get('check-email', [AuthController::class, 'checkEmail'])->name('check-email');
 
-// Routes sécurisées par le middleware 'auth'
 Route::middleware(['auth'])->group(function () {
     Route::get('admin/service/manage-services', function () {
         return view('admin.service.manage-services');
@@ -51,19 +66,16 @@ Route::middleware(['auth'])->group(function () {
             return view('dashboard');
         })->name('dashboard');
 
-        // Profil
         Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
         Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
         Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     });
 });
 
-// Page À propos
 Route::get('/about', function () {
     return view('about');
 })->name('about');
 
-// Routes pour l'administration
 Route::prefix('admin')->middleware(['auth'])->group(function () {
     Route::get('/', function () {
         return view('admin.dashboard');
@@ -76,61 +88,62 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
     Route::get('manage-vols', [AdminController::class, 'volsManagement'])->name('manage-vols');
     Route::get('manage-rapports', [RapportController::class, 'index'])->name('manage-rapports');
 
-    // Routes pour les rapports
-    Route::resource('rapports', RapportController::class);
+    Route::resource('rapports', RapportController::class)->names([
+        'index' => 'admin.rapports.index',
+        'create' => 'admin.rapports.create',
+        'store' => 'admin.rapports.store',
+        'edit' => 'admin.rapports.edit',
+        'update' => 'admin.rapports.update',
+        'destroy' => 'admin.rapports.destroy',
+    ]);
 
-    // Routes pour les utilisateurs
     Route::resource('users', UserController::class)->names([
         'index' => 'admin.users.index',
         'create' => 'admin.users.create',
         'store' => 'admin.users.store',
         'edit' => 'admin.users.edit',
         'update' => 'admin.users.update',
-        'destroy' => 'admin.users.destroy'
+        'destroy' => 'admin.users.destroy',
     ]);
 
-    // Routes pour les offres
     Route::resource('offers', OfferController::class)->names([
         'index' => 'admin.offers.index',
         'create' => 'admin.offers.create',
         'store' => 'admin.offers.store',
         'edit' => 'admin.offers.edit',
         'update' => 'admin.offers.update',
-        'destroy' => 'admin.offers.destroy'
+        'destroy' => 'admin.offers.destroy',
     ]);
-
-    // Routes pour les services
+   
     Route::resource('service', ServiceController::class)->names([
         'index' => 'admin.service.manage-services',
         'create' => 'admin.service.create-service',
         'store' => 'admin.service.store',
         'edit' => 'admin.service.edit-service',
         'update' => 'admin.service.update',
-        'destroy' => 'admin.service.destroy'
+        'destroy' => 'admin.service.destroy',
     ]);
+    
 
-    // Routes pour les vols
     Route::resource('vols', VolController::class)->names([
         'index' => 'admin.vols.index',
         'create' => 'admin.vols.create',
         'store' => 'admin.vols.store',
         'edit' => 'admin.vols.edit',
         'update' => 'admin.vols.update',
-        'destroy' => 'admin.vols.destroy'
+        'destroy' => 'admin.vols.destroy',
     ]);
 
-    // Gestion des réservations
     Route::resource('reservation', ReservationController::class)->names([
-        'index' => 'admin.reservation.manage-reservations',
-        'create' => 'admin.reservation.create-reservation',
-        'store' => 'admin.reservation.store-reservation',
-        'edit' => 'admin.reservation.edit-reservation',
-        'update' => 'admin.reservation.update-reservation',
-        'destroy' => 'admin.reservation.destroy-reservation'
+        'index' => 'admin.reservation.index',
+        'create' => 'admin.reservation.create',
+        'store' => 'admin.reservation.store',
+        'edit' => 'admin.reservation.edit',
+        'update' => 'admin.reservation.update',
+        'destroy' => 'admin.reservation.destroy',
     ]);
 });
 
-// Routes pour les administrateurs (respo)
 Route::prefix('respo')->group(function () {
     Route::resource('admins', AdminController2::class)->names([
         'index' => 'respo.admins.index',
@@ -139,23 +152,25 @@ Route::prefix('respo')->group(function () {
         'show' => 'respo.admins.show',
         'edit' => 'respo.admins.edit',
         'update' => 'respo.admins.update',
-        'destroy' => 'respo.admins.destroy'
+        'destroy' => 'respo.admins.destroy',
     ]);
 });
 
-// Routes pour les abonnés
 Route::prefix('abonne')->group(function () {
     Route::get('/', [AbonneController::class, 'index'])->name('abonne.index');
-    Route::get('/sabonner', [AbonneController::class, 'sabonner'])->name('sabonner');
     Route::get('/services-supplementaires', [ServicesSupplementairesController::class, 'index'])->name('services.supplementaires');
     Route::get('/reserver-un-vol', [AbonneController::class, 'reserverVol'])->name('reserver.vol');
     Route::get('/historique-des-vols', [HistoriqueVolsController::class, 'index'])->name('historique.vols');
     Route::get('/consulter-nos-offres', [OffresController::class, 'index'])->name('consulter.offres');
     Route::get('/suivre-les-vols', [AbonneController::class, 'suivreVols'])->name('suivre.vols');
     Route::post('/process-reservation', [AbonneController::class, 'processReservation'])->name('process.reservation');
+    
+    // Route pour afficher le formulaire d'abonnement
+    Route::get('/s-abonner', [NewSubscriptionController::class, 'showSubscriptionForm'])->name('s_abonner');
+    // Route pour traiter le formulaire d'abonnement
+    Route::post('/s-abonner', [NewSubscriptionController::class, 'processSubscription'])->name('process.subscription');
 });
 
-// Routes pour les non-abonnés
 Route::prefix('non_abonne')->group(function () {
     Route::get('/index', [NonAbonneController::class, 'index'])->name('nonabonne.index');
     Route::get('/services-supplementaires', [NonAbonneController::class, 'servicesSupplementaires'])->name('nonabonne.services_supplementaires');

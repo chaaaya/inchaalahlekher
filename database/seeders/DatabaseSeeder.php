@@ -23,4 +23,7 @@ class DatabaseSeeder extends Seeder
         aeroport::factory()->count(5)->create();
         compagnie::factory()->count(5)->create();
         reservation::factory()->count(5)->create();
+        $this->call([
+            VolSeeder::class,
+        ]);
     }}

@@ -1,55 +1,64 @@
-@extends('layouts.admin')
+<!-- resources/views/admin/service/manage-services.blade.php -->
 
-@section('title', 'Gestion des Services')
-
-@section('content-admin')
-    <h1>Gestion des Services</h1>
-    <a href="{{ route('admin.service.create-service') }}" class="btn btn-primary">Créer un nouveau service</a>
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gérer les services</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background-color: #f0f0f0;
+        }
+        h1 {
+            text-align: center;
+            color: #007BFF;
+        }
+        .services {
+            margin: 20px auto;
+            max-width: 800px;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #007BFF;
+            color: #fff;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <h1>Gérer les services</h1>
 
     @if (session('success'))
-        <div class="alert alert-success">{{ session('success') }}</div>
+        <div style="color: green;">
+            {{ session('success') }}
+        </div>
     @endif
 
-    <div class="card mt-4">
-        <div class="card-header">
-            Liste des services
-        </div>
-        <div class="card-body">
-            @if ($services->isEmpty())
-                <p>Aucun service disponible pour le moment.</p>
-            @else
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Nom</th>
-                            <th>Description</th>
-                            <th>Prix</th>
-                            <th>Date de création</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($services as $service)
-                            <tr>
-                                <td>{{ $service->id }}</td>
-                                <td>{{ $service->name }}</td>
-                                <td>{{ $service->description }}</td>
-                                <td>{{ $service->price }}</td>
-                                <td>{{ $service->created_at->format('d/m/Y H:i:s') }}</td>
-                                <td>
-                                    <a href="{{ route('admin.service.edit-service', $service->id) }}" class="btn btn-sm btn-warning">Modifier</a>
-                                    <form action="{{ route('admin.service.destroy', $service->id) }}" method="POST" style="display: inline;">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Êtes-vous sûr ?')">Supprimer</button>
-                                    </form>
-                                </td>
-                            </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-            @endif
-        </div>
-    </div>
-@endsection
+    <div class="services">
+        <table>
+            <thead>
+                <tr>
+                    <th>Nom du service</th>
+                    <th>Description</th>
+                    <th>Prix</th>
+                    <th>Ac

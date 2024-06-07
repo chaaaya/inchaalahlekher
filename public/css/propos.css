@@ -1,0 +1,68 @@
+/* Styles de base pour la section et les flex-items */
+.content-section, .about-section {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0%;
+}
+
+/* Styles communs pour le texte et l'image */
+.about-image, .image-content, .text-content, .about-text {
+    flex: 1;  /* Chaque conteneur prend une moitié de l'espace disponible */
+    padding: 5px; /* Espacement uniforme autour du contenu */
+}
+
+.about-image img, .image-content img {
+    width: 100%;
+    height: auto;
+}
+
+/* Styles spécifiques pour les éléments de texte */
+.about-text h1, .about-text p, .text-content h1, .text-content p {
+    margin: 0;
+    color: #333;
+    font-size: 18px; /* Taille de police standard pour les paragraphes */
+}
+
+h1 {
+     /* Plus grande taille de police pour les titres */
+    font-weight: bold;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 30px;
+}
+
+/* Ajustements pour les écrans mobiles */
+@media (max-width: 768px) {
+    .content-section, .about-section {
+        flex-direction: column; /* Pile les éléments verticalement sur petits écrans */
+    }
+
+    .about-image, .image-content, .text-content, .about-text {
+        padding: 10px; /* Réduit le padding sur les petits écrans */
+        text-align: center; /* Centre le texte pour une meilleure lecture */
+    }
+
+    .about-text h1, .text-content h1 {
+        font-size: 30px; /* Taille de police plus petite pour les titres sur mobile */
+    }
+}
+body {
+    background-color: #ece3e5; /* Un rose clair pour la section "À propos" */
+}
+.btn {
+    margin: 5px;
+    background-color: rgb(54, 144, 240);
+    border: none;
+    color: white;
+    padding: 14px 28px;
+    font-size: 16px;
+    cursor: pointer;
+    display:inline-block;
+    border-radius: 6px;
+  }
+  .btn:hover{
+    background-color:  #077dd6;
+  }

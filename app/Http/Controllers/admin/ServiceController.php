@@ -26,17 +26,16 @@ class ServiceController extends Controller
             'description' => 'required|string',
             'price' => 'required|numeric',
         ]);
-    
+
         Service::create([
             'title' => $request->title,
             'description' => $request->description,
             'price' => $request->price,
         ]);
-    
+
         return redirect()->route('admin.service.manage-services')
                          ->with('success', 'Service créé avec succès.');
     }
-    
 
     public function edit(Service $service)
     {
@@ -46,7 +45,7 @@ class ServiceController extends Controller
     public function update(Request $request, Service $service)
     {
         $request->validate([
-            'name' => 'required|string|max:255',
+            'title' => 'required|string|max:255',
             'description' => 'nullable|string',
             'price' => 'required|numeric',
         ]);

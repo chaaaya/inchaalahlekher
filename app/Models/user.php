@@ -17,6 +17,8 @@ class User extends Authenticatable
         'email',
         'password',
         'role', // Assurez-vous que 'role' est fillable
+        'numero_telephone',
+        'subscription',
     ];
 
     // Attributs cachés

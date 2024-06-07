@@ -12,7 +12,7 @@
 </head>
 <body>
     <header>
-        <button class="btn" onclick="location.href='{{ route('sabonner') }}'"><i class="fa fa-bell"></i> S'abonner</button>
+        <button class="btn" onclick="location.href='{{ route('s_abonner') }}'"><i class="fa fa-bell"></i> S'abonner</button>
         <button class="btn" onclick="location.href='{{ route('services.supplementaires') }}'"><i class="fa fa-gift"></i> Services Supplémentaires</button>
     </header>
     <div class="container">
