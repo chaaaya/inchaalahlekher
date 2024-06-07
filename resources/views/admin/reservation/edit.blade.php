@@ -2,14 +2,14 @@
 
 @section('title', 'Modifier une Réservation')
 
-@section('content-admin')
+@section('content')
     <h1>Modifier une Réservation</h1>
     
     @if (session('success'))
         <div class="alert alert-success">{{ session('success') }}</div>
     @endif
 
-    <form action="{{ route('admin.reservation.update-reservation', $reservation->id) }}" method="POST">
+    <form action="{{ route('admin.reservation.update', $reservation->id) }}" method="POST">
         @csrf
         @method('PUT')
 

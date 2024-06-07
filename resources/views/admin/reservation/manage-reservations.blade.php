@@ -2,7 +2,7 @@
 
 @section('title', 'Gestion des Réservations')
 
-@section('content-admin')
+@section('content')
     <h1>Gestion des Réservations</h1>
     <a href="{{ route('admin.reservation.create') }}" class="btn btn-primary">Créer une nouvelle réservation</a>
     

@@ -2,14 +2,14 @@
 
 @section('title', 'Créer une Réservation')
 
-@section('content-admin')
+@section('content')
     <h1>Créer une Réservation</h1>
 
     @if (session('success'))
         <div class="alert alert-success">{{ session('success') }}</div>
     @endif
 
-    <form action="{{ route('admin.reservation.store-reservation') }}" method="POST">
+    <form action="{{ route('admin.reservation.store') }}" method="POST">
         @csrf
 
         <div class="form-group">

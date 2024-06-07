@@ -2,7 +2,7 @@
 
 @section('title', 'Supprimer une Réservation')
 
-@section('content-admin')
+@section('content')
     <div class="card">
         <div class="card-header">
             Confirmation de Suppression

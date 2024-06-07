@@ -2,7 +2,7 @@
 
 @section('title', 'Gestion des Offres')
 
-@section('content-admin')
+@section('content')
     <h1>Gestion des Offres</h1>
     <a href="{{ route('admin.offers.create') }}" class="btn btn-primary">Créer une nouvelle offre</a>
     
