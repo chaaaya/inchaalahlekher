@@ -40,4 +40,8 @@
             </tbody>
         </table>
     @endif
+
+    <div class="mt-4">
+        <a href="{{ route('admin.users.create') }}" class="btn btn-success">Ajouter un Utilisateur</a>
+    </div>
 @endsection

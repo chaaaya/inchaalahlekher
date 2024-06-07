@@ -1,9 +1,15 @@
 @extends('layouts.admin')
 
-@section('title', 'Création d\'un Vol')
+@section('title', 'Création d\'Utilisateur')
 
-@section('content-admin')
-    <h1>Création d'un Vol</h1>
+@section('content')
+    <h1>Création d'Utilisateur</h1>
+
+    @if (session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
+    @endif
 
     @if ($errors->any())
         <div class="alert alert-danger">
@@ -15,24 +21,34 @@
         </div>
     @endif
 
-    <form action="{{ route('admin.vols.store') }}" method="POST">
+    <form action="{{ route('admin.users.store') }}" method="POST">
         @csrf
 
         <div class="form-group">
-            <label for="numero_vol">Numéro de Vol :</label>
-            <input type="text" id="numero_vol" name="numero_vol" class="form-control" value="{{ old('numero_vol') }}">
+            <label for="name">Nom :</label>
+            <input type="text" id="name" name="name" class="form-control" value="{{ old('name') }}" required>
         </div>
 
         <div class="form-group">
-            <label for="heure_depart">Heure de Départ :</label>
-            <input type="datetime-local" id="heure_depart" name="heure_depart" class="form-control" value="{{ old('heure_depart') }}">
+            <label for="email">Email :</label>
+            <input type="email" id="email" name="email" class="form-control" value="{{ old('email') }}" required>
         </div>
 
         <div class="form-group">
-            <label for="heure_arrivee">Heure d'Arrivée :</label>
-            <input type="datetime-local" id="heure_arrivee" name="heure_arrivee" class="form-control" value="{{ old('heure_arrivee') }}">
+            <label for="phone">Numéro de téléphone :</label>
+            <input type="text" id="phone" name="phone" class="form-control" value="{{ old('phone') }}" required>
         </div>
 
-        <button type="submit" class="btn btn-primary">Créer le Vol</button>
+        <div class="form-group">
+            <label for="password">Mot de passe :</label>
+            <input type="password" id="password" name="password" class="form-control" required>
+        </div>
+
+        <div class="form-group">
+            <label for="password_confirmation">Confirmation du mot de passe :</label>
+            <input type="password" id="password_confirmation" name="password_confirmation" class="form-control" required>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Créer Utilisateur</button>
     </form>
 @endsection
