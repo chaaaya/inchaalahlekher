@@ -1,8 +1,9 @@
-<!-- resources/views/respo/admins/create.blade.php -->
+@extends('layouts.respo')
 
-@extends('layouts.app') <!-- Assurez-vous d'avoir votre layout principal -->
+@section('title', 'Modifier Administrateur')
 
-@section('content')
+@section('styles')
+@section('content-respo')
     <div class="container">
         <h1>Ajouter un administrateur</h1>
         <form action="{{ route('respo.admins.store') }}" method="POST">

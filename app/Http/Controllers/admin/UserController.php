@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
+   
     public function index()
     {
         $users = User::all(); // Récupère tous les utilisateurs
@@ -32,7 +33,7 @@ class UserController extends Controller
             'password' => bcrypt($request->password),
         ]);
 
-        return redirect()->route('admin.users.index')->with('success', 'Utilisateur créé avec succès.');
+        return redirect()->route('admin.users.manage-users')->with('success', 'Utilisateur créé avec succès.');
     }
 
     public function edit(User $user)
@@ -54,14 +55,14 @@ class UserController extends Controller
             'password' => $request->password ? bcrypt($request->password) : $user->password,
         ]);
 
-        return redirect()->route('admin.users.index')->with('success', 'Utilisateur mis à jour avec succès.');
+        return redirect()->route('admin.users.manage-users')->with('success', 'Utilisateur mis à jour avec succès.');
     }
 
     public function destroy(User $user)
     {
         $user->delete();
 
-        return redirect()->route('admin.users.index')->with('success', 'Utilisateur supprimé avec succès.');
+        return redirect()->route('admin.users.manage-users')->with('success', 'Utilisateur supprimé avec succès.');
     }
 }
 ?>

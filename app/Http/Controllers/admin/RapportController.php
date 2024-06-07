@@ -15,7 +15,7 @@ class RapportController extends Controller
 
     public function create()
     {
-        return view('admin.create-rapport');
+        return view('admin.rapports.create');
     }
 
     public function store(Request $request)
@@ -25,7 +25,7 @@ class RapportController extends Controller
         $rapport->description = $request->description;
         $rapport->save();
 
-        return redirect()->route('manage-rapports')->with('success', 'Rapport créé avec succès');
+        return redirect()->route('admin.manage-rapports')->with('success', 'Rapport créé avec succès');
     }
 
     public function show(Rapport $rapport)
@@ -35,7 +35,7 @@ class RapportController extends Controller
 
     public function edit(Rapport $rapport)
     {
-        return view('admin.edit-rapport', compact('rapport'));
+        return view('admin.rapports.edit', compact('rapport'));
     }
 
     public function update(Request $request, Rapport $rapport)

@@ -1,8 +1,8 @@
-<!-- resources/views/respo/admins/show.blade.php -->
+@extends('layouts.respo')
 
-@extends('layouts.app') <!-- Assurez-vous d'avoir votre layout principal -->
+@section('title', 'Détails de l\'administrateur')
 
-@section('content')
+@section('content-respo')
     <div class="container">
         <h1>Détails de l'administrateur {{ $admin->name }}</h1>
         <p><strong>Nom:</strong> {{ $admin->name }}</p>

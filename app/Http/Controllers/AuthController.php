@@ -26,23 +26,25 @@ class AuthController extends Controller
     {
         return view('auth.register', ['role' => $role]);
     }
-
     public function login(Request $request)
     {
         $credentials = $request->only('email', 'password');
         $role = $request->input('role');
-
-        Log::info('Identifiants de connexion', ['email' => $credentials['email'], 'role' => $role]);
-
-        // Tentative de connexion sans inclure le rôle dans les credentials
+    
+        Log::info('Tentative de connexion', ['email' => $credentials['email'], 'role' => $role]);
+    
+        // Tentative de connexion avec le rôle
         if (Auth::attempt(['email' => $credentials['email'], 'password' => $credentials['password'], 'role' => $role])) {
+            Log::info('Connexion réussie pour ' . $credentials['email']);
             return $this->redirectBasedOnRole(Auth::user());
         }
-
+    
+        Log::warning('Échec de connexion pour ' . $credentials['email']);
         return back()->withErrors([
             'email' => 'Les informations d\'identification fournies ne correspondent pas à nos enregistrements.',
         ]);
     }
+    
     public function register(Request $request, $role)
     {
         $request->validate([

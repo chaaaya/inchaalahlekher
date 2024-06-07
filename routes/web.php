@@ -24,7 +24,9 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Abonne\SubscriptionController;
 use App\Models\Vol; // Importer le modèle Vol
 use Illuminate\Http\Request; // Importer la classe Request
+use App\Http\Controllers\respo\ContinuityPlanController;
  
+
 
 Route::get('/', function () {
     return view('accueil');
@@ -81,12 +83,12 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
         return view('admin.dashboard');
     })->name('admin.dashboard');
 
-    Route::get('manage-users', [AdminController::class, 'usersManagement'])->name('manage-users');
-    Route::get('manage-reservations', [ReservationController::class, 'index'])->name('manage-reservations');
-    Route::get('manage-offers', [AdminController::class, 'offersManagement'])->name('manage-offers');
-    Route::get('manage-services', [AdminController::class, 'servicesManagement'])->name('manage-services');
-    Route::get('manage-vols', [AdminController::class, 'volsManagement'])->name('manage-vols');
-    Route::get('manage-rapports', [RapportController::class, 'index'])->name('manage-rapports');
+    Route::get('users/manage-users', [UserController::class, 'index'])->name('admin.users.manage-users');
+    Route::get('reservation/manage-reservations', [ReservationController::class, 'index'])->name('admin.reservation.manage-reservations');
+    Route::get('offers', [OfferController::class, 'index'])->name('admin.offers.index');
+    Route::get('services', [ServiceController::class, 'index'])->name('admin.services.index');
+    Route::get('vols', [VolController::class, 'index'])->name('admin.vols.index');
+    Route::get('rapports', [RapportController::class, 'index'])->name('admin.rapports.index');
 
     Route::resource('rapports', RapportController::class)->names([
         'index' => 'admin.rapports.index',
@@ -143,8 +145,8 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
         'destroy' => 'admin.reservation.destroy',
     ]);
 });
-
 Route::prefix('respo')->group(function () {
+    // Routes pour les administrateurs
     Route::resource('admins', AdminController2::class)->names([
         'index' => 'respo.admins.index',
         'create' => 'respo.admins.create',
@@ -154,7 +156,34 @@ Route::prefix('respo')->group(function () {
         'update' => 'respo.admins.update',
         'destroy' => 'respo.admins.destroy',
     ]);
+
+    // Routes pour la communication
+    Route::get('communicate', [CommunicateController::class, 'index'])->name('respo.communicate.index');
+    Route::post('communicate/send', [CommunicateController::class, 'send'])->name('respo.communicate.send');
+
+    // Routes pour les plans de continuité
+    Route::resource('continuity-plans', ContinuityPlansController::class)->names([
+        'index' => 'respo.continuity-plans.index',
+        'create' => 'respo.continuity-plans.create',
+        'store' => 'respo.continuity-plans.store',
+        'show' => 'respo.continuity-plans.show',
+        'edit' => 'respo.continuity-plans.edit',
+        'update' => 'respo.continuity-plans.update',
+        'destroy' => 'respo.continuity-plans.destroy',
+    ]);
+
+    // Routes pour les rapports
+    Route::resource('reports', ReportsController::class)->names([
+        'index' => 'respo.reports.index',
+        'create' => 'respo.reports.create',
+        'store' => 'respo.reports.store',
+        'show' => 'respo.reports.show',
+        'edit' => 'respo.reports.edit',
+        'update' => 'respo.reports.update',
+        'destroy' => 'respo.reports.destroy',
+    ]);
 });
+
 
 Route::prefix('abonne')->group(function () {
     Route::get('/', [AbonneController::class, 'index'])->name('abonne.index');

@@ -27,6 +27,7 @@
         
             <button type="submit">Login</button>
         </form>
+        
         <p>Don't have an account? <a href="{{ route('register', ['role' => $role]) }}">Register here</a></p>
     </div>
 </body>

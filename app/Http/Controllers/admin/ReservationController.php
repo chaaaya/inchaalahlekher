@@ -16,7 +16,7 @@ class ReservationController extends Controller
 
     public function create()
     {
-        return view('admin.reservation.create-reservation');
+        return view('admin.reservation.create');
     }
 
     public function store(Request $request)
@@ -37,7 +37,7 @@ class ReservationController extends Controller
     public function edit($id)
     {
         $reservation = Reservation::findOrFail($id);
-        return view('admin.reservation.edit-reservation', compact('reservation'));
+        return view('admin.reservation.edit', compact('reservation'));
     }
 
     public function update(Request $request, $id)

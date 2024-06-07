@@ -33,7 +33,7 @@ class ServiceController extends Controller
             'price' => $request->price,
         ]);
 
-        return redirect()->route('admin.service.manage-services')
+        return redirect()->route('admin.services.index')
                          ->with('success', 'Service créé avec succès.');
     }
 
@@ -50,9 +50,13 @@ class ServiceController extends Controller
             'price' => 'required|numeric',
         ]);
 
-        $service->update($request->all());
+        $service->update([
+            'title' => $request->title,
+            'description' => $request->description,
+            'price' => $request->price,
+        ]);
 
-        return redirect()->route('admin.service.manage-services')
+        return redirect()->route('manage-services')
                          ->with('success', 'Service mis à jour avec succès.');
     }
 
@@ -60,7 +64,7 @@ class ServiceController extends Controller
     {
         $service->delete();
 
-        return redirect()->route('admin.service.manage-services')
+        return redirect()->route('manage-services')
                          ->with('success', 'Service supprimé avec succès.');
     }
 }

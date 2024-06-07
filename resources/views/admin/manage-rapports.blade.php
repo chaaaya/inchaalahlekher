@@ -6,7 +6,7 @@
 
 @section('content-admin')
     <h1>Gestion des Rapports</h1>
-    <a href="{{ route('rapports.create') }}" class="btn btn-primary">Créer un nouveau rapport</a>
+    <a href="{{ route('admin.rapports.create') }}" class="btn btn-primary">Créer un nouveau rapport</a>
     
     @if (session('success'))
         <div class="alert alert-success">{{ session('success') }}</div>
@@ -38,9 +38,9 @@
                                 <td>{{ $rapport->description }}</td>
                                 <td>{{ $rapport->created_at->format('d/m/Y H:i:s') }}</td>
                                 <td>
-                                    <a href="{{ route('rapports.show', $rapport->id) }}" class="btn btn-sm btn-info">Voir</a>
-                                    <a href="{{ route('rapports.edit', $rapport->id) }}" class="btn btn-sm btn-warning">Modifier</a>
-                                    <form action="{{ route('rapports.destroy', $rapport->id) }}" method="POST" style="display: inline;">
+                                    <a href="{{ route('admin.rapports.show', $rapport->id) }}" class="btn btn-sm btn-info">Voir</a>
+                                    <a href="{{ route('admin.rapports.edit', $rapport->id) }}" class="btn btn-sm btn-warning">Modifier</a>
+                                    <form action="{{ route('admin.rapports.destroy', $rapport->id) }}" method="POST" style="display: inline;">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Êtes-vous sûr ?')">Supprimer</button>

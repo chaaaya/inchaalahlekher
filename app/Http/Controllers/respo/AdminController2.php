@@ -17,7 +17,7 @@ class AdminController2 extends Controller
         $admins = User::where('role', 'admin')->get();
         return view('respo.admins.index', compact('admins'));
     }
-
+    
     /**
      * Show the form for creating a new admin.
      *
@@ -87,23 +87,24 @@ class AdminController2 extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
-    {
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'numero_telephone' => 'required|string|max:20',
-            'email' => 'required|email|unique:users,email,' . $id,
-        ]);
+    
+public function update(Request $request, $id)
+{
+    $request->validate([
+        'name' => 'required|string|max:255',
+        'numero_telephone' => 'required|string|max:20',
+        'email' => 'required|email|unique:users,email,' . $id,
+    ]);
 
-        $admin = User::findOrFail($id);
-        $admin->name = $request->name;
-        $admin->numero_telephone = $request->numero_telephone;
-        $admin->email = $request->email;
-        $admin->save();
+    $admin = User::findOrFail($id);
+    $admin->name = $request->name;
+    $admin->numero_telephone = $request->numero_telephone;
+    $admin->email = $request->email;
+    $admin->save();
 
-        return redirect()->route('respo.admins.index')
-                         ->with('success', 'Administrateur mis à jour avec succès.');
-    }
+    return redirect()->route('respo.admins.index')
+                     ->with('success', 'Administrateur mis à jour avec succès.');
+}
 
     /**
      * Remove the specified admin from storage.

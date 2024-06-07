@@ -4,7 +4,7 @@
 
 @section('content-admin')
     <h1>Gestion des Réservations</h1>
-    <a href="{{ route('admin.reservation.create-reservation') }}" class="btn btn-primary">Créer une nouvelle réservation</a>
+    <a href="{{ route('admin.reservation.create') }}" class="btn btn-primary">Créer une nouvelle réservation</a>
     
     @if (session('success'))
         <div class="alert alert-success">{{ session('success') }}</div>
@@ -38,8 +38,8 @@
                                 <td>{{ $reservation->numero_billet }}</td>
                                 <td>{{ $reservation->date_reservation }}</td>
                                 <td>
-                                    <a href="{{ route('admin.reservation.edit-reservation', $reservation->id) }}" class="btn btn-sm btn-warning">Modifier</a>
-                                    <form action="{{ route('admin.reservation.destroy-reservation', $reservation->id) }}" method="POST" style="display: inline;">
+                                    <a href="{{ route('admin.reservation.edit', $reservation->id) }}" class="btn btn-sm btn-warning">Modifier</a>
+                                    <form action="{{ route('admin.reservation.destroy', $reservation->id) }}" method="POST" style="display: inline;">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Êtes-vous sûr ?')">Supprimer</button>
