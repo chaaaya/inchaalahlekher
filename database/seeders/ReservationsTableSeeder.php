@@ -3,12 +3,12 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use App\Models\Reservation;
+use App\Models\reservation;
 
 class ReservationsTableSeeder extends Seeder
 {
     public function run()
     {
-        Reservation::factory()->count(50)->create();
+        reservation::factory()->count(50)->create();
     }
 }

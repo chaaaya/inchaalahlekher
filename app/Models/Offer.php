@@ -1,6 +1,4 @@
-<?php
-// app/Models/Offer.php
-
+<?php 
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -11,6 +9,9 @@ class Offer extends Model
     use HasFactory;
 
     protected $fillable = [
-        'title', 'description', 'price'
+        'title', 
+        'description', 
+        'price', 
+        'image'
     ];
 }

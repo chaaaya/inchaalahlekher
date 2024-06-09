@@ -2,7 +2,7 @@
 
 @section('title', 'Modifier une offre')
 
-@section('content-admin')
+@section('content')
     <h1>Modifier une offre</h1>
 
     @if ($errors->any())

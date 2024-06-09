@@ -4,7 +4,7 @@
 
 @section('title', 'Gestion des Rapports')
 
-@section('content-admin')
+@section('content')
     <h1>Gestion des Rapports</h1>
     <a href="{{ route('admin.rapports.create') }}" class="btn btn-primary">Créer un nouveau rapport</a>
     

@@ -55,9 +55,9 @@ Route::post('logout', [AuthController::class, 'logout'])->name('logout');
 Route::get('check-email', [AuthController::class, 'checkEmail'])->name('check-email');
 
 Route::middleware(['auth'])->group(function () {
-    Route::get('admin/service/manage-services', function () {
-        return view('admin.service.manage-services');
-    })->name('admin.service.manage-services');
+    Route::get('admin/welcome', function () {
+        return view('admin.welcome');
+    })->name('admin.welcome');
 
     Route::get('client/dashboard', function () {
         return view('client.dashboard');
@@ -115,18 +115,26 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
         'edit' => 'admin.offers.edit',
         'update' => 'admin.offers.update',
         'destroy' => 'admin.offers.destroy',
-    ]);
-   
-    Route::resource('service', ServiceController::class)->names([
-        'index' => 'admin.service.manage-services',
-        'create' => 'admin.service.create-service',
-        'store' => 'admin.service.store',
-        'edit' => 'admin.service.edit-service',
-        'update' => 'admin.service.update',
-        'destroy' => 'admin.service.destroy',
+    ]); Route::get('/services', [ServiceController::class, 'index'])->name('admin.services.index');
+    
+    // Routes pour les hôtels
+    Route::get('/hotels/create', [ServiceController::class, 'createHotel'])->name('admin.hotels.create');
+    Route::post('/hotels/store', [ServiceController::class, 'storeHotel'])->name('admin.hotels.store');
+    Route::get('/hotels/{hotel}/edit', [ServiceController::class, 'editHotel'])->name('admin.hotels.edit');
+    Route::put('/hotels/{hotel}/update', [ServiceController::class, 'updateHotel'])->name('admin.hotels.update');
+    Route::delete('/hotels/{hotel}/destroy', [ServiceController::class, 'destroyHotel'])->name('admin.hotels.destroy');
+
+    // Routes pour les locations
+    Route::resource('locations', ServiceController::class)->names([
+        'index' => 'admin.locations.index',
+        'create' => 'admin.locations.create',
+        'store' => 'admin.locations.store',
+        'edit' => 'admin.locations.edit',
+        'update' => 'admin.locations.update',
+        'destroy' => 'admin.locations.destroy',
     ]);
     
-
+    
     Route::resource('vols', VolController::class)->names([
         'index' => 'admin.vols.index',
         'create' => 'admin.vols.create',
@@ -144,7 +152,7 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
         'update' => 'admin.reservation.update',
         'destroy' => 'admin.reservation.destroy',
     ]);
-});
+
 Route::prefix('respo')->group(function () {
     // Routes pour les administrateurs
     Route::resource('admins', AdminController2::class)->names([
@@ -173,14 +181,14 @@ Route::prefix('respo')->group(function () {
     ]);
 
     // Routes pour les rapports
-    Route::resource('reports', ReportsController::class)->names([
-        'index' => 'respo.reports.index',
-        'create' => 'respo.reports.create',
-        'store' => 'respo.reports.store',
-        'show' => 'respo.reports.show',
-        'edit' => 'respo.reports.edit',
-        'update' => 'respo.reports.update',
-        'destroy' => 'respo.reports.destroy',
+    Route::resource('rapports', RapportController::class)->names([
+        'index' => 'admin.rapports.index',
+        'create' => 'admin.rapports.create',
+        'store' => 'admin.rapports.store',
+        'show' => 'admin.rapports.show',
+        'edit' => 'admin.rapports.edit',
+        'update' => 'admin.rapports.update',
+        'destroy' => 'admin.rapports.destroy',
     ]);
 });
 
@@ -206,4 +214,5 @@ Route::prefix('non_abonne')->group(function () {
     Route::get('/programme-fidelite', function () {
         return view('nonabonne.programme_fidelite');
     })->name('programme.fidelite');
+});
 });

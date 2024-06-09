@@ -2,7 +2,7 @@
 
 @section('title', 'Gestion des Vols')
 
-@section('content-admin')
+@section('content')
     <h1>Gestion des Vols</h1>
     <a href="{{ route('admin.vols.create') }}" class="btn btn-primary mb-3">Créer un nouveau vol</a>
 

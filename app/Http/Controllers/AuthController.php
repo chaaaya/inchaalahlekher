@@ -10,8 +10,8 @@ use App\Models\User;
 use Illuminate\Support\Facades\Log;
 use App\Mail\RegistrationSuccessMail;
 
-
 use App\Models\Reservation;
+
 class AuthController extends Controller
 {
     public function showLoginForm($role = null)
@@ -26,6 +26,7 @@ class AuthController extends Controller
     {
         return view('auth.register', ['role' => $role]);
     }
+
     public function login(Request $request)
     {
         $credentials = $request->only('email', 'password');
@@ -70,29 +71,29 @@ class AuthController extends Controller
         return $this->redirectBasedOnRole($user);
     }
     
-
     public function logout(Request $request)
     {
         Auth::logout();
         return redirect('/');
     }
+
     protected function redirectBasedOnRole($user)
     {
         Log::info('Rôle de l\'utilisateur pour la redirection: ' . $user->role);
     
         switch ($user->role) {
             case 'admin':
-                Log::info('Redirection vers admin.service.manage-services');
-                return redirect()->route('admin.service.manage-services');
+                Log::info('Redirection vers admin.welcome');
+                return redirect()->route('admin.welcome');
             case 'respo':
-                Log::info('Redirection vers respo.dashboard');
-                return redirect()->route('respo.dashboard');
+                Log::info('Redirection vers respo.admins.index');
+                return redirect()->route('respo.admins.index'); // Redirection vers le dashboard des responsables
             case 'client':
-                Log::info('Redirection vers client.dashboard');
+                Log::info('Redirection vers abonne.index');
                 return redirect()->route('abonne.index');
             default:
                 Log::warning('Utilisateur avec rôle non défini a essayé de se connecter', ['user_id' => $user->id]);
                 return redirect('/');
         }
     }
-}    
+}

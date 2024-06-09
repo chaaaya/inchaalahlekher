@@ -2,13 +2,13 @@
 
 namespace Database\Seeders;
 
-use App\Models\Location;
 use Illuminate\Database\Seeder;
+use App\Models\Offer;
 
-class LocationSeeder extends Seeder
+class OffersTableSeeder extends Seeder
 {
     public function run()
     {
-        Location::factory()->count(10)->create();
+        Offer::factory()->count(50)->create();
     }
 }

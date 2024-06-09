@@ -2,7 +2,7 @@
 
 @section('title', 'Création d\'un Vol')
 
-@section('content-admin')
+@section('content')
     <h1>Création d'un Vol</h1>
 
     @if ($errors->any())

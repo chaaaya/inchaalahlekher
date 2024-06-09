@@ -1,38 +1,38 @@
 @extends('layouts.admin')
 
-@section('title', 'Création d\'offre')
+@section('title', 'Créer une Offre')
 
-@section('content-admin')
-    <h1>Création d'offre</h1>
+@section('content')
+    <h1>Créer une Offre</h1>
 
-    @if ($errors->any())
-        <div class="alert alert-danger">
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
+    @if (session('success'))
+        <div class="alert alert-success">{{ session('success') }}</div>
     @endif
 
-    <form action="{{ route('admin.offers.store') }}" method="POST">
+    <form action="{{ route('admin.offers.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
 
         <div class="form-group">
             <label for="title">Titre :</label>
-            <input type="text" id="title" name="title" class="form-control" value="{{ old('title') }}">
+            <input type="text" id="title" name="title" class="form-control" value="{{ old('title') }}" required>
         </div>
 
         <div class="form-group">
             <label for="description">Description :</label>
-            <textarea id="description" name="description" class="form-control">{{ old('description') }}</textarea>
+            <textarea id="description" name="description" class="form-control" required>{{ old('description') }}</textarea>
         </div>
 
         <div class="form-group">
             <label for="price">Prix :</label>
-            <input type="number" step="0.01" id="price" name="price" class="form-control" value="{{ old('price') }}">
+            <input type="text" id="price" name="price" class="form-control" value="{{ old('price') }}" required>
         </div>
 
-        <button type="submit" class="btn btn-primary">Créer une offre</button>
+        <div class="form-group">
+            <label for="image">Image :</label>
+            <input type="file" id="image" name="image" class="form-control">
+        </div>
+
+        <button type="submit" class="btn btn-primary">Créer Offre</button>
+        <a href="{{ route('admin.offers.index') }}" class="btn btn-secondary">Annuler</a>
     </form>
 @endsection

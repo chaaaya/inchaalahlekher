@@ -4,7 +4,7 @@
 
 @section('title', 'Modifier le Rapport')
 
-@section('content-admin')
+@section('content')
     <h1>Modifier le Rapport</h1>
 
     <form action="{{ route('rapports.update', $rapport->id) }}" method="POST">

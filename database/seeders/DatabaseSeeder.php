@@ -7,9 +7,7 @@ use App\Models\compagnie;
 use App\Models\reservation;
 use App\Models\User;
 use Faker\Factory;
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\App;
 
 class DatabaseSeeder extends Seeder
 {
@@ -23,7 +21,17 @@ class DatabaseSeeder extends Seeder
         aeroport::factory()->count(5)->create();
         compagnie::factory()->count(5)->create();
         reservation::factory()->count(5)->create();
+
+        // Appel des seeders supplémentaires
         $this->call([
             VolSeeder::class,
+            OffersTableSeeder::class,
+            UserSeeder::class,
+            AeroportSeeder::class,
+            CompagnieSeeder::class,
+            ReservationsTableSeeder::class,
+            LocationSeeder::class,
+            HotelSeeder::class,
         ]);
-    }}
+    }
+}

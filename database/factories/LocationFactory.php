@@ -2,17 +2,17 @@
 
 namespace Database\Factories;
 
-use App\Models\Aeroport;
+use App\Models\Location;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class AeroportFactory extends Factory
+class LocationFactory extends Factory
 {
     /**
      * Le modèle correspondant à la factory.
      *
      * @var string
      */
-    protected $model = Aeroport::class;
+    protected $model = Location::class;
 
     /**
      * Définir l'état par défaut du modèle.
@@ -22,10 +22,7 @@ class AeroportFactory extends Factory
     public function definition()
     {
         return [
-            'nom' => $this->faker->company,
-            'ville' => $this->faker->city,
-            'pays' => $this->faker->country,
-            'compagnies' => $this->faker->sentence(3),
+            'name' => $this->faker->city,
         ];
     }
 }

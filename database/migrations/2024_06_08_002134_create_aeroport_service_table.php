@@ -9,24 +9,22 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up()
+    public function up(): void
     {
-        Schema::create('services', function (Blueprint $table) {
+        Schema::create('aeroport_service', function (Blueprint $table) {
             $table->id();
-            $table->string('nom');
-            $table->string('description')->nullable();
-            // Ajoutez d'autres colonnes pertinentes
+            $table->foreignId('aeroport_id')->constrained();
+            $table->foreignId('service_id')->constrained();
             $table->timestamps();
         });
         
     }
-    
 
     /**
      * Reverse the migrations.
      */
     public function down(): void
     {
-        Schema::dropIfExists('services');
+        Schema::dropIfExists('aeroport_service');
     }
 };
