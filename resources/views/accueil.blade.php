@@ -21,7 +21,6 @@
             <a href="{{ route('accueil') }}">Voyage<span> KCS</span></a>
         </div>
         <nav>
-            <button class="btn" onclick="location.href='{{ route('accueil') }}'"><i class="fa fa-home"></i> Accueil </button>
             <button class="btn" onclick="redirectToRegister('client')"><i class="fa fa-user-plus"></i> S'inscrire</button>
             <div class="dropdown">
                 <button class="dropbtn"><i class="fa fa-sign-in"></i> Se connecter</button>
@@ -33,17 +32,33 @@
             </div>
             <button class="btn about" onclick="location.href='{{ route('about') }}'"><i class="fa fa-info-circle"></i> A propos de nous</button>
         </nav>
+        <img src="{{asset('images/logo.png')}}" alt="logo" class="logoImage">
     </header>
     <div class="meteo">
-        <h2>Météo</h2>
+        {{-- <h2>Météo</h2> --}}
         <a class="weatherwidget-io" href="https://forecast7.com/fr/32d34n6d38/beni-mellal/" data-label_1="BENI-MELLAL" data-label_2="METEO" data-days="7" data-theme="pure">BENI-MELLAL WEATHER</a>
         <script>
             !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src='https://weatherwidget.io/js/widget.min.js';fjs.parentNode.insertBefore(js,fjs);}}(document,'script','weatherwidget-io-js');
         </script>
     </div>
     <section>
-        <button class="consult" onclick="location.href='{{ url('/consulter-vols') }}'">Consulter Vols</button>
+        {{-- <div class="bg-video-wrap">
+            <video id="bgVideo" autoplay muted>
+                <source src="{{ asset('videos/Bleu_logo_S.mp4') }}" type="video/mp4">
+                Votre navigateur ne supporte pas la balise vidéo.
+            </video>
+        </div> --}}
+        <div class="bg-gif-wrap">
+            <img src="{{ asset('videos/Bleu_logo.gif') }}" alt="GIF animé" class="bg-gif">
+        </div>
+        {{-- <div class="content">
+            <h1>Bienvenue sur notre site avec un logo animé en arrière-plan !</h1>
+        </div> --}}
+
     </section>
+    <article>
+        <button class="consult" onclick="location.href='{{ url('/consulter-vols') }}'">Consulter Vols</button>
+    </article>
     <div class="right"></div>
     <footer>
         <div class="legal">

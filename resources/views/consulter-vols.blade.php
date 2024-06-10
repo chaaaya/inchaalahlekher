@@ -7,12 +7,7 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            padding: 20px;
             background-color: #f0f0f0;
-        }
-        h1 {
-            text-align: center;
-            color: #007BFF;
         }
         .vols {
             margin: 20px auto;
@@ -45,19 +40,48 @@
             margin-bottom: 20px;
             text-align: center;
         }
+        input[type="text"],[type="date"],[type="submit"]{
+            width: 200px;
+            height: 25px;
+            border-radius:2px ;
+            border-color: white;
+        }
+        .block1{
+            width: 100%; 
+            padding-top:8px ;
+            box-sizing: border-box;
+            justify-content: space-around;
+            padding: 20px;
+            display: flex;
+            flex-flow: row wrap;
+        }
+        .label1, .label2,  .submit{
+            color: black;
+            flex: 50%;
+            padding: 8px;
+            font-size: large;
+        }
+
     </style>
 </head>
 <body>
+    @include('partials.header');
     <h1>Liste des vols disponibles</h1>
 
     <!-- Search Form -->
     <div class="search-form">
         <form action="{{ route('rechercher.vols') }}" method="GET">
-            <label for="ville_depart">Ville de départ:</label>
-            <input type="text" id="ville_depart" name="ville_depart" required>
-            <label for="ville_arrivee">Ville d'arrivée:</label>
-            <input type="text" id="ville_arrivee" name="ville_arrivee" required>
+            <div class="block1">
+              <div class="label1">
+                 <label for="ville_depart">Ville de départ:</label> <br>
+                 <input type="text" id="ville_depart" name="ville_depart" required>
+              </div>
+              <div class="label2">
+                 <label for="ville_arrivee">Ville d'arrivée:</label> <br>
+                 <input type="text" id="ville_arrivee" name="ville_arrivee" required>
+              </div>
             <button type="submit">Rechercher</button>
+            </div>
         </form>
     </div>
 

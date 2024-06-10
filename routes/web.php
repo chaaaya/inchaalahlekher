@@ -1,8 +1,9 @@
 <?php
+
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\RapportController;
 use App\Http\Controllers\Admin\ReservationController;
@@ -19,12 +20,10 @@ use App\Http\Controllers\Abonne\NewSubscriptionController;
 use App\Http\Controllers\Abonne\OffresController;
 use App\Http\Controllers\NonAbonne\NonAbonneController;
 use App\Http\Controllers\Abonne\ServicesSupplementairesController;
-use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Abonne\SubscriptionController;
+use App\Http\Controllers\Respo\StakeholderController;
 use App\Models\Vol;
 use Illuminate\Http\Request;
-use App\Http\Controllers\respo\ContinuityPlanController;
-use App\Http\Controllers\respo\StakeholderController;
 
 Route::get('/', function () {
     return view('accueil');
@@ -46,6 +45,20 @@ Route::get('/rechercher-vols', function (Request $request) {
     return view('consulter-vols', compact('vols'));
 })->name('rechercher.vols');
 
+Route::get('/about', function () {
+    return view('about');
+})->name('about');
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/dashboard', function () {
+        return view('dashboard');
+    })->name('dashboard');
+
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
+
 Route::get('login/{role?}', [AuthController::class, 'showLoginForm'])->name('login')->where('role', 'admin|respo|client');
 Route::post('login', [AuthController::class, 'login']);
 Route::get('register/{role}', [AuthController::class, 'showRegisterForm'])->name('register');
@@ -53,31 +66,7 @@ Route::post('register/{role}', [AuthController::class, 'register']);
 Route::post('logout', [AuthController::class, 'logout'])->name('logout');
 Route::get('check-email', [AuthController::class, 'checkEmail'])->name('check-email');
 
-Route::middleware(['auth:admin,responsable,client'])->group(function () {
-    Route::get('admin/welcome', function () {
-        return view('admin.welcome');
-    })->name('admin.welcome');
-
-    Route::get('client/dashboard', function () {
-        return view('client.dashboard');
-    })->name('client.dashboard');
-
-    Route::middleware(['verified'])->group(function () {
-        Route::get('/dashboard', function () {
-            return view('dashboard');
-        })->name('dashboard');
-
-        Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-        Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-        Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-    });
-});
-
-Route::get('/about', function () {
-    return view('about');
-})->name('about');
-
-Route::prefix('admin')->middleware(['auth:admin'])->group(function () {
+Route::middleware(['auth:admin'])->prefix('admin')->group(function () {
     Route::get('/', function () {
         return view('admin.dashboard');
     })->name('admin.dashboard');
@@ -137,7 +126,7 @@ Route::prefix('admin')->middleware(['auth:admin'])->group(function () {
     ]);
 });
 
-Route::prefix('respo')->middleware(['auth:responsable'])->group(function () {
+Route::middleware(['auth:responsable'])->prefix('respo')->group(function () {
     Route::get('/welcome', function () {
         return view('respo.welcome');
     })->name('respo.welcome');
@@ -188,7 +177,7 @@ Route::prefix('respo')->middleware(['auth:responsable'])->group(function () {
     Route::delete('communicate/{id}/delete', [CommunicateController::class, 'deleteDocument'])->name('respo.communicate.delete');
 });
 
-Route::prefix('abonne')->middleware(['auth:client'])->group(function () {
+Route::middleware(['auth:client'])->prefix('abonne')->group(function () {
     Route::get('/', [AbonneController::class, 'index'])->name('abonne.index');
     Route::get('/services-supplementaires', [ServicesSupplementairesController::class, 'index'])->name('services.supplementaires');
     Route::get('/reserver-un-vol', [AbonneController::class, 'reserverVol'])->name('reserver.vol');
@@ -196,7 +185,7 @@ Route::prefix('abonne')->middleware(['auth:client'])->group(function () {
     Route::get('/consulter-nos-offres', [OffresController::class, 'index'])->name('consulter.offres');
     Route::get('/suivre-les-vols', [AbonneController::class, 'suivreVols'])->name('suivre.vols');
     Route::post('/process-reservation', [AbonneController::class, 'processReservation'])->name('process.reservation');
-    
+
     Route::get('/s-abonner', [NewSubscriptionController::class, 'showSubscriptionForm'])->name('s_abonner');
     Route::post('/s-abonner', [NewSubscriptionController::class, 'processSubscription'])->name('process.subscription');
 });
