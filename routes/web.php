@@ -152,7 +152,7 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
         'update' => 'admin.reservation.update',
         'destroy' => 'admin.reservation.destroy',
     ]);
-
+});
 Route::prefix('respo')->group(function () {
     // Routes pour les administrateurs
     Route::resource('admins', AdminController2::class)->names([
@@ -181,14 +181,14 @@ Route::prefix('respo')->group(function () {
     ]);
 
     // Routes pour les rapports
-    Route::resource('rapports', RapportController::class)->names([
-        'index' => 'admin.rapports.index',
-        'create' => 'admin.rapports.create',
-        'store' => 'admin.rapports.store',
-        'show' => 'admin.rapports.show',
-        'edit' => 'admin.rapports.edit',
-        'update' => 'admin.rapports.update',
-        'destroy' => 'admin.rapports.destroy',
+    Route::resource('reports', ReportsController::class)->names([
+        'index' => 'respo.reports.index',
+        'create' => 'respo.reports.create',
+        'store' => 'respo.reports.store',
+        'show' => 'respo.reports.show',
+        'edit' => 'respo.reports.edit',
+        'update' => 'respo.reports.update',
+        'destroy' => 'respo.reports.destroy',
     ]);
 });
 
@@ -214,5 +214,4 @@ Route::prefix('non_abonne')->group(function () {
     Route::get('/programme-fidelite', function () {
         return view('nonabonne.programme_fidelite');
     })->name('programme.fidelite');
-});
 });
