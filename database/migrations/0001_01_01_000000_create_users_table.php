@@ -12,7 +12,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('numero_telephone')->nullable();
             $table->string('email', 191)->unique();
-            $table->enum('role', ['client', 'admin', 'responsable'])->default('client');
+            $table->enum('role', ['client', 'admin', 'respo'])->default('client');
             $table->string('subscription')->default('none'); 
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');

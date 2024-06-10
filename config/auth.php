@@ -34,14 +34,28 @@ return [
     | Supported: "session"
     |
     */
-    'guards' => [
-        // ...
-        'api' => [
-            'driver' => 'sanctum',
-            'provider' => 'users',
-        ],
+   'guards' => [
+    'admin' => [
+        'driver' => 'session',
+        'provider' => 'admins',
     ],
-    
+
+    'respo' => [
+        'driver' => 'session',
+        'provider' => 'respos',
+    ],
+
+    'client' => [
+        'driver' => 'session',
+        'provider' => 'clients',
+    ],
+
+    'web' => [
+        'driver' => 'session',
+        'provider' => 'users',
+    ],
+],
+
     /*
     |--------------------------------------------------------------------------
     | User Providers
@@ -60,16 +74,31 @@ return [
     */
 
     'providers' => [
-        'users' => [
-            'driver' => 'eloquent',
-            'model' => env('AUTH_MODEL', App\Models\User::class),
-        ],
+    'admins' => [
+        'driver' => 'eloquent',
+        'model' => App\Models\Admin::class,
+    ],
 
+    'respos' => [
+        'driver' => 'eloquent',
+        'model' => App\Models\Responsable::class,
+    ],
+
+    'clients' => [
+        'driver' => 'eloquent',
+        'model' => App\Models\Client::class,
+    ],
+
+    'users' => [
+        'driver' => 'eloquent',
+        'model' => App\Models\User::class,
+    ],
+],
         // 'users' => [
         //     'driver' => 'database',
         //     'table' => 'users',
         // ],
-    ],
+    
 
     /*
     |--------------------------------------------------------------------------
