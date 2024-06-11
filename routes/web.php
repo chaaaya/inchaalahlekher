@@ -24,6 +24,10 @@ use App\Http\Controllers\Abonne\SubscriptionController;
 use App\Http\Controllers\Respo\StakeholderController;
 use App\Models\Vol;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Admin\HotelController;
+use App\Http\Controllers\Admin\LocationController;
+
+
 
 Route::get('/', function () {
     return view('accueil');
@@ -66,19 +70,28 @@ Route::post('register/{role}', [AuthController::class, 'register']);
 Route::post('logout', [AuthController::class, 'logout'])->name('logout');
 Route::get('check-email', [AuthController::class, 'checkEmail'])->name('check-email');
 
-Route::middleware(['auth:admin'])->prefix('admin')->group(function () {
-    Route::get('/', function () {
-        return view('admin.dashboard');
-    })->name('admin.dashboard');
 
-    Route::resource('users', UserController::class)->names([
-        'index' => 'admin.users.index',
-        'create' => 'admin.users.create',
-        'store' => 'admin.users.store',
-        'edit' => 'admin.users.edit',
-        'update' => 'admin.users.update',
-        'destroy' => 'admin.users.destroy',
-    ]);
+
+Route::middleware(['auth:admin'])->prefix('admin')->group(function () {
+    Route::get('/welcome', function () {
+        return view('admin.welcome'); // Assurez-vous que cette vue existe
+    })->name('admin.welcome');
+
+    // Définissez d'autres routes spécifiques à l'administration ici...
+
+
+    Route::get('users/manage-users', [UserController::class, 'index'])->name('admin.users.manage-users');
+    Route::get('reservation/manage-reservations', [ReservationController::class, 'index'])->name('admin.reservation.manage-reservations');
+    Route::get('offers', [OfferController::class, 'index'])->name('admin.offers.index');
+    Route::get('services', [ServiceController::class, 'index'])->name('admin.services.index');
+    Route::get('vols', [VolController::class, 'index'])->name('admin.vols.index');
+    Route::get('rapports', [RapportController::class, 'index'])->name('admin.rapports.index');
+    Route::get('users/manage-users', [UserController::class, 'index'])->name('admin.users.manage-users');
+   // Gestion des utilisateurs
+   Route::get('admin/manage-users', [UserController::class, 'manageUsers'])->name('admin.manage-users');
+   Route::put('users/{user}/accept', [UserController::class, 'accept'])->name('admin.users.accept');
+   Route::put('users/{user}/reject', [UserController::class, 'reject'])->name('admin.users.reject');
+   Route::resource('users', UserController::class)->except(['index']);
 
     Route::resource('offers', OfferController::class)->names([
         'index' => 'admin.offers.index',
@@ -97,6 +110,25 @@ Route::middleware(['auth:admin'])->prefix('admin')->group(function () {
         'update' => 'admin.services.update',
         'destroy' => 'admin.services.destroy',
     ]);
+    Route::prefix('hotels')->group(function () {
+        Route::get('/', [HotelController::class, 'index'])->name('admin.hotels.index');
+        Route::get('/create', [HotelController::class, 'create'])->name('admin.hotels.create');
+        Route::post('/', [HotelController::class, 'store'])->name('admin.hotels.store');
+        Route::get('/{hotel}/edit', [HotelController::class, 'edit'])->name('admin.hotels.edit');
+        Route::patch('/{hotel}', [HotelController::class, 'update'])->name('admin.hotels.update'); // Utilisation de PATCH
+        Route::delete('/{hotel}', [HotelController::class, 'destroy'])->name('admin.hotels.destroy');
+    });
+    
+    
+
+    Route::prefix('locations')->group(function () {
+        Route::get('/', [LocationController::class, 'index'])->name('admin.locations.index');
+        Route::get('/create', [LocationController::class, 'create'])->name('admin.locations.create');
+        Route::post('/', [LocationController::class, 'store'])->name('admin.locations.store');
+        Route::get('/{location}/edit', [LocationController::class, 'edit'])->name('admin.locations.edit');
+        Route::patch('/{location}', [LocationController::class, 'update'])->name('admin.locations.update');
+        Route::delete('/{location}', [LocationController::class, 'destroy'])->name('admin.locations.destroy');
+    });
 
     Route::resource('vols', VolController::class)->names([
         'index' => 'admin.vols.index',
@@ -111,6 +143,7 @@ Route::middleware(['auth:admin'])->prefix('admin')->group(function () {
         'index' => 'admin.rapports.index',
         'create' => 'admin.rapports.create',
         'store' => 'admin.rapports.store',
+        'show' => 'admin.rapports.show',
         'edit' => 'admin.rapports.edit',
         'update' => 'admin.rapports.update',
         'destroy' => 'admin.rapports.destroy',

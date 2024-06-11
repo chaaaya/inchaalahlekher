@@ -1,52 +1,57 @@
 <?php
-// app/Http/Controllers/ClientController.php
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Controller;
 use App\Models\Client;
 use Illuminate\Http\Request;
 
 class ClientController extends Controller
 {
-    public function index()
-    {
-        $clients = Client::all();
-        return view('clients.index', compact('clients'));
-    }
-
-    public function show($id)
-    {
-        $client = Client::findOrFail($id);
-        return view('clients.show', compact('client'));
-    }
-
     public function create()
     {
-        return view('clients.create');
+        return view('admin.clients.create');
     }
 
     public function store(Request $request)
     {
-        $client = Client::create($request->all());
-        return redirect()->route('clients.index');
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:clients',
+            'numero_telephone' => 'required|string|max:15',
+            'password' => 'required|string|min:8|confirmed',
+        ]);
+
+        Client::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'numero_telephone' => $request->numero_telephone,
+            'password' => bcrypt($request->password),
+        ]);
+
+        return redirect()->route('admin.clients.index')->with('success', 'Client créé avec succès.');
     }
 
-    public function edit($id)
+    public function edit(Client $client)
     {
-        $client = Client::findOrFail($id);
-        return view('clients.edit', compact('client'));
+        return view('admin.clients.edit', compact('client'));
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, Client $client)
     {
-        $client = Client::findOrFail($id);
-        $client->update($request->all());
-        return redirect()->route('clients.index');
-    }
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:clients,email,' . $client->id,
+            'numero_telephone' => 'required|string|max:15',
+            'password' => 'nullable|string|min:8|confirmed',
+        ]);
 
-    public function destroy($id)
-    {
-        $client = Client::findOrFail($id);
-        $client->delete();
-        return redirect()->route('clients.index');
+        $client->update([
+            'name' => $request->name,
+            'email' => $request->email,
+            'numero_telephone' => $request->numero_telephone,
+            'password' => $request->password ? bcrypt($request->password) : $client->password,
+        ]);
+
+        return redirect()->route('admin.clients.index')->with('success', 'Client mis à jour avec succès.');
     }
 }

@@ -1,5 +1,3 @@
-<!-- resources/views/admin/rapports/create.blade.php -->
-
 @extends('layouts.admin')
 
 @section('title', 'Créer un Rapport')

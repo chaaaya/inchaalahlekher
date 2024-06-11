@@ -23,10 +23,11 @@
                         <tr>
                             <th>ID</th>
                             <th>Numéro de Vol</th>
+                            <th>Ville de Départ</th>
+                            <th>Ville d'Arrivée</th>
                             <th>Heure de Départ</th>
                             <th>Heure d'Arrivée</th>
-                            <th>Créé le</th>
-                            <th>Modifié le</th>
+                            <th>Compagnie</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
@@ -35,10 +36,11 @@
                             <tr>
                                 <td>{{ $vol->id }}</td>
                                 <td>{{ $vol->numero_vol }}</td>
-                                <td>{{ $vol->heure_depart }}</td>
-                                <td>{{ $vol->heure_arrivee }}</td>
-                                <td>{{ $vol->created_at->format('d/m/Y H:i:s') }}</td>
-                                <td>{{ $vol->updated_at->format('d/m/Y H:i:s') }}</td>
+                                <td>{{ $vol->ville_depart }}</td>
+                                <td>{{ $vol->ville_arrivee }}</td>
+                                <td>{{ \Illuminate\Support\Carbon::parse($vol->heure_depart)->format('d/m/Y H:i') }}</td>
+                                <td>{{ \Illuminate\Support\Carbon::parse($vol->heure_arrivee)->format('d/m/Y H:i') }}</td>
+                                <td>{{ $vol->compagnie }}</td>
                                 <td>
                                     <a href="{{ route('admin.vols.edit', $vol->id) }}" class="btn btn-sm btn-warning">Modifier</a>
                                     <form action="{{ route('admin.vols.destroy', $vol->id) }}" method="POST" style="display: inline;">

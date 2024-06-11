@@ -1,11 +1,9 @@
 @extends('layouts.admin')
 
-@section('title', 'Modification d\'un Utilisateur')
-
-@section('title', 'Gestion des Utilisateurs')
+@section('title', 'Modification de Client')
 
 @section('content')
-    <h1>Modification d'un Utilisateur</h1>
+    <h1>Modification de Client</h1>
 
     @if ($errors->any())
         <div class="alert alert-danger">
@@ -17,18 +15,24 @@
         </div>
     @endif
 
-    <form action="{{ route('admin.users.update', $user->id) }}" method="POST">
+    <form action="{{ route('admin.users.update', ['user' => $client->id]) }}" method="POST">
+        {{ $client->id }} <!-- Affiche l'ID du client pour débogage -->
         @csrf
-        @method('PUT')
+        @method('PUT')<!-- Utilisation de la méthode PUT pour la mise à jour -->
 
         <div class="form-group">
             <label for="name">Nom :</label>
-            <input type="text" id="name" name="name" class="form-control" value="{{ old('name', $user->name) }}">
+            <input type="text" id="name" name="name" class="form-control" value="{{ old('name', $client->name) }}">
         </div>
 
         <div class="form-group">
             <label for="email">Email :</label>
-            <input type="email" id="email" name="email" class="form-control" value="{{ old('email', $user->email) }}">
+            <input type="email" id="email" name="email" class="form-control" value="{{ old('email', $client->email) }}">
+        </div>
+
+        <div class="form-group">
+            <label for="numero_telephone">Numéro de téléphone :</label>
+            <input type="text" id="numero_telephone" name="numero_telephone" class="form-control" value="{{ old('numero_telephone', $client->numero_telephone) }}">
         </div>
 
         <div class="form-group">

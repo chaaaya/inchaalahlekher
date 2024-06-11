@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
@@ -14,7 +13,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        // Vous n'avez pas besoin d'ajouter Route::model ici
     }
 
     /**
@@ -24,8 +23,5 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->bind('dompdf.wrapper', function () {
-            return new PDF();
-        });
     }
 }

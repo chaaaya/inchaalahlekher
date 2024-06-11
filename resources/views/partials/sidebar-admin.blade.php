@@ -4,7 +4,9 @@
 </div>
 <nav>
     <ul>
-        <li><a href="{{ route('admin.users.manage-users') }}">Gestion des utilisateurs</a></li>
+        <li><a href="{{ route('admin.users.manage-users') }}" class="nav-link">Gestion des Utilisateurs</a></li>
+
+
         <li><a href="{{ route('admin.reservation.manage-reservations') }}" class="nav-link"><i class="fa fa-calendar"></i> Gestion des Réservations</a></li>
         <li><a href="{{ route('admin.offers.index') }}" class="nav-link"><i class="fas fa-gift"></i> Gestion des Offres</a></li>
         <li><a href="{{ route('admin.services.index') }}" class="nav-link"><i class="fa fa-concierge-bell"></i> Gestion des Services</a></li>

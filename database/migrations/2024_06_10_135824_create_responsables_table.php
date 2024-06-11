@@ -11,6 +11,7 @@ class CreateResponsablesTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('email')->unique();
+            $table->string('numero_telephone')->nullable(); 
             $table->string('password');
             $table->timestamps();
         });

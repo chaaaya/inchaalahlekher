@@ -3,7 +3,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class DropStatusColumnFromUsersTable extends Migration
+class AddStatusToClientsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,8 +12,8 @@ class DropStatusColumnFromUsersTable extends Migration
      */
     public function up()
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn('status');
+        Schema::table('clients', function (Blueprint $table) {
+            $table->string('status')->default('pending')->after('numero_telephone');
         });
     }
 
@@ -24,8 +24,8 @@ class DropStatusColumnFromUsersTable extends Migration
      */
     public function down()
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->string('status')->nullable(); // Recréer la colonne si nécessaire lors du rollback
+        Schema::table('clients', function (Blueprint $table) {
+            $table->dropColumn('status');
         });
     }
 }

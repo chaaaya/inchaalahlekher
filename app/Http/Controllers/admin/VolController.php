@@ -1,4 +1,5 @@
-<?php 
+<?php
+
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
@@ -9,7 +10,8 @@ class VolController extends Controller
 {
     public function index()
     {
-        $vols = Vol::all();
+        $vols = Vol::all(); // Récupérer tous les vols depuis le modèle
+
         return view('admin.vols.index', compact('vols'));
     }
 
@@ -20,50 +22,53 @@ class VolController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
+        // Validation des données du formulaire
+        $validatedData = $request->validate([
             'numero_vol' => 'required|string|max:255',
+            'ville_depart' => 'required|string|max:255',
+            'ville_arrivee' => 'required|string|max:255',
             'heure_depart' => 'required|date',
-            'heure_arrivee' => 'required|date',
+            'heure_arrivee' => 'required|date|after:heure_depart',
+            'compagnie' => 'required|string|max:255',
         ]);
 
-        Vol::create([
-            'numero_vol' => $request->numero_vol,
-            'heure_depart' => $request->heure_depart,
-            'heure_arrivee' => $request->heure_arrivee,
-        ]);
+        // Création d'un nouveau vol dans la base de données
+        Vol::create($validatedData);
 
-        return redirect()->route('admin.vols.index')
-                         ->with('success', 'Vol créé avec succès.');
+        return redirect()->route('admin.vols.index')->with('success', 'Vol créé avec succès.');
     }
 
-    public function edit(Vol $vol)
+    public function edit($id)
     {
+        $vol = Vol::findOrFail($id); // Récupérer le Vol par son ID
+
         return view('admin.vols.edit', compact('vol'));
     }
 
-    public function update(Request $request, Vol $vol)
+    public function update(Request $request, $id)
     {
-        $request->validate([
+        // Validation des données du formulaire
+        $validatedData = $request->validate([
             'numero_vol' => 'required|string|max:255',
+            'ville_depart' => 'required|string|max:255',
+            'ville_arrivee' => 'required|string|max:255',
             'heure_depart' => 'required|date',
-            'heure_arrivee' => 'required|date',
+            'heure_arrivee' => 'required|date|after:heure_depart',
+            'compagnie' => 'required|string|max:255',
         ]);
 
-        $vol->update([
-            'numero_vol' => $request->numero_vol,
-            'heure_depart' => $request->heure_depart,
-            'heure_arrivee' => $request->heure_arrivee,
-        ]);
+        // Mise à jour du vol dans la base de données
+        $vol = Vol::findOrFail($id);
+        $vol->update($validatedData);
 
-        return redirect()->route('admin.vols.index')
-                         ->with('success', 'Vol mis à jour avec succès.');
+        return redirect()->route('admin.vols.index')->with('success', 'Vol mis à jour avec succès.');
     }
 
-    public function destroy(Vol $vol)
+    public function destroy($id)
     {
+        $vol = Vol::findOrFail($id);
         $vol->delete();
 
-        return redirect()->route('admin.vols.index')
-                         ->with('success', 'Vol supprimé avec succès.');
+        return redirect()->route('admin.vols.index')->with('success', 'Vol supprimé avec succès.');
     }
 }

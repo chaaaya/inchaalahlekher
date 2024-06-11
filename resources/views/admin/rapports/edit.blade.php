@@ -1,5 +1,3 @@
-<!-- resources/views/admin/edit-rapport.blade.php -->
-
 @extends('layouts.admin')
 
 @section('title', 'Modifier le Rapport')
@@ -7,7 +5,7 @@
 @section('content')
     <h1>Modifier le Rapport</h1>
 
-    <form action="{{ route('rapports.update', $rapport->id) }}" method="POST">
+    <form action="{{ route('admin.rapports.update', $rapport->id) }}" method="POST">
         @csrf
         @method('PUT')
         <div class="form-group">

@@ -1,5 +1,3 @@
-<!-- resources/views/admin/manage-rapports.blade.php -->
-
 @extends('layouts.admin')
 
 @section('title', 'Gestion des Rapports')

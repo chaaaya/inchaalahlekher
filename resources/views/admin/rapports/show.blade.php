@@ -12,4 +12,6 @@
         <p><strong>Description:</strong> {{ $rapport->description }}</p>
         <p><strong>Créé le:</strong> {{ $rapport->created_at->format('d/m/Y H:i') }}</p>
     </div>
+
+    <a href="{{ route('admin.rapports.index') }}" class="btn btn-primary mt-3">Retour à la liste des rapports</a>
 @endsection

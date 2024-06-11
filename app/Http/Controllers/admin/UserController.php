@@ -1,73 +1,33 @@
 <?php
-
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\User;
+use App\Models\Client;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class UserController extends Controller
 {
     public function index()
     {
-        // Exclure les utilisateurs avec les rôles "admin" et "respo"
-        $users = User::whereNotIn('role', ['admin', 'respo'])->get();
-        
-        return view('admin.users.manage-users', compact('users'));
+        $clients = Client::where('status', 'pending')->get();
+        return view('admin.users.manage-users', compact('clients'));
     }
-    public function edit(User $user)
+    public function accept(Request $request, Client $client)
     {
-        return view('admin.users.edit', compact('user'));
+        Log::info('Accept method called for client: ' . $client->id);
+        $client->status = 'accepted';
+        $client->save();
+    
+        return redirect()->route('admin.users.manage-users')->with('success', 'Client accepté avec succès.');
     }
     
-
-    public function create()
+    public function reject(Request $request, Client $client)
     {
-        return view('admin.users.create');
+        Log::info('Reject method called for client: ' . $client->id);
+        $client->status = 'rejected';
+        $client->save();
+    
+        return redirect()->route('admin.users.manage-users')->with('success', 'Client refusé avec succès.');
     }
-
-    public function store(Request $request)
-    {
-        // Validation des données du formulaire
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|email|unique:users,email',
-            'password' => 'required|string|min:8|confirmed',
-        ]);
-
-        // Création d'un nouvel utilisateur
-        $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => bcrypt($request->password),
-        ]);
-
-        // Redirection avec un message de succès
-        return redirect()->route('admin.users.create')->with('success', 'Utilisateur créé avec succès.');
-    }
-    public function update(Request $request, User $user)
-{
-    $request->validate([
-        'name' => 'required|string|max:255',
-        'email' => 'required|email|unique:users,email,' . $user->id,
-        'password' => 'nullable|string|min:8|confirmed',
-    ]);
-
-    $user->update([
-        'name' => $request->name,
-        'email' => $request->email,
-        'password' => $request->password ? bcrypt($request->password) : $user->password,
-    ]);
-
-    return redirect()->route('admin.users.manage-users')->with('success', 'Utilisateur mis à jour avec succès.');
-}
-public function destroy(User $user)
-{
-    $user->delete();
-
-    return redirect()->route('admin.users.manage-users')->with('success', 'Utilisateur supprimé avec succès.');
-}
-
-
-    // Les autres méthodes comme edit, update, destroy doivent être définies comme vous l'avez déjà fait
-}
+}    

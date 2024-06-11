@@ -1,9 +1,9 @@
 @extends('layouts.admin')
 
-@section('title', 'Création d\'Utilisateur')
+@section('title', 'Création de Client')
 
 @section('content')
-    <h1>Création d'Utilisateur</h1>
+    <h1>Création de Client</h1>
 
     @if (session('success'))
         <div class="alert alert-success">
@@ -21,7 +21,7 @@
         </div>
     @endif
 
-    <form action="{{ route('admin.users.store') }}" method="POST">
+    <form action="{{ route('admin.clients.store') }}" method="POST">
         @csrf
 
         <div class="form-group">
@@ -35,8 +35,8 @@
         </div>
 
         <div class="form-group">
-            <label for="phone">Numéro de téléphone :</label>
-            <input type="text" id="phone" name="phone" class="form-control" value="{{ old('phone') }}" required>
+            <label for="numero_telephone">Numéro de téléphone :</label>
+            <input type="text" id="numero_telephone" name="numero_telephone" class="form-control" value="{{ old('numero_telephone') }}" required>
         </div>
 
         <div class="form-group">
@@ -49,6 +49,6 @@
             <input type="password" id="password_confirmation" name="password_confirmation" class="form-control" required>
         </div>
 
-        <button type="submit" class="btn btn-primary">Créer Utilisateur</button>
+        <button type="submit" class="btn btn-primary">Créer Client</button>
     </form>
 @endsection
