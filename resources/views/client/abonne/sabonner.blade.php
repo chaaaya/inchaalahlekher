@@ -1,5 +1,7 @@
 <!-- resources/views/sabonner.blade.php -->
+@extends('layouts.abonne')
 
+@section('content')
 <h2>Formulaire d'abonnement</h2>
 
 <form action="{{ route('process.subscription') }}" method="POST">
@@ -22,3 +24,4 @@
 
     <button type="submit">S'abonner</button>
 </form>
+@endsection

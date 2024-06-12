@@ -9,7 +9,7 @@ class NewSubscriptionController extends Controller
 {
     public function showSubscriptionForm()
     {
-        return view('abonne.sabonner');
+        return view('client.abonne.sabonner');
     }
 
 }

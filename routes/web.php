@@ -214,6 +214,12 @@ Route::middleware(['auth:responsable'])->prefix('respo')->group(function () {
     Route::delete('communicate/{id}/delete', [CommunicateController::class, 'deleteDocument'])->name('respo.communicate.delete');
 });
 
+// Route pour afficher la page de login client
+Route::get('client/login', [ClientAuthController::class, 'showLoginForm'])->name('client.login');
+Route::post('client/login', [ClientAuthController::class, 'login']);
+Route::post('client/logout', [ClientAuthController::class, 'logout'])->name('client.logout');
+
+// Routes pour les clients abonnés
 
 Route::middleware(['auth:client'])->prefix('abonne')->group(function () {
     Route::get('/', [AbonneController::class, 'index'])->name('abonne.index');
@@ -223,11 +229,11 @@ Route::middleware(['auth:client'])->prefix('abonne')->group(function () {
     Route::get('/consulter-nos-offres', [OffresController::class, 'index'])->name('consulter.offres');
     Route::get('/suivre-les-vols', [AbonneController::class, 'suivreVols'])->name('suivre.vols');
     Route::post('/process-reservation', [AbonneController::class, 'processReservation'])->name('process.reservation');
-
     Route::get('/s-abonner', [NewSubscriptionController::class, 'showSubscriptionForm'])->name('s_abonner');
     Route::post('/s-abonner', [NewSubscriptionController::class, 'processSubscription'])->name('process.subscription');
 });
 
+// Routes pour les clients non abonnés
 Route::prefix('non_abonne')->group(function () {
     Route::get('/index', [NonAbonneController::class, 'index'])->name('nonabonne.index');
     Route::get('/services-supplementaires', [NonAbonneController::class, 'servicesSupplementaires'])->name('nonabonne.services_supplementaires');

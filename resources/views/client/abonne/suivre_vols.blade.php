@@ -1,4 +1,4 @@
-<!-- resources/views/abonne/suivre_vols.blade.php -->
+<!-- resources/views/client/abonne/suivre_vols.blade.php -->
 
 @extends('layouts.abonne')
 
@@ -8,7 +8,7 @@
     @foreach ($volsASuivre as $vol)
         <div>
             <!-- Affichez les détails du vol à suivre selon votre besoin -->
-            <p>{{ $vol->numero_vol }} - {{ $vol->destination }}</p>
+            <p>{{ $vol->numero_vol }} - {{ $vol->ville_depart }} à {{ $vol->ville_arrivee }} - {{ $vol->heure_depart }} à {{ $vol->heure_arrivee }}</p>
         </div>
     @endforeach
 @endsection

@@ -9,25 +9,22 @@ class ClientAuthController extends Controller
 {
     public function showLoginForm()
     {
-        return view('auth.login'); // Assurez-vous que cette vue existe
+        return view('client.login'); // Assurez-vous que cette vue existe
     }
 
     public function login(Request $request)
     {
-        // Validation des données entrantes
         $credentials = $request->validate([
             'email' => 'required|email',
             'password' => 'required',
         ]);
 
-        // Tentative d'authentification
         if (Auth::guard('client')->attempt($credentials)) {
             $request->session()->regenerate();
 
-            return redirect()->intended('/client/dashboard'); // Redirection après connexion réussie
+            return redirect()->intended(route('abonne.index')); // Redirection après connexion réussie
         }
 
-        // En cas d'échec de l'authentification, retourner en arrière avec des erreurs
         return back()->withErrors([
             'email' => 'Les identifiants ne correspondent pas à nos enregistrements.',
         ]);
