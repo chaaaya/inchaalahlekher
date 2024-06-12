@@ -14,4 +14,6 @@
             </div>
         </div>
 
-        <a href="{{ route('respo.continuity-plans.index') }}" class="btn btn
+        <a href="{{ route('respo.continuity-plans.index') }}" class="btn btn-primary mt-3">Retour à la liste des plans de continuité</a>
+    </div>
+@endsection

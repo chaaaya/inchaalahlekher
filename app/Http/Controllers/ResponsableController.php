@@ -1,52 +1,32 @@
 <?php
-// app/Http/Controllers/ResponsableController.php
 namespace App\Http\Controllers;
 
-use App\Models\Responsable;
 use Illuminate\Http\Request;
 
 class ResponsableController extends Controller
 {
-    public function index()
+    public function welcome()
     {
-        $responsables = Responsable::all();
-        return view('responsables.index', compact('responsables'));
+        return view('respo.welcome');
     }
 
-    public function show($id)
+    public function adminsManagement()
     {
-        $responsable = Responsable::findOrFail($id);
-        return view('responsables.show', compact('responsable'));
+        return view('respo.manage-admins');
     }
 
-    public function create()
+    public function reportsAnalyze()
     {
-        return view('responsables.create');
+        return view('respo.analyse-rapports');
     }
 
-    public function store(Request $request)
+    public function communicatePrenantes()
     {
-        $responsable = Responsable::create($request->all());
-        return redirect()->route('responsables.index');
+        return view('respo.communicate');
     }
 
-    public function edit($id)
+    public function planesElaborate()
     {
-        $responsable = Responsable::findOrFail($id);
-        return view('responsables.edit', compact('responsable'));
-    }
-
-    public function update(Request $request, $id)
-    {
-        $responsable = Responsable::findOrFail($id);
-        $responsable->update($request->all());
-        return redirect()->route('responsables.index');
-    }
-
-    public function destroy($id)
-    {
-        $responsable = Responsable::findOrFail($id);
-        $responsable->delete();
-        return redirect()->route('responsables.index');
+        return view('respo.elaborer-planes');
     }
 }

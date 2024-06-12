@@ -1,4 +1,5 @@
 <?php
+namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
@@ -26,12 +27,31 @@ use App\Models\Vol;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Admin\HotelController;
 use App\Http\Controllers\Admin\LocationController;
-
-
+use App\Http\Controllers\ResponsableController;
+use App\Http\Controllers\ClientAuthController; // Assurez-vous que ce contrôleur existe
+use App\Http\Controllers\RespoAuthController;
+use App\Http\Controllers\AdminAuthController;
+use App\Http\Controllers\LoginController;
 
 Route::get('/', function () {
     return view('accueil');
 })->name('accueil');
+
+// Routes pour l'administration
+Route::get('admin/login', [AdminAuthController::class, 'showLoginForm'])->name('admin.login');
+Route::post('admin/login', [AdminAuthController::class, 'login']);
+
+// Routes pour les responsables
+Route::get('respo/login', [RespoAuthController::class, 'showLoginForm'])->name('respo.login');
+Route::post('respo/login', [RespoAuthController::class, 'login']);
+
+// Routes pour les clients
+Route::get('login', [ClientAuthController::class, 'showLoginForm'])->name('login');
+Route::post('login', [ClientAuthController::class, 'login']);
+Route::post('logout', [LoginController::class, 'logout'])->name('logout');
+
+
+
 
 Route::get('/consulter-vols', function () {
     $vols = Vol::all();
@@ -53,33 +73,14 @@ Route::get('/about', function () {
     return view('about');
 })->name('about');
 
-Route::middleware(['auth'])->group(function () {
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
 
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-});
-
-Route::get('login/{role?}', [AuthController::class, 'showLoginForm'])->name('login')->where('role', 'admin|respo|client');
-Route::post('login', [AuthController::class, 'login']);
-Route::get('register/{role}', [AuthController::class, 'showRegisterForm'])->name('register');
-Route::post('register/{role}', [AuthController::class, 'register']);
-Route::post('logout', [AuthController::class, 'logout'])->name('logout');
-Route::get('check-email', [AuthController::class, 'checkEmail'])->name('check-email');
-
-
-
+ 
 Route::middleware(['auth:admin'])->prefix('admin')->group(function () {
     Route::get('/welcome', function () {
-        return view('admin.welcome'); // Assurez-vous que cette vue existe
+        return view('admin.welcome');
     })->name('admin.welcome');
 
-    // Définissez d'autres routes spécifiques à l'administration ici...
-
-
+    // Routes spécifiques à l'administration
     Route::get('users/manage-users', [UserController::class, 'index'])->name('admin.users.manage-users');
     Route::get('reservation/manage-reservations', [ReservationController::class, 'index'])->name('admin.reservation.manage-reservations');
     Route::get('offers', [OfferController::class, 'index'])->name('admin.offers.index');
@@ -87,8 +88,8 @@ Route::middleware(['auth:admin'])->prefix('admin')->group(function () {
     Route::get('vols', [VolController::class, 'index'])->name('admin.vols.index');
     Route::get('rapports', [RapportController::class, 'index'])->name('admin.rapports.index');
     Route::get('users/manage-users', [UserController::class, 'index'])->name('admin.users.manage-users');
-   // Gestion des utilisateurs
-   Route::get('admin/manage-users', [UserController::class, 'manageUsers'])->name('admin.manage-users');
+
+    Route::get('admin/manage-users', [UserController::class, 'manageUsers'])->name('admin.manage-users');
    Route::put('users/{user}/accept', [UserController::class, 'accept'])->name('admin.users.accept');
    Route::put('users/{user}/reject', [UserController::class, 'reject'])->name('admin.users.reject');
    Route::resource('users', UserController::class)->except(['index']);
@@ -158,12 +159,13 @@ Route::middleware(['auth:admin'])->prefix('admin')->group(function () {
         'destroy' => 'admin.reservation.destroy',
     ]);
 });
-
 Route::middleware(['auth:responsable'])->prefix('respo')->group(function () {
+    // Route de bienvenue pour les responsables
     Route::get('/welcome', function () {
         return view('respo.welcome');
     })->name('respo.welcome');
 
+    // Routes pour les administrateurs
     Route::resource('admins', AdminController2::class)->names([
         'index' => 'respo.admins.index',
         'create' => 'respo.admins.create',
@@ -173,6 +175,8 @@ Route::middleware(['auth:responsable'])->prefix('respo')->group(function () {
         'update' => 'respo.admins.update',
         'destroy' => 'respo.admins.destroy',
     ]);
+
+
 
     Route::resource('stakeholders', StakeholderController::class)->names([
         'index' => 'respo.stakeholders.index',
@@ -209,6 +213,7 @@ Route::middleware(['auth:responsable'])->prefix('respo')->group(function () {
     Route::post('communicate/upload', [CommunicateController::class, 'upload'])->name('respo.communicate.upload');
     Route::delete('communicate/{id}/delete', [CommunicateController::class, 'deleteDocument'])->name('respo.communicate.delete');
 });
+
 
 Route::middleware(['auth:client'])->prefix('abonne')->group(function () {
     Route::get('/', [AbonneController::class, 'index'])->name('abonne.index');

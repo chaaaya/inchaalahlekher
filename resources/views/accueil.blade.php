@@ -25,9 +25,9 @@
             <div class="dropdown">
                 <button class="dropbtn"><i class="fa fa-sign-in"></i> Se connecter</button>
                 <div class="dropdown-content">
-                    <a href="javascript:void(0)" onclick="redirectToLogin('admin')">Admin</a>
-                    <a href="javascript:void(0)" onclick="redirectToLogin('respo')">Responsable</a>
-                    <a href="javascript:void(0)" onclick="redirectToLogin('client')">Client</a>
+                    <a href="{{ route('admin.login') }}">Admin</a>
+                    <a href="{{ route('respo.login') }}">Responsable</a>
+                    <a href="{{ route('login') }}">Client</a>
                 </div>
             </div>
             <button class="btn about" onclick="location.href='{{ route('about') }}'"><i class="fa fa-info-circle"></i> A propos de nous</button>

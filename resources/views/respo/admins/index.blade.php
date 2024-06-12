@@ -6,10 +6,8 @@
     <style>
         /* Styles spécifiques pour la page Liste des Administrateurs */
         .admin-list-container {
-            width: 100%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+            width: 80%; /* Ajustez la largeur selon vos besoins */
+            margin: auto;
             padding: 20px;
         }
 
@@ -21,26 +19,21 @@
 
         .admin-list-table {
             width: 100%;
-            margin-bottom: 20px;
             background-color: #fff;
             border: 1px solid #dee2e6;
             border-radius: 4px;
+            overflow-x: auto; /* Permet le défilement horizontal si nécessaire */
         }
 
         .admin-list-table th,
         .admin-list-table td {
-            border-top: 1px solid #dee2e6;
+            border: 1px solid #dee2e6;
             padding: 12px;
-            vertical-align: middle;
+            text-align: center; /* Centre le texte dans les cellules */
         }
 
-        .admin-list-table thead th {
-            vertical-align: bottom;
-            border-bottom: 2px solid #dee2e6;
-        }
-
-        .admin-list-table tbody + tbody {
-            border-top: 2px solid #dee2e6;
+        .admin-list-table thead {
+            background-color: #f8f9fa; /* Couleur de fond de l'en-tête */
         }
 
         .admin-list-actions {
@@ -68,6 +61,7 @@
                         <th scope="col">ID</th>
                         <th scope="col">Nom</th>
                         <th scope="col">Email</th>
+                        <th scope="col">Numéro de téléphone</th>
                         <th scope="col">Actions</th>
                     </tr>
                 </thead>
@@ -77,6 +71,7 @@
                         <td>{{ $admin->id }}</td>
                         <td>{{ $admin->name }}</td>
                         <td>{{ $admin->email }}</td>
+                        <td>{{ $admin->numero_telephone }}</td> <!-- Affichage du numéro de téléphone -->
                         <td class="admin-list-actions">
                             <a href="{{ route('respo.admins.show', $admin->id) }}" class="btn btn-info">Voir</a>
                             <a href="{{ route('respo.admins.edit', $admin->id) }}" class="btn btn-primary">Modifier</a>
@@ -89,7 +84,7 @@
                     </tr>
                     @empty
                     <tr>
-                        <td colspan="4" class="text-center">Aucun administrateur trouvé.</td>
+                        <td colspan="5" class="text-center">Aucun administrateur trouvé.</td>
                     </tr>
                     @endforelse
                 </tbody>
