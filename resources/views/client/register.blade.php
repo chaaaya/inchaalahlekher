@@ -10,21 +10,20 @@
 <body>
     <div class="container">
         <h2>Inscription</h2>
-        <form id="registerForm" action="{{ route('register', ['role' => $role]) }}" method="POST">
+        <form id="registerForm" action="{{ route('register.post') }}" method="POST">
             @csrf
-            <input type="hidden" name="role" value="{{ $role }}">
         
             <label for="name">Nom</label>
             <input type="text" id="name" name="name" required>
             @error('name')
                 <div class="error">{{ $message }}</div>
             @enderror
-            <label for="numero_telephone">Numéro de téléphone</label>
-<input type="text" id="numero_telephone" name="numero_telephone" required>
-@error('numero_telephone')
-    <div class="error">{{ $message }}</div>
-@enderror
 
+            <label for="numero_telephone">Numéro de téléphone</label>
+            <input type="text" id="numero_telephone" name="numero_telephone" required>
+            @error('numero_telephone')
+                <div class="error">{{ $message }}</div>
+            @enderror
         
             <label for="email">Email</label>
             <input type="email" id="email" name="email" required>
@@ -49,7 +48,7 @@
             <button type="submit" id="submitButton">S'inscrire</button>
         </form>
         
-        <p>Vous avez déjà un compte? <a href="{{ route('login', ['role' => $role]) }}">Connectez-vous ici</a></p>
+        <p>Vous avez déjà un compte? <a href="{{ route('client.login') }}">Connectez-vous ici</a></p>
     </div>
 
     <script>
@@ -59,7 +58,7 @@
                 $.ajax({
                     url: '{{ route('check-email') }}',
                     type: 'GET',
-                    data: { email: email, role: "{{ $role }}" },
+                    data: { email: email },
                     success: function(data) {
                         if(data.exists) {
                             $('#emailError').show();

@@ -21,7 +21,8 @@
             <a href="{{ route('accueil') }}">Voyage<span> KCS</span></a>
         </div>
         <nav>
-            <button class="btn" onclick="redirectToRegister('client')"><i class="fa fa-user-plus"></i> S'inscrire</button>
+            <button class="btn" onclick="location.href='{{ route('register') }}'"><i class="fa fa-user-plus"></i> S'inscrire</button>
+       
             <div class="dropdown">
                 <button class="dropbtn"><i class="fa fa-sign-in"></i> Se connecter</button>
                 <div class="dropdown-content">

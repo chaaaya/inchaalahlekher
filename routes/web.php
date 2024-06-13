@@ -36,6 +36,16 @@ use App\Http\Controllers\LoginController;
 Route::get('/', function () {
     return view('accueil');
 })->name('accueil');
+
+// Affichage du formulaire d'inscription
+Route::get('/register', [ClientAuthController::class, 'showRegistrationForm'])->name('register');
+
+// Traitement du formulaire d'inscription
+Route::post('/register', [ClientAuthController::class, 'register'])->name('register.post');
+Route::get('/check-email', [ClientAuthController::class, 'checkEmail'])->name('check-email');
+
+
+
 // Routes pour l'administration
 Route::get('admin/login', [AdminAuthController::class, 'showLoginForm'])->name('admin.login');
 Route::post('admin/login', [AdminAuthController::class, 'login']);

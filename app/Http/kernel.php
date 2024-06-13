@@ -42,10 +42,12 @@ class Kernel extends HttpKernel
      *
      * @var array
      */
-    protected $routeMiddleware = [
-        // Autres middlewares...
-        'auth' => \App\Http\Middleware\Authenticate::class,
-        'auth:client' => \App\Http\Middleware\Authenticate::class,
-        
-    ];
+    // App\Http\Kernel.php
+protected $routeMiddleware = [
+    // Autres middlewares...
+    'auth' => \App\Http\Middleware\Authenticate::class,
+    'auth:client' => \App\Http\Middleware\Authenticate::class,
+    'client.status' => \App\Http\Middleware\CheckClientStatus::class,
+];
+
 }
