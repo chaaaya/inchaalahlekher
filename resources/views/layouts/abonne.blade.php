@@ -27,7 +27,7 @@
                     <li><a href="{{ route('consulter.offres') }}" class="btn"><i class="fa fa-briefcase"></i> Consulter nos offres</a></li>
                     <li><a href="{{ route('suivre.vols') }}" class="btn"><i class="fa fa-binoculars"></i> Suivre les vols</a></li>
                     <li>
-                        <form method="POST" action="{{ route('logout') }}">
+                        <form method="POST" action="{{ route('client.logout') }}">
                             @csrf
                             <button type="submit" class="btn" ><i class="fas fa-sign-out-alt"></i> Se déconnecter</button>
                         </form>

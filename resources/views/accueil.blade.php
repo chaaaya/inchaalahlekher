@@ -27,7 +27,7 @@
                 <div class="dropdown-content">
                     <a href="{{ route('admin.login') }}">Admin</a>
                     <a href="{{ route('respo.login') }}">Responsable</a>
-                    <a href="{{ route('login') }}">Client</a>
+                    <a href="{{ route('client.login') }}">Client</a>
                 </div>
             </div>
             <button class="btn about" onclick="location.href='{{ route('about') }}'"><i class="fa fa-info-circle"></i> A propos de nous</button>

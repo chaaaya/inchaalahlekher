@@ -19,10 +19,16 @@ class ClientAuthController extends Controller
             'password' => 'required',
         ]);
 
+        // Tentative d'authentification en utilisant le guard 'client'
         if (Auth::guard('client')->attempt($credentials)) {
             $request->session()->regenerate();
 
-            return redirect()->intended(route('abonne.index')); // Redirection après connexion réussie
+            // Vérifier si le client est abonné
+            if (Auth::guard('client')->user()->subscription) {
+                return redirect()->intended(route('nonabonne.index')); // Rediriger vers la page des abonnés
+            } else {
+                return redirect()->intended(route('abonne.index')); // Rediriger vers une autre page pour les non-abonnés
+            }
         }
 
         return back()->withErrors([

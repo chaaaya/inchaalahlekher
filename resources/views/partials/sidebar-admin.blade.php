@@ -13,12 +13,13 @@
         <li><a href="{{ route('admin.vols.index') }}" class="nav-link"><i class="fa fa-plane"></i> Gestion des Vols</a></li>
         <li><a href="{{ route('admin.rapports.index') }}" class="nav-link"><i class="fa fa-file"></i> Gestion des Rapports</a></li>
         <li>
-            <form action="{{ route('logout') }}" method="POST" class="logout-form">
+            <form action="{{ route('admin.logout') }}" method="POST" class="logout-form">
                 @csrf
                 <button type="submit" class="nav-link logout-button" style="background: none; border: none;">
                     <i class="fas fa-sign-out-alt"></i> Se déconnecter
                 </button>
             </form>
+            
         </li>
     </ul>
 </nav>

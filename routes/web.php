@@ -36,20 +36,25 @@ use App\Http\Controllers\LoginController;
 Route::get('/', function () {
     return view('accueil');
 })->name('accueil');
-
 // Routes pour l'administration
 Route::get('admin/login', [AdminAuthController::class, 'showLoginForm'])->name('admin.login');
 Route::post('admin/login', [AdminAuthController::class, 'login']);
+Route::post('admin/logout', [AdminAuthController::class, 'logout'])->name('admin.logout');
 
 // Routes pour les responsables
 Route::get('respo/login', [RespoAuthController::class, 'showLoginForm'])->name('respo.login');
 Route::post('respo/login', [RespoAuthController::class, 'login']);
+Route::post('respo/logout', [RespoAuthController::class, 'logout'])->name('respo.logout');
 
 // Routes pour les clients
-Route::get('login', [ClientAuthController::class, 'showLoginForm'])->name('login');
-Route::post('login', [ClientAuthController::class, 'login']);
-Route::post('logout', [LoginController::class, 'logout'])->name('logout');
+// Route pour afficher la page de login client
+Route::get('client/login', [ClientAuthController::class, 'showLoginForm'])->name('client.login');
 
+// Route pour traiter la soumission du formulaire de login client
+Route::post('client/login', [ClientAuthController::class, 'login']);
+
+// Route pour traiter la déconnexion du client
+Route::post('client/logout', [ClientAuthController::class, 'logout'])->name('client.logout');
 
 
 
@@ -220,7 +225,6 @@ Route::post('client/login', [ClientAuthController::class, 'login']);
 Route::post('client/logout', [ClientAuthController::class, 'logout'])->name('client.logout');
 
 // Routes pour les clients abonnés
-
 Route::middleware(['auth:client'])->prefix('abonne')->group(function () {
     Route::get('/', [AbonneController::class, 'index'])->name('abonne.index');
     Route::get('/services-supplementaires', [ServicesSupplementairesController::class, 'index'])->name('services.supplementaires');
@@ -233,9 +237,8 @@ Route::middleware(['auth:client'])->prefix('abonne')->group(function () {
     Route::post('/s-abonner', [NewSubscriptionController::class, 'processSubscription'])->name('process.subscription');
 });
 
-// Routes pour les clients non abonnés
 Route::prefix('non_abonne')->group(function () {
-    Route::get('/index', [NonAbonneController::class, 'index'])->name('nonabonne.index');
+    Route::get('/', [NonAbonneController::class, 'index'])->name('nonabonne.index');
     Route::get('/services-supplementaires', [NonAbonneController::class, 'servicesSupplementaires'])->name('nonabonne.services_supplementaires');
     Route::get('/programme-fidelite', function () {
         return view('nonabonne.programme_fidelite');
