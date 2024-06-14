@@ -38,30 +38,30 @@ class ClientAuthController extends Controller
     {
         return view('client.login'); // Assurez-vous que cette vue existe
     }
-
     public function login(Request $request)
     {
         $credentials = $request->validate([
             'email' => 'required|email',
             'password' => 'required',
         ]);
-    
+
         // Tentative d'authentification en utilisant le guard 'client'
         if (Auth::guard('client')->attempt($credentials)) {
             $request->session()->regenerate();
-    
-            // Redirection en fonction de l'état d'abonnement
-            $redirectRoute = Auth::guard('client')->user()->subscription ? 'abonne.index' : 'nonabonne.index';
-    
-            return redirect()->intended(route($redirectRoute));
+
+            // Vérification du statut d'abonnement
+            $user = Auth::guard('client')->user();
+            if ($user->subscription) {
+                return redirect()->route('abonne.index'); // Rediriger vers le dashboard de l'abonné
+            } else {
+                return redirect()->route('nonabonne.index'); // Rediriger vers le dashboard du non abonné
+            }
         }
-    
+
         return back()->withErrors([
             'email' => 'Les identifiants ne correspondent pas à nos enregistrements.',
         ]);
     }
-    
-
     public function logout(Request $request)
     {
         Auth::guard('client')->logout();

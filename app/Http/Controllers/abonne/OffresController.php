@@ -12,6 +12,6 @@ class OffresController extends Controller
     public function index()
     {
         $offres = Offer::all();
-        return view('abonne.offres', compact('offres'));
+        return view('client.abonne.offres', compact('offres'));
     }
 }

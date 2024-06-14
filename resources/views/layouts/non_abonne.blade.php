@@ -12,11 +12,9 @@
 </head>
 <body>
     <header>
-        <header>
-            <button class="btn" onclick="location.href='{{ route('programme.fidelite') }}'"><i class="fa fa-bell"></i> Programme de fidélité</button>
-       <button class="btn" onclick="location.href='{{ route('accueil') }}'"><i class="fa fa-gift"></i> Services Supplémentaires</button>
-        </header>
-         </header>
+        <button class="btn" onclick="location.href='{{ route('programme.fidelite') }}'"><i class="fa fa-bell"></i> Programme de fidélité</button>
+        <button class="btn" onclick="location.href='{{ route('nonabonne.services_supplementaires') }}'"><i class="fa fa-gift"></i> Services Supplémentaires</button>
+    </header>
     <div class="container">
         <aside class="sidebar">
             <div class="logo">
@@ -24,10 +22,10 @@
             </div>
             <nav>
                 <ul>
-                    <li><a href="{{ route('accueil') }}" class="btn"><i class="fa fa-plane"></i> Réserver un vol</a></li>
-                    <li><a href="{{ route('accueil') }}" class="btn"><i class="fa fa-history"></i> Historique des vols</a></li>
-                    <li><a href="{{ route('accueil') }}" class="btn"><i class="fa fa-briefcase"></i> Consulter nos offres</a></li>
-                    <li><a href="{{ route('accueil') }}" class="btn"><i class="fa fa-binoculars"></i> Suivre les vols</a></li>
+                    <li><a href="{{ route('reserver.vol') }}" class="btn"><i class="fa fa-plane"></i> Réserver un vol</a></li>
+                    <li><a href="{{ route('historique.vols') }}" class="btn"><i class="fa fa-history"></i> Historique des vols</a></li>
+                    <li><a href="{{ route('consulter.offres') }}" class="btn"><i class="fa fa-briefcase"></i> Consulter nos offres</a></li>
+                    <li><a href="{{ route('suivre.vols') }}" class="btn"><i class="fa fa-binoculars"></i> Suivre les vols</a></li>
                     <li>
                         <form method="POST" action="{{ route('client.logout') }}">
                             @csrf

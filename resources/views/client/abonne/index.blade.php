@@ -10,7 +10,7 @@
 </head>
 <body>
     <header>
-        <button class="btn" onclick="location.href='{{ route('services.supplementaires') }}'"><i class="fa fa-gift"></i> Services Supplémentaires</button>
+        <button class="btn" onclick="location.href='{{ route('abonne.services_supplementaires') }}'"><i class="fa fa-gift"></i> Services Supplémentaires</button>
         <button class="btn" onclick="loadSubscriptionForm()"><i class="fa fa-user-plus"></i> S'abonner</button>
     </header>
     <div class="container">
@@ -20,8 +20,8 @@
             </div>
             <nav>
                 <ul>
-                    <li><a href="{{ route('reserver.vol') }}" class="btn"><i class="fa fa-plane"></i> Réserver un vol</a></li>
-                    <li><a href="{{ route('historique.vols') }}" class="btn"><i class="fa fa-history"></i> Historique des vols</a></li>
+                    <li><a href="{{ route('abonne.reserver.vol') }}" class="btn"><i class="fa fa-plane"></i> Réserver un vol</a></li>
+                    <li><a href="{{ route('abonne.historique.vols') }}" class="btn"><i class="fa fa-history"></i> Historique des vols</a></li>
                     <li><a href="{{ route('consulter.offres') }}" class="btn"><i class="fa fa-briefcase"></i> Consulter nos offres</a></li>
                     <li><a href="{{ route('suivre.vols') }}" class="btn"><i class="fa fa-binoculars"></i> Suivre les vols</a></li>
                     <li><a href="#" id="logout-btn"><i class="fas fa-sign-out-alt"></i> Se déconnecter</a></li>
@@ -31,13 +31,7 @@
         <main class="content">
             <section id="main-content">
                 <!-- Contenu spécifique à la page d'abonné à charger ici -->
-                <h1>Bienvenue, Abonné!</h1>
-                <p>Contenu spécifique à la page d'abonné.</p>
-                
-                <!-- Conteneur pour le formulaire d'abonnement -->
-                <div id="subscription-form-container">
-                    <!-- Le formulaire sera chargé ici -->
-                </div>
+                @yield('content') <!-- Utilisation de la directive @yield pour inclure le contenu spécifique de chaque page -->
             </section>
         </main>
     </div>
@@ -45,7 +39,6 @@
     <!-- Script JavaScript pour charger le formulaire -->
     <script>
         function loadSubscriptionForm() {
-            // Exemple d'utilisation de fetch API pour charger le contenu
             fetch('{{ route("s_abonner") }}')
                 .then(response => response.text())
                 .then(html => {

@@ -1,29 +1,20 @@
-<!-- resources/views/abonne/offres.blade.php -->
-
-@extends('layouts.abonne')
+<!-- resources/views/client/nonabonne/consulter_offres.blade.php -->
+@extends('layouts.non_abonne')
 
 @section('content')
     <h1>Nos Offres</h1>
-    @if($offres->isEmpty())
+
+    @if($offers->isEmpty())
         <p>Aucune offre disponible pour le moment.</p>
     @else
-        <table>
-            <thead>
-                <tr>
-                    <th>Titre de l'offre</th>
-                    <th>Description</th>
-                    <th>Prix</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach($offres as $offre)
-                    <tr>
-                        <td>{{ $offre->title }}</td>
-                        <td>{{ $offre->description }}</td>
-                        <td>{{ $offre->price }}</td>
-                    </tr>
-                @endforeach
-            </tbody>
-        </table>
+        <div class="offers">
+            @foreach($offers as $offer)
+                <div class="offer">
+                    <h2>{{ $offer->title }}</h2>
+                    <p>{{ $offer->description }}</p>
+                    <p><strong>Prix :</strong> {{ $offer->price }} €</p>
+                </div>
+            @endforeach
+        </div>
     @endif
 @endsection

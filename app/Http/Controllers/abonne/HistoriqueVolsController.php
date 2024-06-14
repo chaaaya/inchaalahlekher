@@ -12,6 +12,6 @@ class HistoriqueVolsController extends Controller
     public function index()
     {
         $reservations = Reservation::with('vol')->get();
-        return view('abonne.historique_vols', compact('reservations'));
+        return view('client.abonne.historique_vols', compact('reservations'));
     }
 }

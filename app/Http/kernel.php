@@ -47,7 +47,10 @@ protected $routeMiddleware = [
     // Autres middlewares...
     'auth' => \App\Http\Middleware\Authenticate::class,
     'auth:client' => \App\Http\Middleware\Authenticate::class,
-    'client.status' => \App\Http\Middleware\CheckClientStatus::class,
-];
+        
+    'CheckClientStatus' => \App\Http\Middleware\CheckClientStatus::class,
+    ];
+    
+
 
 }
