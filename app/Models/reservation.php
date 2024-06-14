@@ -9,7 +9,14 @@ class Reservation extends Model
     use HasFactory;
 
     protected $fillable = [
-        'nom_passager', 'email_passager', 'numero_billet', 'date_reservation', 'vol_id'
+        'departure_location',
+        'arrival_location',
+        'departure_date',
+        'nom_passager',
+        'email_passager',
+        'numero_billet',
+        'date_reservation',
+        'vol_id', // Assurez-vous que ce champ est toujours inclus si nécessaire
     ];
 
     public function vol()

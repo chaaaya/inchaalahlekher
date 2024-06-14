@@ -1,11 +1,13 @@
 <?php
-
 namespace App\Http\Controllers\Abonne;
 
-use App\Http\Controllers\Controller;
-use App\Models\Vol;
-use Illuminate\Http\Request;
+use App\Models\Location;
 use App\Models\Reservation;
+use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+use App\Models\Offer;
+use App\Models\Hotel;
+
 class AbonneController extends Controller
 {
     public function index()
@@ -13,58 +15,69 @@ class AbonneController extends Controller
         return view('client.abonne.index');
     }
 
-    public function servicesSupplementaires()
-{
-    return view('client.abonne.services_supplementaires');
-}
-
-
-    public function __construct()
+    public function sabonner()
     {
-        $this->middleware(['auth:client']);
+        return view('client.abonne.sabonner');
     }
+    public function servicesSupplementaires()
+    {
+        $hotels = Hotel::all();
+        $locations = Location::all();
+        
+        return view('client.abonne.services_supplementaires', compact('hotels', 'locations'));
+    }
+    
+    
 
     public function reserverVol()
     {
-        // Récupérer les lieux de départ et d'arrivée distincts à partir des vols disponibles
-        $locations = Vol::select('ville_depart', 'ville_arrivee')->distinct()->get();
-        
-        // Récupérer toutes les réservations existantes
-        $reservations = Reservation::all();
-
-        // Retourner la vue avec les données des lieux de départ/arrivée et des réservations
-        return view('client.abonne.reserver_vol', [
-            'locations' => $locations,
-            'reservations' => $reservations,
-        ]);
+        $locations = Location::all();
+        return view('client.abonne.reserver_vol', compact('locations'));
     }
 
     public function historiqueVols()
     {
-        return view('client.abonne.historique_vols');
+        $reservations = Reservation::all();
+        return view('client.abonne.historique_vols', compact('reservations'));
     }
 
     public function consulterOffres()
     {
-        return view('client.abonne.offres');
+        $offres = Offer::all();
+        return view('client.abonne.offres', compact('offres'));
     }
 
     public function suivreVols()
     {
-        $volsASuivre = Vol::where('status', 'en cours')->get();
+        $volsASuivre = [];
         return view('client.abonne.suivre_vols', compact('volsASuivre'));
     }
-
-    public function sAbonner()
+    public function processReservation(Request $request)
     {
-        return view('client.abonne.sabonner');
+        $request->validate([
+            'type' => 'required|in:hotel,location',
+            'hotel_id' => 'required_if:type,hotel|exists:hotels,id',
+            'location_id' => 'required_if:type,location|exists:locations,id',
+            'departure_date' => 'required|date',
+        ]);
+    
+        if ($request->type == 'hotel') {
+            // Logique pour réserver un hôtel
+            $reservation = new Reservation([
+                'hotel_id' => $request->hotel_id,
+                'departure_date' => $request->departure_date,
+            ]);
+        } elseif ($request->type == 'location') {
+            // Logique pour réserver une location
+            $reservation = new Reservation([
+                'location_id' => $request->location_id,
+                'departure_date' => $request->departure_date,
+            ]);
+        }
+    
+        $reservation->save();
+    
+        return redirect()->route('abonne.services.supplementaires')->with('success', 'Réservation effectuée avec succès!');
     }
-
-    public function processAbonnement(Request $request)
-    {
-        // Logique pour traiter l'abonnement
-        // Par exemple, enregistrer l'abonnement dans la base de données
-
-        return redirect()->route('abonne.index')->with('success', 'Abonnement effectué avec succès!');
-    }
+    
 }

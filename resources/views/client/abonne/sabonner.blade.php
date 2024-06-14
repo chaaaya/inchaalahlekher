@@ -1,5 +1,3 @@
-<!-- resources/views/client/abonne/sabonner.blade.php -->
-
 @extends('layouts.abonne')
 
 @section('content')
