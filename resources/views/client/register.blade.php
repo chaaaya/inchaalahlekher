@@ -4,10 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{ asset('css/auth.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/login.css') }}">
+
     <title>Inscription</title>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
+    @include('partials.header1')
     <div class="container">
         <h2>Inscription</h2>
         <form id="registerForm" action="{{ route('register.post') }}" method="POST">

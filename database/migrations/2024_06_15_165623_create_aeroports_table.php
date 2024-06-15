@@ -1,5 +1,4 @@
 <?php
-
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -18,7 +17,8 @@ class CreateAeroportsTable extends Migration
             $table->string('nom');
             $table->string('ville');
             $table->string('pays');
-            $table->text('compagnies')->nullable(); // Liste de compagnies
+            // Ajoutez d'autres colonnes nécessaires
+
             $table->timestamps();
         });
     }

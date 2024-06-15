@@ -1,10 +1,9 @@
 <?php
-
 namespace App\Http\Controllers\Respo;
 
+use App\Models\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Admin;
 
 class AdminController2 extends Controller
 {
@@ -23,24 +22,14 @@ class AdminController2 extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255',
-            'email' => 'required|email|unique:admins,email',
-            'password' => 'required|string|min:8',
-            'numero_telephone' => 'nullable|string', // Ajoutez cette ligne si le numéro de téléphone est facultatif
+            'email' => 'required|string|email|max:255|unique:admins',
+            'numero_telephone' => 'required|string|max:15',
         ]);
-        
 
-        $admin = new Admin([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => bcrypt($request->password),
-            'numero_telephone' => $request->numero_telephone, // Assurez-vous que vous avez cette ligne
-        ]);
-        $admin->save();
-        return redirect()->route('respo.admins.index')
-                         ->with('success', 'Administrateur créé avec succès.');
+        Admin::create($request->all());
+
+        return redirect()->route('respo.admins.index')->with('success', 'Administrateur ajouté avec succès.');
     }
-
- 
 
     public function show($id)
     {
@@ -58,22 +47,14 @@ class AdminController2 extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255',
-            'email' => 'required|email|unique:admins,email,' . $id,
+            'email' => 'required|string|email|max:255|unique:admins,email,' . $id,
+            'numero_telephone' => 'required|string|max:15',
         ]);
 
         $admin = Admin::findOrFail($id);
-        $admin->name = $request->name;
-        $admin->email = $request->email;
+        $admin->update($request->all());
 
-        // Vérifiez si un nouveau mot de passe est soumis
-        if ($request->has('password')) {
-            $admin->password = bcrypt($request->password);
-        }
-
-        $admin->save();
-
-        return redirect()->route('respo.admins.index')
-                         ->with('success', 'Administrateur mis à jour avec succès.');
+        return redirect()->route('respo.admins.index')->with('success', 'Administrateur mis à jour avec succès.');
     }
 
     public function destroy($id)
@@ -81,9 +62,6 @@ class AdminController2 extends Controller
         $admin = Admin::findOrFail($id);
         $admin->delete();
 
-        return redirect()->route('respo.admins.index')
-                         ->with('success', 'Administrateur supprimé avec succès.');
+        return redirect()->route('respo.admins.index')->with('success', 'Administrateur supprimé avec succès.');
     }
 }
-
-?>

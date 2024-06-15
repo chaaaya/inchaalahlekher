@@ -1,7 +1,7 @@
 <!-- resources/views/admin/manage-admin.blade.php -->
 @extends('layouts.admin')
 
-@section('content')
+@section('content-admin')
     <style>
         .welcome-banner {
             background: #f8f9fa;

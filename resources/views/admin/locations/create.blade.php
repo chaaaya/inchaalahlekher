@@ -1,4 +1,6 @@
 <!-- resources/views/admin/locations/create.blade.php -->
+<link rel="stylesheet" href="{{ asset('css/content.css') }}">
+
 @extends('layouts.admin')
 
 @section('title', 'Créer une nouvelle location de voiture')

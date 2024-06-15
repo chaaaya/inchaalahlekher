@@ -1,0 +1,129 @@
+
+.content {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Styles pour les en-têtes */
+h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    text-align: center;
+    color: black;
+}
+
+/* Styles pour les messages d'alerte */
+.alert {
+    padding: 15px 25px;
+    margin-bottom: 30px;
+    border: 1px solid transparent;
+    border-radius: 8px;
+    text-align: center;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+    font-family: 'Arial', sans-serif;
+    font-size: 16px;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.alert-success {
+    color: #155724;
+    background-color: #d4edda;
+    border-color: #c3e6cb;
+}
+
+.alert:hover {
+    background-color: #c3e6cb;
+}
+
+/* Styles pour les formulaires */
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: black;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="date"],
+input[type="password"],
+textarea,
+select {
+    width: 100%;
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    margin-top: 5px;
+    margin-bottom: 15px;
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="date"]:focus,
+input[type="password"]:focus,
+textarea:focus,
+select:focus {
+    border-color: #80bdff;
+    outline: 0;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.25);
+}
+
+/* Styles pour les boutons */
+.btn {
+    display: inline-block;
+    padding: 5px 10px; /* Réduire la taille des boutons */
+    font-size: 12px; /* Réduire la taille de la police */
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none;
+    white-space: nowrap;
+    border-radius: 4px;
+    transition: background-color 0.2s, color 0.2s;
+    cursor: pointer;
+    margin-right: 5px; /* Espace entre les boutons */
+}
+
+.btn-primary {
+    color: #fff;
+    background-color: #007bff;
+    border: 1px solid #007bff;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+    border-color: #004085;
+}
+
+.btn-secondary {
+    color: #fff;
+    background-color:red;
+    border: 1px solid red;
+}
+
+.btn-secondary:hover {
+    background-color: rgba(167, 0, 0, 0.747);
+    border-color:white;
+    color: white;
+}
+
+/* Styles pour le groupe de boutons */
+.button-group {
+    display: flex;
+    justify-content: flex-start; /* Aligner les boutons à gauche */
+    gap: 10px; /* Espacement entre les boutons */
+}

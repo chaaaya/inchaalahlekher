@@ -1,3 +1,5 @@
+<link rel="stylesheet" href="{{ asset('css/content.css') }}">
+
 @extends('layouts.admin')
 
 @section('title', 'Modifier le Rapport')

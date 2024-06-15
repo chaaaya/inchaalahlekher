@@ -27,7 +27,6 @@ use App\Models\Vol;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Admin\HotelController;
 use App\Http\Controllers\Admin\LocationController;
-use App\Http\Controllers\ResponsableController;
 use App\Http\Controllers\ClientAuthController; // Assurez-vous que ce contrôleur existe
 use App\Http\Controllers\RespoAuthController;
 use App\Http\Controllers\AdminAuthController;

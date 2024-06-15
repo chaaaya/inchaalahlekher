@@ -1,11 +1,13 @@
+<link rel="stylesheet" href="{{ asset('css/content.css') }}">
+
 @extends('layouts.respo')
 
 @section('title', 'Modifier Administrateur')
 
 @section('styles')
 @section('content-respo')
-    <div class="container">
         <h1>Ajouter un administrateur</h1>
+        
         <form action="{{ route('respo.admins.store') }}" method="POST">
             @csrf
             <div class="form-group">
@@ -24,7 +26,9 @@
                 <label for="password">Mot de passe</label>
                 <input type="password" name="password" id="password" class="form-control" required>
             </div>
-            <button type="submit" class="btn btn-primary">Créer administrateur</button>
-        </form>
+            <div class="button-group">
+                <button type="submit" class="btn btn-primary">Créer administrateur</button>
+                <a href="{{ route('respo.admins.store') }}" class="btn btn-secondary">Annuler</a>
+            </div>
     </div>
 @endsection

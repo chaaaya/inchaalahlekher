@@ -1,8 +1,9 @@
+<link rel="stylesheet" href="{{ asset('css/content.css') }}">
+
 @extends('layouts.respo')
 
 @section('content-respo')
-    <div class="container">
-        <h1>Modifier le Stakeholder</h1>
+        <h1>Modifier la partie prenante</h1>
 
         <form action="{{ route('respo.stakeholders.update', $stakeholder->id) }}" method="POST">
             @csrf
@@ -23,8 +24,11 @@
                 <label for="email">Email</label>
                 <input type="email" name="email" id="email" class="form-control" value="{{ $stakeholder->email }}">
             </div>
+            <div class="button-group">
+                 <button type="submit" class="btn btn-primary">Modifier</button>
+                 <a href="{{ route('respo.stakeholders.index') }}" class="btn btn-secondary">Annuler</a>
 
-            <button type="submit" class="btn btn-primary">Modifier</button>
+            </div>
+
         </form>
-    </div>
 @endsection

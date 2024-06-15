@@ -1,20 +1,24 @@
+<link rel="stylesheet" href="{{ asset('css/content.css') }}">
+
 @extends('layouts.respo')
 
 @section('title', 'Liste des Plans de Continuité')
 
 @section('content-respo')
-    <div class="container">
+
         <h1>Liste des Plans de Continuité</h1>
 
         <a href="{{ route('respo.continuity-plans.create') }}" class="btn btn-primary mb-3">Ajouter un Plan</a>
 
-        @if ($plans->isEmpty())
-            <div class="alert alert-info">
-                Aucun plan de continuité trouvé.
+        <div class="card mt-4">
+            <div class="card-header">
+                Liste des rapports
             </div>
-        @else
-            <div class="table-responsive">
-                <table class="table table-striped">
+            <div class="card-body">
+                @if ($plans->isEmpty())
+                    <p>Aucune plan de continuité trouvé.</p>
+               @else
+                 <table class="table">
                     <thead>
                         <tr>
                             <th>ID</th>

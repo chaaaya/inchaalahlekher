@@ -2,7 +2,7 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    
+    background-color:  #7aaace;
     display: flex;
     height: 100vh;
 }
@@ -10,6 +10,7 @@ body {
 .container {
     display: flex;
     width: 100%;
+    min-height: 90vh;
 }
 /***********LOGO**********************/
 .logo{
@@ -30,13 +31,13 @@ body {
 }
 
 .logo span {
-    color:  #658faf;
+    color:  #7aaace;
     font-weight: bold;
     font-size: xx-large;
 }
 
-a:hover{
-    color:  #658faf;
+.logo a:hover{
+    color:  #7aaace;
 }
 /******************************/
 .grid-container {
@@ -67,8 +68,8 @@ a:hover{
 }
 /***************************************/
 .sidebar {
-    width: 250px;
-    background-color: #527692;
+    width: 250px;  height: 100%;
+    background-color: #343a40;
     color: white;
     display: flex;
     flex-direction: column;
@@ -103,15 +104,30 @@ a:hover{
 }
 
 .sidebar nav ul li a:hover , .sidebar nav ul li .logout-button:hover{
-    background-color: #658faf;
+    /* background-color: #658faf; */
+    background-color: #7aaace;
+}
+/****************LOGOUT-BUTTON**************/
+.nav-link.logout-button {
+    background: none;
+    border: none;
+    color: white;
+    text-align: left;
+    padding: 15px 20px;
+    width: 100%;
+    box-sizing: border-box;
+    cursor: pointer;
 }
 
-.content-admin {
-    flex-grow: 1;
-    padding: 20px;
+.nav-link.logout-button i {
+    margin-right: 10px;
 }
 
-.content-admin {
+.nav-link.logout-button:hover {
+    background-color:#bdd1e0;
+}
+/********************************/
+.content-respo {
     flex-grow: 1;
     padding: 20px;
 }
@@ -144,9 +160,11 @@ a:hover{
     border-radius: 4px;
     text-decoration: none;
     cursor: pointer;
-    margin-right: 5px;
+    /* margin-right: 5px; */
 }
-
+.btn-sm{
+    justify-content: end;
+}
 .btn-primary {
     background-color:  black;
     color: #fff;

@@ -1,3 +1,5 @@
+<link rel="stylesheet" href="{{ asset('css/content.css') }}">
+
 @extends('layouts.admin')
 
 @section('title', 'Modification d\'un Vol')
@@ -34,14 +36,16 @@
             <input type="text" id="ville_arrivee" name="ville_arrivee" class="form-control" value="{{ old('ville_arrivee', $vol->ville_arrivee) }}" required>
         </div>
 
-        <div class="form-group">
-            <label for="heure_depart">Heure de Départ :</label>
-            <input type="datetime-local" id="heure_depart" name="heure_depart" class="form-control" value="{{ old('heure_depart', $vol->heure_depart->format('Y-m-d\TH:i')) }}" required>
-        </div>
+        <div class="form-group date-group">
+            <div class="form-control">
+                <label for="heure_depart">Date/Heure de Départ :</label>
+                <input type="datetime-local" id="heure_depart" name="heure_depart" class="form-control" value="{{ old('heure_depart', $vol->heure_depart->format('Y-m-d\TH:i')) }}" required>
+            </div>
 
-        <div class="form-group">
-            <label for="heure_arrivee">Heure d'Arrivée :</label>
-            <input type="datetime-local" id="heure_arrivee" name="heure_arrivee" class="form-control" value="{{ old('heure_arrivee', $vol->heure_arrivee->format('Y-m-d\TH:i')) }}" required>
+            <div class="form-control">
+                <label for="heure_arrivee"> Date/Heure d'Arrivée :</label>
+                <input type="datetime-local" id="heure_arrivee" name="heure_arrivee" class="form-control" value="{{ old('heure_arrivee', $vol->heure_arrivee->format('Y-m-d\TH:i')) }}" required>
+            </div>
         </div>
 
         <div class="form-group">

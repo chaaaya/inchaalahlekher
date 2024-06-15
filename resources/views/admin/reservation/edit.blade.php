@@ -1,3 +1,5 @@
+<link rel="stylesheet" href="{{ asset('css/content.css') }}">
+
 @extends('layouts.admin')
 
 @section('title', 'Modifier une Réservation')
@@ -32,8 +34,9 @@
             <label for="date_reservation">Date de Réservation :</label>
             <input type="date" id="date_reservation" name="date_reservation" class="form-control" value="{{ old('date_reservation', $reservation->date_reservation) }}">
         </div>
-
-        <button type="submit" class="btn btn-primary">Mettre à jour la Réservation</button>
-        <a href="{{ route('admin.reservation.manage-reservations') }}" class="btn btn-secondary">Annuler</a>
-    </form>
+        <div class="button-group">
+            <button type="submit" class="btn btn-primary">Mettre à jour la Réservation</button>
+            <a href="{{ route('admin.reservation.manage-reservations') }}" class="btn btn-secondary">Annuler</a>
+        </div>
+   </form>
 @endsection

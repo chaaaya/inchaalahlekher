@@ -1,3 +1,5 @@
+<link rel="stylesheet" href="{{ asset('css/content.css') }}">
+
 @extends('layouts.respo')
 
 @section('title', 'Communiquer avec les Parties Prenantes')
@@ -8,6 +10,10 @@
             margin-bottom: 20px;
             border: 1px solid #ccc;
             padding: 10px;
+            background-color: #ccc;
+        }
+        h2 a :hover{
+            color: white;
         }
     </style>
 @endsection
@@ -15,8 +21,8 @@
 @section('content-respo')
 
 <div class="section-container">
-    <h2><a href="{{ route('respo.stakeholders.index') }}">Liste des Parties Prenantes</a></h2>
-    <ul>
+    <h2><a href="{{ route('respo.stakeholders.index') }}"> Clicker ici pour voir la liste des Parties Prenantes</a></h2>
+    {{-- <ul>
         @foreach($stakeholders as $stakeholder)
             <li>
                 <a href="{{ route('respo.stakeholders.show', $stakeholder->id) }}">
@@ -24,7 +30,7 @@
                 </a>
             </li>
         @endforeach
-    </ul>
+    </ul> --}}
 </div>
 
 <div class="section-container">
@@ -48,25 +54,39 @@
 </div>
 
 <div class="section-container">
-    <h2>Historique des Communications</h2>
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Date</th>
-                <th>Destinataire</th>
-                <th>Message</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach($communications as $communication)
-                <tr>
-                    <td>{{ $communication->created_at->format('d-m-Y H:i') }}</td>
-                    <td>{{ $communication->recipient }}</td>
-                    <td>{{ $communication->message }}</td>
-                </tr>
-            @endforeach
-        </tbody>
-    </table>
+    <h2 >Historique des Communications</h2>
+    <div class="card mt-4">
+        <div class="card-header">
+            Liste des rapports
+        </div>
+        <div class="card-body">
+
+        @if ($communications->isEmpty())
+            <div class="alert alert-info">
+                Aucun communication trouvé.
+            </div>
+        @else
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Destinataire</th>
+                        <th>Message</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach($communications as $communication)
+                        <tr>
+                            <td>{{ $communication->created_at->format('d-m-Y H:i') }}</td>
+                            <td>{{ $communication->recipient }}</td>
+                            <td>{{ $communication->message }}</td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+        @endif
+    </div>
 </div>
 
 <div class="section-container">

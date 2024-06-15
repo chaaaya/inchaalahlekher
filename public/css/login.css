@@ -1,0 +1,125 @@
+body {
+    background-color: #658faf;
+    min-height: 100vh;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    margin: 0;
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+header {
+    width: 100%;
+    height: 75px;
+    background-color: #2c2c2c;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+.logoImage{
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    width: 90px;
+    height: 80px;
+    border-radius: 50%;
+}
+.btn {
+    background-color: transparent;
+    border: none;
+    color: white;
+    padding: 20px 20px;
+    font-size: 16px;
+    cursor: pointer;
+}
+.logo a {
+    color: #fff;
+    padding: 4px 20px;
+    border: 3px solid #fff;
+    position: absolute;
+    top: 13px;
+    left: 13px;
+    text-transform: uppercase;
+    text-decoration: none;
+    font-weight: 900;
+    text-shadow: rgba(0, 0, 0, 0, 7);
+    font-size: large;
+}
+
+.logo span {
+    color:  #658faf;
+    font-weight: bold;
+    font-size: xx-large;
+}
+
+a:hover {
+    color: #658faf;
+}
+.login-container {
+    background-color: #fff;
+    padding: 20px 40px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    width: 400px;
+    text-align: center;
+    margin-top: 100px; /* to avoid overlapping with fixed header */
+    margin-bottom: 100px;
+}
+.login-container h2 {
+    margin-bottom: 20px;
+    color: #333;
+}
+.login-container input {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+.login-container button {
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+.login-container button:hover {
+    background-color: #0056b3;
+}
+.login-container .alert {
+    background-color: #f8d7da;
+    color: #721c24;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #f5c6cb;
+    border-radius: 4px;
+    text-align: left;
+}
+.login-container .alert ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+.login-container a {
+    display: block;
+    margin-top: 10px;
+    color: #007bff;
+    text-decoration: none;
+}
+.login-container a:hover {
+    text-decoration: underline;
+}
+button{
+    margin-top: 20px;
+}

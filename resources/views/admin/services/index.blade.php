@@ -23,6 +23,8 @@
             width: calc(50% - 10px);
             padding: 10px;
             box-sizing: border-box;
+            background-color: white;
+            border-radius: 8px;
         }
     </style>
 

@@ -1,10 +1,11 @@
 <!-- resources/views/admin/hotels/create.blade.php -->
+<link rel="stylesheet" href="{{ asset('css/content.css') }}">
+
 @extends('layouts.admin')
 
 @section('title', 'Créer un nouvel hôtel')
 
 @section('content')
-    <div class="container">
         <h2>Créer un nouvel hôtel</h2>
 
         <form action="{{ route('admin.hotels.store') }}" method="POST">
@@ -22,8 +23,9 @@
                 <input type="text" id="adresse" name="adresse" class="form-control">
             </div>
             <!-- Ajoutez d'autres champs du formulaire ici selon vos besoins -->
-
-            <button type="submit" class="btn btn-primary">Créer Hôtel</button>
+            <div class="button-group">
+                <button type="submit" class="btn btn-primary">Créer Hôtel</button>
+               <a href="{{ route('admin.hotels.store') }}" class="btn btn-secondary">Annuler</a>
+            </div>
         </form>
-    </div>
 @endsection

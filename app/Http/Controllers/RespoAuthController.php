@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
+
 
 class RespoAuthController extends Controller
 {
@@ -23,6 +25,8 @@ class RespoAuthController extends Controller
         // Tentative d'authentification
         if (Auth::guard('responsable')->attempt($credentials)) {
             $request->session()->regenerate();
+            Log::info('Respo authenticated successfully.');
+
 
             return redirect()->intended('/respo/welcome'); // Redirection après connexion réussie
         }

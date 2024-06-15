@@ -1,8 +1,9 @@
+<link rel="stylesheet" href="{{ asset('css/content.css') }}">
+
 @extends('layouts.respo')
 
 @section('content-respo')
-    <div class="container">
-        <h1>Ajouter un Stakeholder</h1>
+        <h1>Ajouter une partie de continuité</h1>
 
         <form action="{{ route('respo.stakeholders.store') }}" method="POST">
             @csrf
@@ -21,8 +22,9 @@
                 <label for="email">Email:</label>
                 <input type="email" id="email" name="email" class="form-control" required>
             </div>
-
-            <button type="submit" class="btn btn-primary">Ajouter</button>
+            <div class="button-group">
+                <button type="submit" class="btn btn-primary">Ajouter</button>
+                <a href="{{ route('respo.stakeholders.store') }}" class="btn btn-secondary">Annuler</a>
+            </div>
         </form>
-    </div>
 @endsection

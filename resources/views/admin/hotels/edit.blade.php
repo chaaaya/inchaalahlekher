@@ -1,4 +1,6 @@
 <!-- resources/views/admin/hotels/edit.blade.php -->
+<link rel="stylesheet" href="{{ asset('css/content.css') }}">
+
 @extends('layouts.admin')
 
 @section('title', 'Modifier l\'hôtel')
@@ -22,7 +24,10 @@
             <input type="text" id="adresse" name="adresse" class="form-control" value="{{ $hotel->adresse }}">
         </div>
         <!-- Ajoutez d'autres champs du formulaire ici selon vos besoins -->
+        <div class="button-group">
+            <button type="submit" class="btn btn-primary">Enregistrer les modifications</button>
+            <a href="{{ route('admin.hotels.store') }}" class="btn btn-secondary">Annuler</a>
+        </div>
 
-        <button type="submit" class="btn btn-primary">Enregistrer les modifications</button>
     </form>
 @endsection

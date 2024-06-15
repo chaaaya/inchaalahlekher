@@ -1,10 +1,12 @@
+<link rel="stylesheet" href="{{ asset('css/content.css') }}">
+
 @extends('layouts.respo')
 
 @section('title', 'Modifier le Rapport')
 
 @section('content-respo')
-    <div class="container mt-4">
-        <h1>Modifier le Rapport</h1>
+
+   <h1>Modifier le Rapport</h1>
         <form action="{{ route('respo.reports.update', $rapport->id) }}" method="POST">
             @csrf
             @method('PUT')
@@ -16,8 +18,9 @@
                 <label for="description">Description</label>
                 <textarea class="form-control" id="description" name="description" rows="4" required>{{ $rapport->description }}</textarea>
             </div>
-            <button type="submit" class="btn btn-primary">Mettre à jour</button>
-            <a href="{{ route('respo.reports.index') }}" class="btn btn-secondary">Annuler</a>
+            <div class="button-group">
+               <button type="submit" class="btn btn-primary">Mettre à jour</button>
+               <a href="{{ route('respo.reports.index') }}" class="btn btn-secondary">Annuler</a>
+        </div>
         </form>
-    </div>
 @endsection

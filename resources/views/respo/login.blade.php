@@ -7,6 +7,7 @@
     <title>Connexion - Responsable</title>
 </head>
 <body>
+    @include('partials.header1');
     <div class="login-container">
         <h2>Connexion - Responsable</h2>
         <form action="{{ route('respo.login') }}" method="POST">

@@ -1,4 +1,5 @@
-<?php 
+<?php
+
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -14,12 +15,13 @@ class CreateVolsTable extends Migration
     {
         Schema::create('vols', function (Blueprint $table) {
             $table->id();
-            $table->string('numero_vol')->unique();
+            $table->string('numero_vol');
             $table->string('ville_depart');
             $table->string('ville_arrivee');
-            $table->datetime('heure_depart');
-            $table->datetime('heure_arrivee');
-            $table->string('compagnie');
+            $table->dateTime('heure_depart');
+            $table->dateTime('heure_arrivee');
+            $table->unsignedBigInteger('compagnie_id');
+            $table->foreign('compagnie_id')->references('id')->on('compagnies');
             $table->timestamps();
         });
     }

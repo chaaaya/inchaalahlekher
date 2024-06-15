@@ -3,7 +3,6 @@
 @section('title', 'Modifier un Plan de Continuité')
 
 @section('content-respo')
-    <div class="container">
         <h1>Modifier le Plan de Continuité</h1>
 
         <form action="{{ route('respo.continuity-plans.update', $plan->id) }}" method="POST">
@@ -19,8 +18,10 @@
                 <label for="description">Description</label>
                 <textarea id="description" name="description" class="form-control">{{ $plan->description }}</textarea>
             </div>
+            <div class="button-group">
+                <button type="submit" class="btn btn-primary">Modifier</button>
+                <a href="{{ route('respo.continuity-plans.index') }}" class="btn btn-secondary">Annuler</a> <!-- Correction ici -->
+            </div>
 
-            <button type="submit" class="btn btn-primary">Modifier</button>
         </form>
-    </div>
 @endsection

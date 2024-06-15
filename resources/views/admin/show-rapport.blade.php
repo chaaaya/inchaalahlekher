@@ -1,4 +1,5 @@
 <!-- resources/views/admin/show-rapport.blade.php -->
+<link rel="stylesheet" href="{{ asset('css/content.css') }}">
 
 @extends('layouts.admin')
 

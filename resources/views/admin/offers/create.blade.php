@@ -1,3 +1,5 @@
+<link rel="stylesheet" href="{{ asset('css/content.css') }}">
+
 @extends('layouts.admin')
 
 @section('title', 'Créer une Offre')
@@ -31,8 +33,10 @@
             <label for="image">Image :</label>
             <input type="file" id="image" name="image" class="form-control">
         </div>
+        <div class="button-group">
+            <button type="submit" class="btn btn-primary btn-small">Créer Offre</button>
+            <a href="{{ route('admin.offers.index') }}" class="btn btn-secondary btn-small">Annuler</a>
+        </div>
 
-        <button type="submit" class="btn btn-primary">Créer Offre</button>
-        <a href="{{ route('admin.offers.index') }}" class="btn btn-secondary">Annuler</a>
-    </form>
+       </form>
 @endsection

@@ -1,3 +1,5 @@
+<link rel="stylesheet" href="{{ asset('css/content.css') }}">
+
 @extends('layouts.admin')
 
 @section('title', 'Création d\'un Vol')
@@ -47,7 +49,9 @@
             <label for="compagnie">Compagnie :</label>
             <input type="text" id="compagnie" name="compagnie" class="form-control" value="{{ old('compagnie') }}" required>
         </div>
-
-        <button type="submit" class="btn btn-primary">Créer le Vol</button>
+        <div class="button-group">
+            <button type="submit" class="btn btn-primary">Créer le Vol</button>
+            <a href="{{ route('admin.vols.store') }}" class="btn btn-secondary">Annuler</a>
+        </div>
     </form>
 @endsection
