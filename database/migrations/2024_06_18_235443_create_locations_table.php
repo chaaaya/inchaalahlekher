@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Schema;
 class CreateLocationsTable extends Migration
 {
     /**
-     * Run the migrations.
+     * Exécute la migration.
      *
      * @return void
      */
@@ -15,13 +15,22 @@ class CreateLocationsTable extends Migration
     {
         Schema::create('locations', function (Blueprint $table) {
             $table->id();
-           $table->string('name');
+            $table->string('nom');
+            $table->string('adresse');
+            $table->string('ville');
+            $table->string('pays');
+            $table->string('image')->nullable();
+            $table->string('lien')->nullable();
+            $table->unsignedBigInteger('aeroport_id');
             $table->timestamps();
+
+            // Clé étrangère vers la table 'aeroports'
+            $table->foreign('aeroport_id')->references('id')->on('aeroports');
         });
     }
 
     /**
-     * Reverse the migrations.
+     * Revert la migration.
      *
      * @return void
      */

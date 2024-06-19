@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use App\Models\Vol;
@@ -9,7 +8,8 @@ class ConsulterVolsNewController extends Controller
 {
     public function index()
     {
-        $vols = Vol::all();
+        // Charger les vols avec leurs compagnies
+        $vols = Vol::with('compagnie')->get();
         return view('consulter-vols', compact('vols'));
     }
 
@@ -20,7 +20,8 @@ class ConsulterVolsNewController extends Controller
         $ville_arrivee = $request->input('ville_arrivee');
 
         // Effectuer la recherche basée sur les villes de départ et d'arrivée
-        $vols = Vol::where('ville_depart', 'LIKE', "%$ville_depart%")
+        $vols = Vol::with('compagnie')
+                    ->where('ville_depart', 'LIKE', "%$ville_depart%")
                     ->where('ville_arrivee', 'LIKE', "%$ville_arrivee%")
                     ->get();
 

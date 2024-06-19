@@ -9,7 +9,19 @@ class Location extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'description', 'adresse']; // Assurez-vous que 'name' est inclus ici
+    protected $fillable = [
+        'nom',
+        'adresse',
+        'ville',
+        'pays',
+        'image',
+        'lien',
+        'aeroport_id',
+    ];
 
-    // Le reste de votre modèle
+    // Relation avec l'aéroport (une location appartient à un aéroport)
+    public function airport()
+    {
+        return $this->belongsTo(Aeroport::class, 'aeroport_id');
+    }
 }

@@ -54,4 +54,13 @@ class ClientController extends Controller
 
         return redirect()->route('admin.clients.index')->with('success', 'Client mis à jour avec succès.');
     }
+    public function mesReservations($clientId)
+    {
+        // Récupérer le client avec ses réservations
+        $client = Client::findOrFail($clientId);
+        $reservations = $client->reservations;
+
+        // Retourner la vue avec les réservations du client
+        return view('client.mes_reservations', compact('reservations'));
+    }
 }

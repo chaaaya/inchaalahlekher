@@ -1,19 +1,19 @@
 <?php
-
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Hotel extends Model
 {
-    use HasFactory;
+    protected $table = 'hotels'; // Nom de la table dans la base de données
 
-    protected $fillable = ['nom', 'description', 'adresse']; // Ajoutez 'adresse' à la liste des fillables
-
-    // Exemple de relation avec les offres (Many-to-Many)
-    public function offres()
-    {
-        return $this->belongsToMany(Offer::class, 'hotel_offre');
-    }
+    // Champs remplissables dans la table 'hotels'
+    protected $fillable = [
+        'name',         // Nom de l'hôtel
+        'ville',        // Ville où se situe l'hôtel
+        'image',        // Chemin vers l'image de l'hôtel (stockée dans le dossier public/images)
+        'description',
+        'lien',  // Description de l'hôtel
+        // Ajoutez d'autres champs si nécessaire en fonction de votre structure de table
+    ];
 }

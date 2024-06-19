@@ -8,19 +8,41 @@ class Reservation extends Model
 {
     use HasFactory;
 
+  
     protected $fillable = [
-        'departure_location',
-        'arrival_location',
-        'departure_date',
-        'nom_passager',
-        'email_passager',
-        'numero_billet',
-        'date_reservation',
-        'vol_id', // Assurez-vous que ce champ est toujours inclus si nécessaire
+        'nom',
+        'prenom',
+        'date_naissance',
+        'sexe',
+        'nationalite',
+        'num_identite',
+        'date_expiration_identite',
+        'pays_delivrance_identite',
+        'date_depart',
+        'date_retour',
+        'email',
+        'telephone',
+        'num_carte',
+        'date_expiration_carte',
+        'cvv',
+        'nom_titulaire_carte',
+        'ville_depart',
+        'ville_arrivee',
+        'client_id',
+        'vol_id', // Ajoutez cette ligne
     ];
+    
 
-    public function vol()
+   
+public function vol()
+{
+    return $this->belongsTo(Vol::class, 'vol_id');
+}
+    public function client()
     {
-        return $this->belongsTo(Vol::class);
+        return $this->belongsTo(Client::class);
     }
+    // Dans app/Models/Reservation.php
+
+
 }

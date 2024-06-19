@@ -21,6 +21,10 @@
             <nav>
                 <ul>
                     <li><a href="{{ route('abonne.reserver.vol') }}" class="btn"><i class="fa fa-plane"></i> Réserver un vol</a></li>
+                  
+                   <li> <a href="{{ route('mes.reservations') }}" class="btn btn-primary">
+                        Mettre à jour mes réservations
+                    </a> </li>   
                     <li><a href="{{ route('abonne.historique.vols') }}" class="btn"><i class="fa fa-history"></i> Historique des vols</a></li>
                     <li><a href="{{ route('abonne.consulter.offres') }}" class="btn"><i class="fa fa-briefcase"></i> Consulter nos offres</a></li>
                     <li><a href="{{ route('abonne.suivre.vols') }}" class="btn"><i class="fa fa-binoculars"></i> Suivre les vols</a></li>

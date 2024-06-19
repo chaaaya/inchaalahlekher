@@ -1,10 +1,11 @@
 <?php
 namespace App\Http\Controllers\Abonne;
 
-use App\Models\Location;
-use App\Models\Reservation;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Vol;
+use App\Models\Location;
+use App\Models\Reservation;
 use App\Models\Offer;
 use App\Models\Hotel;
 
@@ -19,21 +20,16 @@ class AbonneController extends Controller
     {
         return view('client.abonne.sabonner');
     }
-    public function servicesSupplementaires()
-    {
-        $hotels = Hotel::all();
-        $locations = Location::all();
-        
-        return view('client.abonne.services_supplementaires', compact('hotels', 'locations'));
-    }
-    
-    
 
-    public function reserverVol()
+   
+
+
+    public function showAllVols()
     {
-        $locations = Location::all();
-        return view('client.abonne.reserver_vol', compact('locations'));
+        $vols = Vol::all();
+        return view('client.abonne.reserver.reserver_vol', compact('vols'));
     }
+
 
     public function historiqueVols()
     {
@@ -52,32 +48,13 @@ class AbonneController extends Controller
         $volsASuivre = [];
         return view('client.abonne.suivre_vols', compact('volsASuivre'));
     }
-    public function processReservation(Request $request)
+
+    public function mesReservations()
     {
-        $request->validate([
-            'type' => 'required|in:hotel,location',
-            'hotel_id' => 'required_if:type,hotel|exists:hotels,id',
-            'location_id' => 'required_if:type,location|exists:locations,id',
-            'departure_date' => 'required|date',
-        ]);
-    
-        if ($request->type == 'hotel') {
-            // Logique pour réserver un hôtel
-            $reservation = new Reservation([
-                'hotel_id' => $request->hotel_id,
-                'departure_date' => $request->departure_date,
-            ]);
-        } elseif ($request->type == 'location') {
-            // Logique pour réserver une location
-            $reservation = new Reservation([
-                'location_id' => $request->location_id,
-                'departure_date' => $request->departure_date,
-            ]);
-        }
-    
-        $reservation->save();
-    
-        return redirect()->route('abonne.services.supplementaires')->with('success', 'Réservation effectuée avec succès!');
+        // Logique pour récupérer les réservations de l'abonné
+        $reservations = Reservation::where('user_id', auth()->id())->get();
+
+        return view('client.abonne.mes_reservations', compact('reservations'));
     }
-    
+
 }

@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-
     <title>Consulter les vols</title>
     <style>
         body {
@@ -85,11 +84,22 @@
             background-color: rgba(255, 255, 255, 0.4); 
             color: black;
         }
-
+        .reserve-btn {
+            background-color: #28a745;
+            color: #fff;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        .reserve-btn:hover {
+            background-color: #218838;
+        }
     </style>
 </head>
 <body>
-    @include('partials.header');
+    @include('partials.header')
     <a class="back-button" onclick="history.back()">
         <i class="fas fa-arrow-left"></i> Retour
     </a>
@@ -113,24 +123,26 @@
         <table>
             <thead>
                 <tr>
-                    <th>Numéro de vol</th>
                     <th>Ville de départ</th>
                     <th>Ville d'arrivée</th>
                     <th>Heure de départ</th>
                     <th>Heure d'arrivée</th>
                     <th>Compagnie</th>
+                    
                 </tr>
             </thead>
             <tbody>
                 @if ($vols->count() > 0)
                     @foreach ($vols as $vol)
                         <tr>
-                            <td>{{ $vol->numero_vol }}</td>
                             <td>{{ $vol->ville_depart }}</td>
                             <td>{{ $vol->ville_arrivee }}</td>
                             <td>{{ $vol->heure_depart }}</td>
                             <td>{{ $vol->heure_arrivee }}</td>
-                            <td>{{ $vol->compagnie }}</td>
+                            <td>{{ $vol->compagnie->nom }}</td>
+                            <td>
+                                <a href="{{ route('client.login') }}" class="reserve-btn">Réserver</a>
+                            </td>
                         </tr>
                     @endforeach
                 @else

@@ -20,4 +20,9 @@ class Vol extends Model{
         'heure_depart' => 'datetime',
         'heure_arrivee' => 'datetime',
     ];
+    public function compagnie()
+    {
+        return $this->belongsTo(Compagnie::class);
+    }
 }
+
