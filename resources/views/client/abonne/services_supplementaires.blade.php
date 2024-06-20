@@ -1,6 +1,6 @@
 <!-- resources/views/abonne/services_supplementaires.blade.php -->
 
-@extends('layouts.non_abonne')
+@extends('layouts.abonne')
 
 @section('content')
     <h1>Services Supplémentaires</h1>

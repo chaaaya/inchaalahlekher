@@ -1,4 +1,4 @@
-@extends('layouts.abonne')
+@extends('layouts.nonabonne')
 
 @section('content')
     <h2>Formulaire d'abonnement</h2>

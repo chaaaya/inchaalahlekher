@@ -1,60 +1,55 @@
 <?php
-
 namespace App\Http\Controllers\nonabonne;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Vol;
+use App\Models\Location;
+use App\Models\Reservation;
 use App\Models\Offer;
+use App\Models\Hotel;
 
-class NonAbonneController extends Controller
+class nonabonneController extends Controller
 {
     public function index()
     {
         return view('client.nonabonne.index');
     }
 
-    public function reserverVol()
+    public function sabonner()
     {
-        $locations = Vol::select('ville_depart', 'ville_arrivee')->distinct()->get();
-        return view('client.nonabonne.reserver_vol', ['locations' => $locations]);
+        return view('client.nonabonne.sabonner');
     }
 
-    public function processReservation(Request $request)
-    {
-        // Logique de traitement de la réservation ici
-        // Par exemple, enregistrer les données dans la base de données
-        // Redirection ou affichage d'une vue de confirmation
+   
 
-        return redirect()->route('reserver.vol')->with('success', 'Réservation effectuée avec succès!');
+
+    public function showAllVols()
+    {
+        $vols = Vol::all();
+        return view('client.nonabonne.reserver.reserver_vol', compact('vols'));
     }
+
 
     public function historiqueVols()
     {
-        // Si vous ne souhaitez pas filtrer par client_id, récupérez simplement tous les vols
-        $vols = Vol::all();
-        return view('client.nonabonne.historique_vols', ['vols' => $vols]);
+        $reservations = Reservation::all();
+        return view('client.nonabonne.historique_vols', compact('reservations'));
     }
 
-    public function servicesSupplementaires()
-    {
-        return view('client.nonabonne.services_supplementaires');
-    }
-
-    public function consulterOffres()
-    {
-        $offers = Offer::all();
-        return view('client.nonabonne.offres', ['offers' => $offers]);
-    }
 
     public function suivreVols()
     {
-        $vols = Vol::all();
-        return view('client.nonabonne.suivre_vols', ['vols' => $vols]);
+        $volsASuivre = [];
+        return view('client.nonabonne.suivre_vols', compact('volsASuivre'));
     }
 
-    public function __construct()
+    public function mesReservations()
     {
-        $this->middleware('auth:client');
+        // Logique pour récupérer les réservations de l'abonné
+        $reservations = Reservation::where('user_id', auth()->id())->get();
+
+        return view('client.nonabonne.mes_reservations', compact('reservations'));
     }
+
 }

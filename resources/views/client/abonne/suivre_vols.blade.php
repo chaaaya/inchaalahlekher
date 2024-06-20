@@ -1,14 +1,22 @@
-<!-- resources/views/client/abonne/suivre_vols.blade.php -->
-
+<!-- resources/views/client/nonabonne/suivre_vols.blade.php -->
 @extends('layouts.abonne')
 
 @section('content')
     <h1>Suivre les vols</h1>
 
-    @foreach ($volsASuivre as $vol)
-        <div>
-            <!-- Affichez les détails du vol à suivre selon votre besoin -->
-            <p>{{ $vol->numero_vol }} - {{ $vol->ville_depart }} à {{ $vol->ville_arrivee }} - {{ $vol->heure_depart }} à {{ $vol->heure_arrivee }}</p>
+    @if($vols->isEmpty())
+        <p>Aucun vol disponible pour le moment.</p>
+    @else
+        <div class="vols">
+            @foreach($vols as $vol)
+                <div class="vol">
+                    <h2>Vol n° {{ $vol->id }}</h2>
+                    <p><strong>Départ :</strong> {{ $vol->ville_depart }}</p>
+                    <p><strong>Arrivée :</strong> {{ $vol->ville_arrivee }}</p>
+                    <p><strong>Date de départ :</strong> {{ $vol->date_depart }}</p>
+                    <p><strong>Statut :</strong> {{ $vol->statut }}</p>
+                </div>
+            @endforeach
         </div>
-    @endforeach
+    @endif
 @endsection

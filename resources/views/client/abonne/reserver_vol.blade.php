@@ -1,4 +1,4 @@
-@extends('layouts.non_abonne')
+@extends('layouts.abonne')
 
 @section('content')
     <h1>Réserver un vol</h1>

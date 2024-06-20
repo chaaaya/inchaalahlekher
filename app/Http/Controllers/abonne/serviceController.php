@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\nonabonne;
+namespace App\Http\Controllers\abonne;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;

@@ -1,4 +1,4 @@
-@extends('layouts.abonne')
+@extends('layouts.nonabonne')
 
 @section('content')
     <div class="container">
@@ -8,7 +8,7 @@
                     <div class="card-header">Formulaire de réservation pour le vol</div>
 
                     <div class="card-body">
-                        <form action="{{ route('abonne.process.reservation') }}" method="POST" class="reservation-form">
+                        <form action="{{ route('nonabonne.process.reservation') }}" method="POST" class="reservation-form">
                             @csrf
                             <!-- Champ caché pour vol_id -->
                             <input type="hidden" name="vol_id" value="{{ $vol->id }}">

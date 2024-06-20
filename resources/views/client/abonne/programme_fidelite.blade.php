@@ -1,6 +1,6 @@
 <!-- resources/views/non_abonne/programme_fidelite.blade.php -->
 
-@extends('layouts.non_abonne')
+@extends('layouts.abonne')
 
 @section('content')
     <div class="container">

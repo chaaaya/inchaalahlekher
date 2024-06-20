@@ -1,7 +1,7 @@
 <?php
 // app/Http/Controllers/Abonne/HotelController.php
 
-namespace App\Http\Controllers\Abonne;
+namespace App\Http\Controllers\nonAbonne;
 
 use App\Http\Controllers\Controller;
 use App\Models\Hotel; // Inclure le modèle Hotel
@@ -15,6 +15,6 @@ class Hotel1Controller extends Controller
         $hotels = Hotel::all();
 
         // Retourner la vue avec les données des hôtels
-        return view('client.abonne.services.hotels', compact('hotels'));
+        return view('client.nonabonne.services.hotels', compact('hotels'));
     }
 }

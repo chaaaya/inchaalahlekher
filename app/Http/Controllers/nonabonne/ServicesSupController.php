@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Abonne;
+namespace App\Http\Controllers\nonAbonne;
 
 use App\Http\Controllers\Controller;
 use App\Models\Hotel;
@@ -13,6 +13,6 @@ class ServicesSupController extends Controller
         $hotels = Hotel::all();
         $locations = Location::all();
         
-        return view('client.abonne.services.services_supplementaires', compact('hotels', 'locations'));
+        return view('client.nonabonne.services.services_supplementaires', compact('hotels', 'locations'));
     }
 }

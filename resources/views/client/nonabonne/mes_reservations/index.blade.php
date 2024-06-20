@@ -1,4 +1,4 @@
-@extends('layouts.abonne')
+@extends('layouts.nonabonne')
 
 @section('content')
 <style>

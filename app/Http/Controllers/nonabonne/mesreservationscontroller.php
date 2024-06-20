@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Abonne;
+namespace App\Http\Controllers\nonabonne;
 
 use App\Http\Controllers\Controller;
 
@@ -18,14 +18,14 @@ class MesReservationsController extends Controller
             abort(404, 'Client not found');
         }
         $reservations = $client->reservations;
-        return view('client.abonne.mes_reservations.index', compact('reservations'));
+        return view('client.nonabonne.mes_reservations.index', compact('reservations'));
     }
 
     // Méthode pour afficher le formulaire de modification
     public function edit($id)
     {
         $reservation = Reservation::findOrFail($id);
-        return view('client.abonne.mes_reservations.edit', compact('reservation'));
+        return view('client.nonabonne.mes_reservations.edit', compact('reservation'));
     }
 
     // Méthode pour mettre à jour la réservation

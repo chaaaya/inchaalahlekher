@@ -11,7 +11,7 @@
 
     <!-- Barre de recherche -->
     <div class="search-bar">
-        <form action="{{ route('abonne.reserver.vol') }}" method="GET">
+        <form action="{{ route('nonabonne.reserver.vol') }}" method="GET">
             <div>
                 <label for="ville_depart">Ville de départ :</label>
                 <input type="text" id="ville_depart" name="ville_depart" value="{{ request('ville_depart') }}">
@@ -22,7 +22,7 @@
             </div>
             <button type="submit" class="btn btn-primary">Rechercher</button>
             @if (isset($hasSearchResults) && $hasSearchResults)
-                <a href="{{ route('abonne.vols.index') }}" class="btn btn-secondary">Afficher tous les vols</a>
+                <a href="{{ route('nonabonne.vols.index') }}" class="btn btn-secondary">Afficher tous les vols</a>
             @endif
         </form>
     </div>
@@ -60,14 +60,14 @@
                                 
                                 @if ($reservation)
                                     <!-- Lien vers la page de confirmation de réservation -->
-                                    <a href="{{ route('abonne.reservation.details', ['vol' => $vol->id, 'reservation' => $reservation->id]) }}" class="btn btn-info">Voir la réservation</a>
+                                    <a href="{{ route('nonabonne.reservation.details', ['vol' => $vol->id, 'reservation' => $reservation->id]) }}" class="btn btn-info">Voir la réservation</a>
 
 
 
 
                                 @else
                                     <!-- Lien vers la page de réservation avec le formulaire -->
-                                    <a href="{{ route('abonne.vols.reservation', ['vol' => $vol->id]) }}" class="btn btn-success">Réserver</a>
+                                    <a href="{{ route('nonabonne.vols.reservation', ['vol' => $vol->id]) }}" class="btn btn-success">Réserver</a>
 
                                 @endif
                                 

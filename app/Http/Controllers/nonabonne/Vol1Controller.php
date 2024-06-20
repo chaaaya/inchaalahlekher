@@ -1,6 +1,5 @@
 <?php
-
-namespace App\Http\Controllers\Abonne;
+namespace App\Http\Controllers\nonabonne;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -14,7 +13,7 @@ class Vol1Controller extends Controller
     public function index()
     {
         $vols = Vol::all();
-        return view('client.abonne.reserver.reserver_vol', compact('vols'));
+        return view('client.nonabonne.reserver.reserver_vol', compact('vols'));
     }
 
     public function reserverVol(Request $request)
@@ -33,44 +32,19 @@ class Vol1Controller extends Controller
     
         // Rediriger avec un message d'erreur si aucun vol n'est trouvé
         if (!$hasSearchResults) {
-            return redirect()->route('abonne.vols.index')->with('error', 'Aucun vol trouvé.');
+            return redirect()->route('nonabonne.vols.index')->with('error', 'Aucun vol trouvé.');
         }
     
         // Si des vols sont trouvés, afficher la vue avec les résultats
-        return view('client.abonne.reserver.reserver_vol', compact('vols', 'ville_depart', 'ville_arrivee', 'hasSearchResults'));
-    }
-    // Recherche de vols
-    public function rechercher(Request $request)
-    {
-        $ville_depart = $request->input('ville_depart');
-        $ville_arrivee = $request->input('ville_arrivee');
-
-        $vols = Vol::where('ville_depart', 'LIKE', "%$ville_depart%")
-                    ->where('ville_arrivee', 'LIKE', "%$ville_arrivee%")
-                    ->get();
-
-        $hasSearchResults = !$vols->isEmpty();
-
-        return view('client.abonne.reserver.reserver_vol', compact('vols', 'ville_depart', 'ville_arrivee', 'hasSearchResults'));
+        return view('client.nonabonne.reserver.reserver_vol', compact('vols', 'ville_depart', 'ville_arrivee', 'hasSearchResults'));
     }
 
     // Afficher le formulaire de réservation pour un vol spécifique
-    public function howReservationDetails($vol_id, $reservation_id)
+    public function showReservationForm($vol_id)
     {
-        // Récupérer la réservation et le vol correspondants
-        $reservation = Reservation::findOrFail($reservation_id);
         $vol = Vol::findOrFail($vol_id);
-    
-        // Vérifier si la réservation et le vol correspondent
-        if ($reservation->vol_id != $vol->id) {
-            // Gérer le cas où la réservation et le vol ne correspondent pas
-            return redirect()->route('abonne.vols.index')->with('error', 'La réservation et le vol ne correspondent pas.');
-        }
-    
-        // Rediriger vers la vue de confirmation avec les détails de la réservation
-        return view('client.abonne.reserver.confirmation_reservation', compact('reservation', 'vol'));
+        return view('client.nonabonne.reserver.reservation_form', compact('vol'));
     }
-    
 
     // Traiter la réservation
     public function processReservation(Request $request)
@@ -116,19 +90,19 @@ class Vol1Controller extends Controller
         $reservation = Reservation::create($validatedData);
 
         // Rediriger vers la vue de confirmation avec les détails de la réservation
-        return redirect()->route('abonne.reservation.details', ['reservation_id' => $reservation->id]);
+        return redirect()->route('nonabonne.reservation.details', ['vol' => $validatedData['vol_id'], 'reservation' => $reservation->id]);
     }
-    public function showReservationForm($vol_id)
-    {
-        // Récupérer le vol spécifique par $vol_id
-        $vol = Vol::findOrFail($vol_id);
-    
-        // Retourner la vue du formulaire de réservation avec les données du vol
-        return view('client.abonne.reserver.reservation_form', compact('vol'));
-    }
-    
 
     // Afficher les détails de la réservation
+    public function showReservationDetails($vol_id, $reservation_id)
+    {
+        $reservation = Reservation::findOrFail($reservation_id);
+        $vol = Vol::findOrFail($vol_id);
 
+        if ($reservation->vol_id != $vol->id) {
+            return redirect()->route('nonabonne.vols.index')->with('error', 'La réservation et le vol ne correspondent pas.');
+        }
+
+        return view('client.nonabonne.reserver.confirmation_reservation', compact('reservation', 'vol'));
+    }
 }
-

@@ -1,5 +1,4 @@
-<!-- resources/views/client/nonabonne/historique_vols.blade.php -->
-@extends('layouts.non_abonne')
+@extends('layouts.nonabonne')
 
 @section('content')
     <h1>Historique des vols</h1>
@@ -10,8 +9,8 @@
         </div>
     @endif
 
-    @if($vols->isEmpty())
-        <p>Aucun vol trouvé.</p>
+    @if($reservations->isEmpty())
+        <p>Aucune réservation de vol trouvée.</p>
     @else
         <table>
             <thead>
@@ -19,18 +18,22 @@
                     <th>Lieu de départ</th>
                     <th>Lieu d'arrivée</th>
                     <th>Date de départ</th>
-                    <th>Date d'arrivée</th>
-                    <th>Numéro de vol</th>
+                    <th>Nom du passager</th>
+                    <th>Email du passager</th>
+                    <th>Numéro de billet</th>
+                    <th>Date de réservation</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach($vols as $vol)
+                @foreach($reservations as $reservation)
                     <tr>
-                        <td>{{ $vol->ville_depart }}</td>
-                        <td>{{ $vol->ville_arrivee }}</td>
-                        <td>{{ $vol->date_depart }}</td>
-                        <td>{{ $vol->date_arrivee }}</td>
-                        <td>{{ $vol->numero_vol }}</td>
+                        <td>{{ $reservation->departure_location }}</td>
+                        <td>{{ $reservation->arrival_location }}</td>
+                        <td>{{ $reservation->departure_date }}</td>
+                        <td>{{ $reservation->nom_passager }}</td>
+                        <td>{{ $reservation->email_passager }}</td>
+                        <td>{{ $reservation->numero_billet }}</td>
+                        <td>{{ $reservation->date_reservation }}</td>
                     </tr>
                 @endforeach
             </tbody>
