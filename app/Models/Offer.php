@@ -14,4 +14,9 @@ class Offer extends Model
     {
         return $this->belongsTo(Vol::class);
     }
+    public function reservations()
+    {
+        return $this->hasMany(Reservation::class);
+    }
 }
+

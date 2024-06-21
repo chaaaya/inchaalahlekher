@@ -68,69 +68,34 @@
         <h1>Nos Offres</h1>
         <div class="row">
            @if(isset($offers) && $offers->isNotEmpty())
-    <div class="row">
-        @foreach($offers as $offer)
-            @if($offer->title != 'Offre Aller-Retour' && $offer->title != 'Offre Étudiants')
-                <div class="col-md-4">
-                    <div class="card mb-4 shadow-sm">
-                        <img class="card-img-top" src="{{ asset('images/' . $offer->image) }}" alt="{{ $offer->title }}">
-                        <div class="card-body">
-                            <h5 class="card-title">{{ $offer->title }}</h5>
-                            <p class="card-text">{{ $offer->description }}</p>
-                            @if($offer->percentage_discount)
-                                <p class="card-text reduction">Réduction : {{ $offer->percentage_discount }}%</p>
-                            @endif
-                            @if($offer->amount_discount)
-                                <p class="card-text reduction">Réduction : {{ $offer->amount_discount }}€</p>
-                            @endif
-                            <p class="card-text price">Prix : {{ $offer->price }}€</p>
-                            @if($offer->vols)
-                                <form id="calculatePriceForm{{ $offer->id }}">
-                                    <div class="form-group">
-                                        <label for="volSelect">Sélectionnez un vol :</label>
-                                        <select class="form-control" id="volSelect{{ $offer->id }}" name="vol_id">
-                                            @foreach($offer->vols as $vol)
-                                                <option value="{{ $vol->id }}">{{ $vol->title }} - {{ $vol->price }}€</option>
-                                            @endforeach
-                                        </select>
+                @foreach($offers as $offer)
+                    @if($offer->title != 'Offre Aller-Retour' && $offer->title != 'Offre Étudiants')
+                        <div class="col-md-4">
+                            <div class="card mb-4 shadow-sm">
+                                <a href="{{ route('nonabonne.offres.show', ['id' => $offer->id]) }}">
+                                    <img class="card-img-top" src="{{ asset('images/' . $offer->image) }}" alt="{{ $offer->title }}">
+                                    <div class="card-body">
+                                        <h5 class="card-title">{{ $offer->title }}</h5>
+                                        <p class="card-text">{{ $offer->description }}</p>
+                                        @if($offer->percentage_discount)
+                                            <p class="card-text reduction">Réduction : {{ $offer->percentage_discount }}%</p>
+                                        @endif
+                                        @if($offer->amount_discount)
+                                            <p class="card-text reduction">Réduction : {{ $offer->amount_discount }}€</p>
+                                        @endif
+                                        <p class="card-text price">Prix : {{ $offer->price }}€</p>
                                     </div>
-                                    <button type="submit" class="btn btn-primary calculate-price-btn" data-offer-id="{{ $offer->id }}">Calculer le Prix</button>
-                                    <p class="card-text mt-2">Prix final : <span id="finalPrice{{ $offer->id }}">--</span>€</p>
-                                </form>
-                            @else
-                                <p>Aucun vol disponible pour cette offre.</p>
-                            @endif
+                                </a>
+                            </div>
                         </div>
-                    </div>
-                </div>
+                    @endif
+                @endforeach
+            @else
+                <p>Aucune offre n'est disponible pour le moment.</p>
             @endif
-        @endforeach
-    </div>
-@else
-    <p>Aucune offre n'est disponible pour le moment.</p>
-@endif
-
         </div>
     </div>
     
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-    <script>
-        $(document).ready(function() {
-            $('.calculate-price-btn').click(function(e) {
-                e.preventDefault();
-                var offerId = $(this).data('offer-id');
-                var formData = $('#calculatePriceForm' + offerId).serialize();
-
-                $.ajax({
-                    url: '/offers/' + offerId + '/calculate-price',
-                    method: 'POST',
-                    data: formData,
-                    success: function(response) {
-                        $('#finalPrice' + offerId).text(response.finalPrice);
-                    }
-                });
-            });
-        });
-    </script>
 </body>
 </html>
