@@ -24,5 +24,9 @@ class Vol extends Model{
     {
         return $this->belongsTo(Compagnie::class);
     }
+    public function offers()
+    {
+        return $this->hasMany(Offer::class);
+    }
 }
 

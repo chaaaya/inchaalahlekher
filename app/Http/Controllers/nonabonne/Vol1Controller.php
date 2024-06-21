@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\Vol;
 use App\Models\Reservation;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Offer;
+
 
 class Vol1Controller extends Controller
 {
@@ -104,5 +106,31 @@ class Vol1Controller extends Controller
         }
 
         return view('client.nonabonne.reserver.confirmation_reservation', compact('reservation', 'vol'));
+    }
+    public function show($id)
+    {
+        $vol = Vol::findOrFail($id);
+        $offers = Offer::all(); // Vous pouvez filtrer les offres disponibles selon vos critères
+        return view('vols.show', compact('vol', 'offers'));
+    }
+
+    public function calculatePrice(Request $request, $volId)
+    {
+        $vol = Vol::findOrFail($volId);
+        $offer = Offer::find($request->offer_id);
+
+        $initialPrice = $vol->price;
+        $finalPrice = $initialPrice;
+
+        if ($offer) {
+            if ($offer->percentage_discount) {
+                $discountAmount = ($initialPrice * $offer->percentage_discount) / 100;
+                $finalPrice = $initialPrice - $discountAmount;
+            } elseif ($offer->amount_discount) {
+                $finalPrice = $initialPrice - $offer->amount_discount;
+            }
+        }
+
+        return response()->json(['finalPrice' => $finalPrice]);
     }
 }

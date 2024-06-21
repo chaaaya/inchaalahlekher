@@ -278,6 +278,8 @@ Route::middleware(['auth:client'])->prefix('nonabonne')->group(function () {
     Route::get('/suivre-vols', [Vol1Controller::class, 'suivreVols'])->name('nonabonne.suivre.vols');
     Route::get('/historique-vols', [nonAbonneController::class, 'historiqueVols'])->name('nonabonne.historique.vols');
     Route::get('/consulter-offres', [nonabonne\OffreController::class, 'index'])->name('nonabonne.consulter.offres');
+    Route::get('/offers/{id}', [OffreController::class, 'show']);
+Route::post('/offers/{offerId}/calculate-price', [OffreController::class, 'calculatePrice']);
 });
 
 

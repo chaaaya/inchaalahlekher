@@ -12,6 +12,6 @@ class Offer extends Model
 
     public function vol()
     {
-        return $this->belongsTo(Vol::class, 'vol_id');
+        return $this->belongsTo(Vol::class);
     }
 }
