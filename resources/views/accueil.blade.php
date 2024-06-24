@@ -36,29 +36,41 @@
         <img src="{{asset('images/logo.png')}}" alt="logo" class="logoImage">
     </header>
     <div class="meteo">
-        {{-- <h2>Météo</h2> --}}
         <a class="weatherwidget-io" href="https://forecast7.com/fr/32d34n6d38/beni-mellal/" data-label_1="BENI-MELLAL" data-label_2="METEO" data-days="7" data-theme="pure">BENI-MELLAL WEATHER</a>
         <script>
             !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src='https://weatherwidget.io/js/widget.min.js';fjs.parentNode.insertBefore(js,fjs);}}(document,'script','weatherwidget-io-js');
         </script>
     </div>
     <section>
-        {{-- <div class="bg-video-wrap">
-            <video id="bgVideo" autoplay muted>
-                <source src="{{ asset('videos/Bleu_logo_S.mp4') }}" type="video/mp4">
-                Votre navigateur ne supporte pas la balise vidéo.
-            </video>
-        </div> --}}
         <div class="bg-gif-wrap">
             <img src="{{ asset('videos/Bleu_logo.gif') }}" alt="GIF animé" class="bg-gif">
         </div>
-        {{-- <div class="content">
-            <h1>Bienvenue sur notre site avec un logo animé en arrière-plan !</h1>
-        </div> --}}
-
+        <button class="consult" onclick="location.href='{{ url('/consulter-vols') }}'">Consulter Vols</button>
     </section>
     <article>
-        <button class="consult" onclick="location.href='{{ url('/consulter-vols') }}'">Consulter Vols</button>
+        
+        <h1>Services supplémentaires</h1> 
+     <div class="block2">
+        <div class="box1">
+         <form>
+          <fieldset>
+          <legend align="center">Hotels</legend>
+          <img src="{{ asset('images/hotel.jpg') }}" id="imgS">
+           <input type="button" class="button" value="réserver hotel">
+          </fieldset>
+         </form>
+        </div>
+        <div class="box3">
+        <form>
+          <fieldset>
+          <legend align="center">Location de voiture</legend>
+          <img src="{{ asset('images/cle-voiture.jpg') }}" id="imgS">
+          <input type="button" class="button" value="réserver une voiture de location">
+          </fieldset>
+         </form>
+        </div>
+       </div>
+
     </article>
     <div class="right"></div>
     <footer>

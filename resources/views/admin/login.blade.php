@@ -7,6 +7,7 @@
     <title>Connexion - Admin</title>
 </head>
 <body>
+    @include('partials.header1')
     <div class="login-container">
         <h2>Connexion - Admin</h2>
         @if ($errors->any())

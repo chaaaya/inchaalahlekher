@@ -14,12 +14,13 @@ class OffreController extends Controller
     }
 
     public function show($id)
-{
-    $offer = Offer::findOrFail($id);
-    $reservations = $offer->reservations()->with('vol')->get();
-
-    return view('client.nonabonne.offres.show', compact('offer', 'reservations'));
-}
+    {
+        $offer = Offer::findOrFail($id);
+        $reservations = $offer->reservations()->with('vol')->get();
+    
+        return view('client.nonabonne.offres.show', compact('offer', 'reservations'));
+    }
+    
 
 
     public function calculatePrice(Request $request, $offerId)

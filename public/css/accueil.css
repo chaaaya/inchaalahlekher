@@ -15,7 +15,6 @@ body{
       'footer footer footer';
     grid-template-columns: 1fr 3fr 1fr;
     grid-template-rows: auto;
-    /* background-image: url('../images/Bleu_pic.png'); */
     background-color: #658faf;
     min-height: 100vh;
     background-repeat: no-repeat;
@@ -31,37 +30,6 @@ header{
     background-color: #2c2c2c;
 }
 /***********LOGO V***********/
-/* .bg-video-wrap {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-    z-index: -1;
-}
-
-video {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    min-width: 100%;
-    min-height: 100%;
-    width: auto;
-    height: auto;
-    z-index: -1;
-    transform: translate(-50%, -50%);
-    object-fit: cover;
-}
-
-.content {
-    position: relative;
-    z-index: 2;
-    color: white;
-    text-align: center;
-} */
-/*************FIN**************/
-
 .bg-gif-wrap {
     position: absolute;
     top: 0;
@@ -76,8 +44,8 @@ video {
 }
 
 .bg-gif {
-    width: 50%; /* Ajustez le pourcentage ou utilisez une valeur fixe, par exemple 500px */
-    height: 50%; /* Maintient le ratio d'aspect */
+    width: 50%;
+    height: 50%; 
 }
 
 .content {
@@ -102,6 +70,7 @@ nav{
     justify-content: center;
 }
 .meteo{
+    margin-top: 20px;
     grid-area: meteo;
     position: relative;
 }
@@ -114,22 +83,7 @@ nav{
     cursor: pointer;
     display:inline-block;
   }
-.consult{
-    background-color: rgba(255, 255, 255, 0.2); /* Couleur de fond blanche avec transparence */
-    border: 2px solid rgba(255, 255, 255, 0.5); /* Bordure blanche semi-transparente */
-    color: white; /* Couleur du texte */
-    padding: 10px 25px; /* Espacement interne */
-    font-size: 16px; /* Taille de la police */
-    border-radius: 20px; /* Coins arrondis */
-    backdrop-filter: blur(5px); /* Floutage d'arrière-plan pour un effet de verre dépoli */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
-    cursor: pointer; 
-    transition: background-color 0.3s ease, color 0.3s ease;
-}
-.consult:hover{
-    background-color: rgba(255, 255, 255, 0.4); 
-    color: black;
-}
+
 /******DROP BUTTON******/
 
 .dropdown {
@@ -213,12 +167,33 @@ a:hover{
 section{
     grid-area: section;
     display: flex;
-    flex-flow: row wrap;
     justify-content: center;
     margin-bottom: 20px;
     margin-top: 20px;
+    height: 40vh;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
 }
-/* .button{
+.consult{
+    background-color: rgba(255, 255, 255, 0.2); 
+    border: 2px solid rgba(255, 255, 255, 0.5); 
+    color: white; 
+    padding: 10px 25px;
+    font-size: 16px;
+    border-radius: 20px; 
+    backdrop-filter: blur(5px); 
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
+    cursor: pointer; 
+    transition: background-color 0.3s ease, color 0.3s ease;
+    width: auto;
+    height: 40px;
+}
+.consult:hover{
+    background-color: rgba(255, 255, 255, 0.4); 
+    color: black;
+}
+ .button{
     width: 100%;
     background-color:  rgb(65, 126, 126);
     color: white;
@@ -229,35 +204,14 @@ section{
     border: none;
     border-radius: 5px;
 } 
-*/
 
-/* .styled-button {
-    padding: 15px 32px; 
-    text-align: center; 
-    text-decoration: none; 
-    font-size: 16px; 
-    margin: 4px 2px; 
-    cursor: pointer;
-    border: none;
-    border-radius: 8px; 
-    box-shadow: 0 4px #999;
-  }
- .styled-button:hover{
-    background-color:  #658faf ;
- }
-  .styled-button:active {
-    background-color:  #527692;
-    box-shadow: 0 2px #666; 
-    transform: translateY(2px);
-  }
-  
 input[type="text"],[type="date"],[type="submit"],select {
     background-color: whitesmoke;
     width: 100%;
     padding: 8px;
     border: 1px solid #afadad;
     border-radius: 4px;
-  } */
+  }
 /* ::placeholder{
     color: white;
 } */
@@ -279,6 +233,9 @@ article {
     grid-area: article;
     padding: 10px;
     text-align: center;
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+    margin-bottom: 20px;
 }
 
 footer {
@@ -300,4 +257,59 @@ footer .legal, footer .contact, footer .social-media {
 footer a {
     color: #fff;
     text-decoration: none;
+}
+
+fieldset{
+    box-sizing: border-box;
+    justify-content: space-around;
+    padding: 20px;
+    display: flex;
+    flex-flow: row wrap;
+    border-style: solide 2px;
+    border-color:  #ffffff7c;
+    border-radius: 8px;
+    height: 100%;
+}
+legend{
+    text-align: left;
+    color: white;
+    font-weight: bold;
+    padding: 0 4px;
+    font-size: larger;
+}
+.block1{
+    width: 100%; 
+    padding-top:8px ;
+    box-sizing: border-box;
+    justify-content: space-around;
+    padding: 20px;
+    display: flex;
+    flex-flow: row wrap;
+}
+
+.block2{
+    width: 100%;
+    display: flex;
+    flex-flow: row;
+    box-sizing: border-box;
+    justify-content: space-around;
+    
+}
+
+.box1, .box2, .box3{
+    flex: 1;
+    border: 4px solide black;
+    height: 100%;  
+    padding: 10px;
+}
+.label1, .label2, .label3, .label4, .submit{
+    color: white;
+    flex: 50%;
+    padding: 8px;
+    font-size: large;
+}
+
+#imgS{
+    width: 100%;
+    height: auto;
 }

@@ -15,35 +15,44 @@
         <h2>Inscription</h2>
         <form id="registerForm" action="{{ route('register.post') }}" method="POST">
             @csrf
-        
-            <label for="name">Nom</label>
-            <input type="text" id="name" name="name" required>
+            <div class="form-group">
+                <label for="name">Nom</label>
+                <input type="text" id="name" name="name" required>
+            </div>
             @error('name')
                 <div class="error">{{ $message }}</div>
             @enderror
 
-            <label for="numero_telephone">Numéro de téléphone</label>
-            <input type="text" id="numero_telephone" name="numero_telephone" required>
+            <div class="form-group">
+                <label for="numero_telephone">Numéro de téléphone</label>
+                <input type="text" id="numero_telephone" name="numero_telephone" required>
+            </div>
             @error('numero_telephone')
                 <div class="error">{{ $message }}</div>
             @enderror
-        
-            <label for="email">Email</label>
-            <input type="email" id="email" name="email" required>
-            <span id="emailError" class="error" style="display:none;">L'email existe déjà.</span>
+
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" required>
+                <span id="emailError" class="error" style="display:none;">L'email existe déjà.</span>
+            </div>
             @error('email')
                 <div class="error">{{ $message }}</div>
             @enderror
-        
-            <label for="password">Mot de passe</label>
-            <input type="password" id="password" name="password" required>
+
+            <div class="form-group">
+                <label for="password">Mot de passe</label>
+                <input type="password" id="password" name="password" required>
+            </div>
             @error('password')
                 <div class="error">{{ $message }}</div>
             @enderror
-        
-            <label for="password_confirmation">Confirmer le mot de passe</label>
-            <input type="password" id="password_confirmation" name="password_confirmation" required>
-            <div id="passwordConfirmationMessage"></div>
+
+            <div class="form-group">
+                <label for="password_confirmation">Confirmer le mot de passe</label>
+                <input type="password" id="password_confirmation" name="password_confirmation" required>
+                <div id="passwordConfirmationMessage"></div>
+            </div>
             @error('password_confirmation')
                 <div class="error">{{ $message }}</div>
             @enderror

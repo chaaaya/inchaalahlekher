@@ -10,6 +10,7 @@ class Reservation extends Model
 
   
     protected $fillable = [
+        'offer_id',
         'nom',
         'prenom',
         'date_naissance',
@@ -29,9 +30,9 @@ class Reservation extends Model
         'ville_depart',
         'ville_arrivee',
         'client_id',
-        'vol_id', // Ajoutez cette ligne
+        'status',
+        'vol_id'
     ];
-    
 
    
 public function vol()

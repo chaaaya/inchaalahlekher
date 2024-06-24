@@ -14,20 +14,6 @@ class AbonneController extends Controller
         return view('client.abonne.index');
     }
 
-    public function reserverVol()
-    {
-        $locations = Vol::select('ville_depart', 'ville_arrivee')->distinct()->get();
-        return view('client.abonne.reserver_vol', ['locations' => $locations]);
-    }
-
-    public function processReservation(Request $request)
-    {
-        // Logique de traitement de la réservation ici
-        // Par exemple, enregistrer les données dans la base de données
-        // Redirection ou affichage d'une vue de confirmation
-
-        return redirect()->route('abonne.reserver.vol')->with('success', 'Réservation effectuée avec succès!');
-    }
 
     public function historiqueVols()
     {

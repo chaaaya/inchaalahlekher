@@ -1,6 +1,6 @@
 @extends('layouts.nonabonne')
 
-@section('content')
+@section('content-nonabonne')
     <h1>Historique des vols</h1>
 
     @if(session('success'))

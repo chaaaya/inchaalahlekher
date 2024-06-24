@@ -15,7 +15,7 @@
 </head>
 <header>
     <div class="logo">
-        <a href="#">Voyage<span> KCS</span></a>
+        <a href="{{route('accueil')}}">Voyage<span> KCS</span></a>
     </div>
     <img src="{{asset('images/logo.png')}}" alt="logo" class="logoImage">
 </header>

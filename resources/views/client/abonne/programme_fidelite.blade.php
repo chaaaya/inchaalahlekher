@@ -2,7 +2,7 @@
 
 @extends('layouts.abonne')
 
-@section('content')
+@section('content-abonne')
     <div class="container">
         <h1>Programme de Fidélité</h1>
         <p>Contenu spécifique pour le programme de fidélité...</p>

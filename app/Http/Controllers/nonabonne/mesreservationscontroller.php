@@ -56,7 +56,7 @@ class MesReservationsController extends Controller
         $reservation->fill($validatedData);
         $reservation->save();
 
-        return redirect()->route('mes.reservations')->with('success', 'Réservation mise à jour avec succès.');
+        return redirect()->route('nonabonne.mes.reservations')->with('success', 'Réservation mise à jour avec succès.');
     }
 
     // Méthode pour supprimer une réservation
@@ -65,6 +65,6 @@ class MesReservationsController extends Controller
         $reservation = Reservation::findOrFail($id);
         $reservation->delete();
 
-        return redirect()->route('mes.reservations')->with('success', 'Réservation supprimée avec succès.');
+        return redirect()->route('nonabonne.mes.reservations')->with('success', 'Réservation supprimée avec succès.');
     }
 }

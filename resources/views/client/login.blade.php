@@ -7,6 +7,7 @@
     <title>Connexion - Client</title>
 </head>
 <body>
+    @include('partials.header1')
     <div class="login-container">
         <h2>Connexion - Client</h2>
         <form action="{{ route('client.login') }}" method="POST">

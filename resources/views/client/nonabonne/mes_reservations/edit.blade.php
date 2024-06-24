@@ -1,9 +1,7 @@
 @extends('layouts.nonabonne')
 
-@section('content')
+@section('content-nonabonne')
 <div class="container">
-    
-
     <style>
         .form-group {
             margin-bottom: 20px;

@@ -13,7 +13,7 @@
 <body>
     <header>
         <button class="btn" onclick="location.href='{{ route('abonne.programme.fidelite') }}'"><i class="fa fa-bell"></i> Programme de fidélité</button>
-        <button class="btn" onclick="location.href='{{ route('abonne.services_supplementaires') }}'"><i class="fa fa-gift"></i> Services Supplémentaires</button>
+        <button class="btn" onclick="location.href='{{ route('abonne.services.supplementaires') }}'"><i class="fa fa-gift"></i> Services Supplémentaires</button>
     </header>
     <div class="container">
         <aside class="sidebar">
@@ -22,22 +22,61 @@
             </div>
             <nav>
                 <ul>
-                    <li><a href="{{ route('abonne.reserver.vol') }}" class="btn"><i class="fa fa-plane"></i> Réserver un vol</a></li>
+                    <li><a href="{{ route('abonne.reserver.vol') }}" class="{{ request()->routeIs('abonne.reserver.vol') ? 'nav-link active' : 'nav-link' }}">
+                        <i class="fa fa-plane"></i> Réserver un vol</a></li>
+                        <li> <a href="{{ route('abonne.mes.reservations') }}" class="{{ request()->routeIs('abonne.mes.reservations') ? 'nav-link active' : 'nav-link' }}">
+                            <i class="fas fa-sync-alt"></i> Mettre à jour mes réservations</a> </li>   
+                        
                     <li><a href="{{ route('abonne.historique.vols') }}" class="btn"><i class="fa fa-history"></i> Historique des vols</a></li>
                     <li><a href="{{ route('abonne.consulter.offres') }}" class="btn"><i class="fa fa-briefcase"></i> Consulter nos offres</a></li>
                     <li><a href="{{ route('abonne.suivre.vols') }}" class="btn"><i class="fa fa-binoculars"></i> Suivre les vols</a></li>
                     <li>
-                        <form method="POST" action="{{ route('client.logout') }}">
+                        <form action="{{ route('client.logout') }}" method="POST" class="logout-form"id="logout-form">
                             @csrf
-                            <button type="submit" class="btn"><i class="fas fa-sign-out-alt"></i> Se déconnecter</button>
-                        </form>
+                            <button type="submit" class="nav-link logout-button logout-link" >
+                                <i class="fas fa-sign-out-alt"></i> Se déconnecter
+                            </button>
+                      </form>
                     </li>
                 </ul>
             </nav>
         </aside>
         <main class="content">
-            @yield('content')
+            @yield('content-abonne')
         </main>
     </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+        const logoutLink = document.querySelector('.logout-link');
+    
+        if (logoutLink) {
+            logoutLink.addEventListener('click', function (event) {
+                event.preventDefault();
+                const confirmation = confirm('Êtes-vous sûr de vouloir vous déconnecter ?');
+                if (confirmation) {
+                    document.getElementById('logout-form').submit();
+                }
+            });
+        }
+    });
+    
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const links = document.querySelectorAll('.nav-link');
+            links.forEach(link => {
+                link.addEventListener('click', function () {
+                    links.forEach(lnk => lnk.classList.remove('active')); // Enlever la classe 'active' des autres liens
+                    this.classList.add('active'); // Ajouter la classe 'active' au lien cliqué
+                });
+            });
+        });
+        </script>
+        <style>
+            .active {
+                background-color: #7aaace;
+                font-weight: bold;
+            }
+        </style>
 </body>
 </html>

@@ -6,7 +6,7 @@
 
     <div class="card mt-4">
         <div class="card-header">
-            Liste des offres
+            Liste des utilisateurs
         </div>
         <div class="card-body">
             @if ($clients->isEmpty())

@@ -1,6 +1,6 @@
 @extends('layouts.nonabonne')
 
-@section('content')
+@section('content-nonabonne')
     <h1>Réserver un vol</h1>
 
     @if(session('success'))
@@ -111,13 +111,13 @@
         }
 
         .btn-primary {
-            background-color: #007BFF;
+            background-color: #2ea1c4;
             color: white;
             border: none;
         }
 
         .btn-primary:hover {
-            background-color: #0056b3;
+            background-color: #2187a7;
         }
 
         .btn-secondary {
@@ -131,13 +131,13 @@
         }
 
         .btn-success {
-            background-color: #28a745;
+            background-color: #2ea1c4;
             color: white;
             border: none;
         }
 
         .btn-success:hover {
-            background-color: #218838;
+            background-color: #2187a7;
         }
 
         .vols-list {
@@ -150,7 +150,7 @@
         }
 
         .table thead th {
-            background-color: #007BFF;
+            background-color: #3a6586;
             color: white;
             padding: 10px;
         }

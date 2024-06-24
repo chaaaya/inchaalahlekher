@@ -9,7 +9,7 @@
 </head>
 <body>
     <nav>
-        <a href="{{ url('accueil') }}">  
+        <a href="{{ route('accueil') }}">  
             <button class="btn"><i class="fa fa-home"></i> Home</button>
         </a>
     </nav>

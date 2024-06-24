@@ -2,7 +2,7 @@
 
 @extends('layouts.nonabonne')
 
-@section('content')
+@section('content-nonabonne')
     <h1>Suivre les vols</h1>
 
     @foreach ($volsASuivre as $vol)

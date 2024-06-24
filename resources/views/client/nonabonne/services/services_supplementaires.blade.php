@@ -1,6 +1,6 @@
 @extends('layouts.nonabonne')
 
-@section('content')
+@section('content-nonabonne')
 <div class="services-container">
     <div class="intro">
         <h1>Nos Services Supplémentaires</h1>

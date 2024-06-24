@@ -19,6 +19,8 @@ use App\Http\Controllers\nonAbonne\Reservation1Controller;
 use App\Http\Controllers\nonAbonne\HistoriqueVolsController;
 use App\Http\Controllers\nonAbonne\OffresController;
 use App\Http\Controllers\Abonne\AbonneController;
+use App\Http\Controllers\Abonne\HistoriqueVol1Controller;
+use App\Http\Controllers\Abonne\Offre1Controller;
 use App\Http\Controllers\nonAbonne\ServicesSupplementairesController;
 use App\Http\Controllers\nonAbonne\SubscriptionController;
 use App\Http\Controllers\Respo\StakeholderController;
@@ -34,11 +36,17 @@ use App\Http\Controllers\nonAbonne\HistoriqueVolController;
 use App\Http\Controllers\nonAbonne\OffreController;
 use App\Http\Controllers\nonAbonne\SuivreVolController;
 use App\Http\Controllers\nonAbonne\ServicesSupController;
-use App\Http\Controllers\nonAbonne\SabonnerController;
+use App\Http\Controllers\nonAbonne\InscriptionController;
 use App\Http\Controllers\nonAbonne\MesReservationsController;
 use App\Http\Controllers\nonAbonne\Hotel1Controller;
 use App\Http\Controllers\nonAbonne\location1controller;
 use App\Http\Controllers\nonAbonne\vol1controller;
+use App\Http\Controllers\Abonne\ReserverController;
+use App\Http\Controllers\Abonne\SuivreVol1Controller;
+use App\Http\Controllers\Abonne\hotel11Controller;
+use App\Http\Controllers\Abonne\service1Controller;
+use App\Http\Controllers\Abonne\MesReservations1Controller;
+
 
 Route::get('/', function () {
     return view('accueil');
@@ -254,31 +262,34 @@ Route::middleware(['auth:client'])->prefix('nonabonne')->group(function () {
         
         // Page de réservation de vol
         Route::get('/reserver', [nonabonne\Vol1Controller::class, 'reserverVol'])->name('nonabonne.reserver.vol');
+        Route::get('/vols/{vol}/reserver', [nonabonne\Vol1Controller::class, 'showReservationForm'])->name('nonabonne.vols.reservation');
+        Route::post('/vols/nonabonne/reserver/process', [nonabonne\Vol1Controller::class, 'processReservation'])->name('nonabonne.process.reservation');
+        Route::get('/vols/{vol}/reservation/{reservation}/details', [nonabonne\Vol1Controller::class, 'showReservationDetails'])->name('nonabonne.reservation.details');
 
-        // Page pour afficher le formulaire de réservation pour un vol spécifique
-        Route::get('/{vol}/reserver', [nonabonne\Vol1Controller::class, 'showReservationForm'])->name('nonabonne.vols.reservation');
-
-        // Traitement de la réservation de vol
-        Route::post('/process-reservation', [nonabonne\Vol1Controller::class, 'processReservation'])->name('nonabonne.process.reservation');
-
-        // Affichage des détails de la réservation
-        Route::get('/{vol}/reservation/{reservation}/details', [nonabonne\Vol1Controller::class, 'showReservationDetails'])->name('nonabonne.reservation.details');
     });
 
+
     // Autres routes non abonnées
-    Route::get('/mes-reservations', [MesReservationsController::class, 'index'])->name('mes.reservations');
+    Route::get('/mes-reservations', [MesReservationsController::class, 'index'])->name('nonabonne.mes.reservations');
     Route::get('/mes-reservations/{id}/edit', [MesReservationsController::class, 'edit'])->name('reservations.edit');
     Route::put('/mes-reservations/{id}', [MesReservationsController::class, 'update'])->name('reservations.update');
     Route::delete('/mes-reservations/{id}', [MesReservationsController::class, 'destroy'])->name('reservations.destroy');
 
-    Route::get('/sabonner', [nonAbonneController::class, 'sabonner'])->name('nonabonne.sabonner');
+   // routes/web.php
+
+   Route::get('/inscription', [InscriptionController::class, 'showForm'])->name('nonabonne.inscription');
+Route::post('/inscription', [InscriptionController::class, 'submitForm'])->name('nonabonne.inscription.submit');
+
+
+
+
     Route::get('/services-supplementaires', [ServicesSupController::class, 'index'])->name('nonabonne.services.supplementaires');
     Route::get('/hotels', [Hotel1Controller::class, 'index'])->name('hotels');
     Route::get('/locations', [location1controller::class, 'showLocations'])->name('car_rentals');
     Route::get('/suivre-vols', [Vol1Controller::class, 'suivreVols'])->name('nonabonne.suivre.vols');
     Route::get('/historique-vols', [nonAbonneController::class, 'historiqueVols'])->name('nonabonne.historique.vols');
     Route::get('/consulter-offres', [nonabonne\OffreController::class, 'index'])->name('nonabonne.consulter.offres');
-    Route::get('/offers/{id}', 'App\Http\Controllers\nonabonne\OffreController@show')->name('nonabonne.offres.show');
+    Route::get('/nonabonne/offres/{id}', [OffreController::class, 'show'])->name('nonabonne.offres.show');
 
 Route::post('/offers/{offerId}/calculate-price', [OffreController::class, 'calculatePrice']);
 });
@@ -289,13 +300,29 @@ Route::prefix('abonne')->group(function () {
         return view('client.abonne.index');
     })->name('abonne.index');
 
-    Route::get('/reserver-vol', [abonne\AbonneController::class, 'reserverVol'])->name('abonne.reserver.vol');
-    Route::post('/process-reservation', [abonne\AbonneController::class, 'processReservation'])->name('process.reservation');
-    Route::get('/services-supplementaires', [AbonneController::class, 'servicesSupplementaires'])->name('abonne.services_supplementaires');
-    Route::get('/historique-vols', [AbonneController::class, 'historiqueVols'])->name('abonne.historique.vols');
-    Route::get('/consulter-offres', [AbonneController::class, 'consulterOffres'])->name('abonne.consulter.offres');
-    Route::get('/suivre-vols', [AbonneController::class, 'suivreVols'])->name('abonne.suivre.vols');
+    Route::get('/reserver-vol', [ReserverController::class, 'showAvailableFlights'])->name('abonne.reserver.vol');
+    Route::get('/reserver-vol/{vol}', [ReserverController::class, 'showReservationForm'])->name('abonne.vols.reservation');
+    Route::post('/process-reservation', [ReserverController::class, 'processReservation'])->name('abonne.process.reservation');
+    Route::get('/reservation/{vol}/{reservation}/details', [ReserverController::class, 'showReservationDetails'])->name('abonne.reservation.details');
+
+
+    Route::get('/services-supplementaires', [Service1Controller::class, 'index'])->name('abonne.services.supplementaires');
+    Route::get('/hotels', [abonne\Hotel11Controller::class, 'index'])->name('hotels');
+    Route::get('/locations', [abonne\locationcontroller::class, 'showLocations'])->name('car_rentals');
+
+    Route::get('/historique-vols', [HistoriqueVol1Controller::class, 'historiqueVols'])->name('abonne.historique.vols');
+
+
+    Route::get('/consulter-offres', [abonne\Offre1Controller::class, 'index'])->name('abonne.consulter.offres');
+    Route::get('/abonne/offres/{id}', [Offre1Controller::class, 'show'])->name('abonne.offres.show');
+
+    Route::get('/suivre-vols', [SuivreVol1Controller::class, 'index'])->name('abonne.suivre.vols');
     Route::get('/programme-fidelite', function () {
         return view('client.abonne.programme_fidelite');
     })->name('abonne.programme.fidelite');
+    Route::get('/mes-reservations', [MesReservations1Controller::class, 'index'])->name('abonne.mes.reservations');
+    Route::get('/mes-reservations/{id}/edit', [MesReservations1Controller::class, 'edit'])->name('abonne.reservations.edit');
+    Route::put('/mes-reservations/{id}', [MesReservations1Controller::class, 'update'])->name('abonne.reservations.update');
+    Route::delete('/mes-reservations/{id}', [MesReservations1Controller::class, 'destroy'])->name('abonne.reservations.destroy');
+
 });

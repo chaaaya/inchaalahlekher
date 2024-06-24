@@ -1,6 +1,6 @@
 @extends('layouts.nonabonne')
 
-@section('content')
+@section('content-nonabonne')
 <style>
     .container {
         margin-top: 20px;
