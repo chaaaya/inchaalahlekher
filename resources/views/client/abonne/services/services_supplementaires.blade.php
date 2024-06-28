@@ -15,7 +15,7 @@
             <div class="service-content">
                 <h2>Hôtels</h2>
                 <p>Découvrez notre sélection d'hôtels de luxe pour un séjour inoubliable.</p>
-                <a href="{{ route('hotels') }}" class="btn">Voir les Hôtels</a>
+                <a href="{{ route('hotels') }}" class="btnS">Voir les Hôtels</a>
 
             </div>
         </div>
@@ -27,7 +27,7 @@
             <div class="service-content">
                 <h2>Locations de Voiture</h2>
                 <p>Louez une voiture de qualité pour explorer la région à votre rythme.</p>
-                <a href="{{ route('car_rentals') }}" class="btn">Voir les Locations de Voiture</a>
+                <a href="{{ route('car_rentals') }}" class="btnS">Voir les Locations de Voiture</a>
             </div>
         </div>
     </div>
@@ -112,7 +112,7 @@
         line-height: 1.6;
     }
 
-    .btn {
+    .btnS {
         display: inline-block;
         padding: 10px 20px;
         background-color: #0056b3;
@@ -122,7 +122,7 @@
         transition: background-color 0.3s;
     }
 
-    .btn:hover {
+    .btnS:hover {
         background-color: #004499;
     }
 

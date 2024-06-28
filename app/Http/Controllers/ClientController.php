@@ -16,6 +16,7 @@ class ClientController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255',
+            'prenom' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:clients',
             'numero_telephone' => 'required|string|max:15',
             'password' => 'required|string|min:8|confirmed',
@@ -23,6 +24,7 @@ class ClientController extends Controller
 
         Client::create([
             'name' => $request->name,
+            'prenom' => $request->prenom,
             'email' => $request->email,
             'numero_telephone' => $request->numero_telephone,
             'password' => bcrypt($request->password),
@@ -40,6 +42,7 @@ class ClientController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255',
+            'prenom' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:clients,email,' . $client->id,
             'numero_telephone' => 'required|string|max:15',
             'password' => 'nullable|string|min:8|confirmed',
@@ -47,6 +50,7 @@ class ClientController extends Controller
 
         $client->update([
             'name' => $request->name,
+            'prenom' => $request->prenom,
             'email' => $request->email,
             'numero_telephone' => $request->numero_telephone,
             'password' => $request->password ? bcrypt($request->password) : $client->password,

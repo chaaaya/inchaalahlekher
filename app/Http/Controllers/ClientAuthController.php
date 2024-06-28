@@ -17,6 +17,8 @@ class ClientAuthController extends Controller
         // Valider les données du formulaire
         $request->validate([
             'name' => 'required|string|max:255',
+            'prenom' => 'required|string|max:255',
+            'numero_telephone' => 'required|string|max:20',
             'email' => 'required|string|email|max:255|unique:clients', // Vérifiez l'unicité dans la table 'clients'
             'password' => 'required|string|min:8|confirmed',
         ]);
@@ -24,6 +26,8 @@ class ClientAuthController extends Controller
         // Créer un nouvel utilisateur client
         $client = Client::create([
             'name' => $request->name,
+            'prenom' => $request->prenom,
+            'numero_telephone' => $request ->numero_telephone,
             'email' => $request->email,
             'password' => bcrypt($request->password),
         ]);

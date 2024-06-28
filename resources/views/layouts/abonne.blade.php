@@ -12,14 +12,14 @@
 </head>
 <body>
     <header>
+        <div class="logo">
+            <a href="#">Voyage<span> KCS</span></a>
+        </div>
         <button class="btn" onclick="location.href='{{ route('abonne.programme.fidelite') }}'"><i class="fa fa-bell"></i> Programme de fidélité</button>
         <button class="btn" onclick="location.href='{{ route('abonne.services.supplementaires') }}'"><i class="fa fa-gift"></i> Services Supplémentaires</button>
     </header>
     <div class="container">
         <aside class="sidebar">
-            <div class="logo">
-                <a href="#">Voyage<span> KCS</span></a>
-            </div>
             <nav>
                 <ul>
                     <li><a href="{{ route('abonne.reserver.vol') }}" class="{{ request()->routeIs('abonne.reserver.vol') ? 'nav-link active' : 'nav-link' }}">

@@ -15,24 +15,23 @@
         </div>
     @endif
 
-    <form action="{{ route('admin.users.update', ['user' => $client->id]) }}" method="POST">
-        {{ $client->id }} <!-- Affiche l'ID du client pour débogage -->
+    <form action="{{ route('admin.users.update', ['user' => $user->id]) }}" method="POST">
         @csrf
-        @method('PUT')<!-- Utilisation de la méthode PUT pour la mise à jour -->
+        @method('PUT')
 
         <div class="form-group">
             <label for="name">Nom :</label>
-            <input type="text" id="name" name="name" class="form-control" value="{{ old('name', $client->name) }}">
+            <input type="text" id="name" name="name" class="form-control" value="{{ old('name', $user->name) }}">
         </div>
 
         <div class="form-group">
             <label for="email">Email :</label>
-            <input type="email" id="email" name="email" class="form-control" value="{{ old('email', $client->email) }}">
+            <input type="email" id="email" name="email" class="form-control" value="{{ old('email', $user->email) }}">
         </div>
 
         <div class="form-group">
             <label for="numero_telephone">Numéro de téléphone :</label>
-            <input type="text" id="numero_telephone" name="numero_telephone" class="form-control" value="{{ old('numero_telephone', $client->numero_telephone) }}">
+            <input type="text" id="numero_telephone" name="numero_telephone" class="form-control" value="{{ old('numero_telephone', $user->numero_telephone) }}">
         </div>
 
         <div class="form-group">

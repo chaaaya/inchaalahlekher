@@ -16,41 +16,43 @@
         <form id="registerForm" action="{{ route('register.post') }}" method="POST">
             @csrf
             <div class="form-group">
-                <label for="name">Nom</label>
-                <input type="text" id="name" name="name" required>
+                <input type="text" id="name" name="name" placeholder="nom" required>
             </div>
             @error('name')
                 <div class="error">{{ $message }}</div>
             @enderror
-
+        
             <div class="form-group">
-                <label for="numero_telephone">Numéro de téléphone</label>
-                <input type="text" id="numero_telephone" name="numero_telephone" required>
+                <input type="text" id="prenom" name="prenom" placeholder="prenom" required>
+            </div>
+            @error('prenom')
+                <div class="error">{{ $message }}</div>
+            @enderror
+        
+            <div class="form-group">
+                <input type="text" id="numero_telephone" name="numero_telephone" placeholder="numéro de téléphone" required>
             </div>
             @error('numero_telephone')
                 <div class="error">{{ $message }}</div>
             @enderror
-
+        
             <div class="form-group">
-                <label for="email">Email</label>
-                <input type="email" id="email" name="email" required>
+                <input type="email" id="email" name="email" placeholder="email" required>
                 <span id="emailError" class="error" style="display:none;">L'email existe déjà.</span>
             </div>
             @error('email')
                 <div class="error">{{ $message }}</div>
             @enderror
-
+        
             <div class="form-group">
-                <label for="password">Mot de passe</label>
-                <input type="password" id="password" name="password" required>
+                <input type="password" id="password" name="password" placeholder="mot de passe" required>
             </div>
             @error('password')
                 <div class="error">{{ $message }}</div>
             @enderror
-
+        
             <div class="form-group">
-                <label for="password_confirmation">Confirmer le mot de passe</label>
-                <input type="password" id="password_confirmation" name="password_confirmation" required>
+                <input type="password" id="password_confirmation" name="password_confirmation" placeholder="confirmer le mot de passe" required>
                 <div id="passwordConfirmationMessage"></div>
             </div>
             @error('password_confirmation')
@@ -60,47 +62,45 @@
             <button type="submit" id="submitButton">S'inscrire</button>
         </form>
         
-        <p>Vous avez déjà un compte? <a href="{{ route('client.login') }}">Connectez-vous ici</a></p>
-    </div>
-
-    <script>
-        $(document).ready(function() {
-            $('#email').on('blur', function() {
-                var email = $(this).val();
-                $.ajax({
-                    url: '{{ route('check-email') }}',
-                    type: 'GET',
-                    data: { email: email },
-                    success: function(data) {
-                        if(data.exists) {
-                            $('#emailError').show();
-                        } else {
-                            $('#emailError').hide();
+        <script>
+            $(document).ready(function() {
+                $('#email').on('blur', function() {
+                    var email = $(this).val();
+                    $.ajax({
+                        url: '{{ route('check-email') }}',
+                        type: 'GET',
+                        data: { email: email },
+                        success: function(data) {
+                            if(data.exists) {
+                                $('#emailError').show();
+                            } else {
+                                $('#emailError').hide();
+                            }
                         }
+                    });
+                });
+        
+                $('#registerForm').on('submit', function(event) {
+                    if ($('#emailError').is(':visible')) {
+                        event.preventDefault();
+                        alert('Veuillez utiliser une adresse email différente.');
+                    }
+                });
+        
+                $('#password_confirmation').on('keyup', function() {
+                    var password = $('#password').val();
+                    var confirmPassword = $(this).val();
+        
+                    if (password === confirmPassword) {
+                        $('#passwordConfirmationMessage').removeClass('error').addClass('success').html('Les mots de passe correspondent.');
+                        $('#submitButton').prop('disabled', false);
+                    } else {
+                        $('#passwordConfirmationMessage').removeClass('success').addClass('error').html('Les mots de passe ne correspondent pas.');
+                        $('#submitButton').prop('disabled', true);
                     }
                 });
             });
-
-            $('#registerForm').on('submit', function(event) {
-                if ($('#emailError').is(':visible')) {
-                    event.preventDefault();
-                    alert('Veuillez utiliser une adresse email différente.');
-                }
-            });
-
-            $('#password_confirmation').on('keyup', function() {
-                var password = $('#password').val();
-                var confirmPassword = $(this).val();
-
-                if (password === confirmPassword) {
-                    $('#passwordConfirmationMessage').removeClass('error').addClass('success').html('Les mots de passe correspondent.');
-                    $('#submitButton').prop('disabled', false);
-                } else {
-                    $('#passwordConfirmationMessage').removeClass('success').addClass('error').html('Les mots de passe ne correspondent pas.');
-                    $('#submitButton').prop('disabled', true);
-                }
-            });
-        });
-    </script>
+        </script>
+        
 </body>
 </html>

@@ -116,13 +116,16 @@ Route::middleware(['auth:admin'])->prefix('admin')->group(function () {
     Route::get('services', [ServiceController::class, 'index'])->name('admin.services.index');
     Route::get('vols', [VolController::class, 'index'])->name('admin.vols.index');
     Route::get('rapports', [RapportController::class, 'index'])->name('admin.rapports.index');
-    Route::get('users/manage-users', [UserController::class, 'index'])->name('admin.users.manage-users');
 
-    Route::get('admin/manage-users', [UserController::class, 'manageUsers'])->name('admin.manage-users');
-   Route::put('users/{user}/accept', [UserController::class, 'accept'])->name('admin.users.accept');
-   Route::put('users/{user}/reject', [UserController::class, 'reject'])->name('admin.users.reject');
-   Route::resource('users', UserController::class)->except(['index']);
-
+    
+Route::get('admin/manage-users', [UserController::class, 'index'])->name('admin.manage-users');
+Route::put('admin/users/{user}', [UserController::class, 'update'])->name('admin.users.update');
+Route::get('admin/users/{user}/edit', [UserController::class, 'edit'])->name('admin.users.edit');
+Route::delete('admin/users/{user}', [UserController::class, 'destroy'])->name('admin.users.destroy');
+Route::put('admin/users/{user}/accept-subscription', [UserController::class, 'acceptSubscription'])->name('admin.users.subscription.accept');
+Route::put('admin/users/{user}/reject-subscription', [UserController::class, 'rejectSubscription'])->name('admin.users.subscription.reject');
+Route::post('admin/users', [UserController::class, 'store'])->name('admin.users.store');
+    
     Route::resource('offers', OfferController::class)->names([
         'index' => 'admin.offers.index',
         'create' => 'admin.offers.create',
@@ -250,7 +253,13 @@ Route::get('client/login', [ClientAuthController::class, 'showLoginForm'])->name
 Route::post('client/login', [ClientAuthController::class, 'login']);
 Route::post('client/logout', [ClientAuthController::class, 'logout'])->name('client.logout');
 // Routes pour les abonnés non abonnées
+
 Route::middleware(['auth:client'])->prefix('nonabonne')->group(function () {
+   
+Route::get('/nonabonne/inscription', [InscriptionController::class, 'showForm'])->name('nonabonne.inscription');
+Route::post('/nonabonne/inscription', [InscriptionController::class, 'submitForm'])->name('nonabonne.inscription.submit');
+Route::get('/nonabonne/inscription/confirmation', [InscriptionController::class, 'showConfirmation'])->name('nonabonne.inscription.confirmation');
+
 
     // Page d'accueil non abonné
     Route::get('/', [nonAbonneController::class, 'index'])->name('nonabonne.index');
@@ -276,10 +285,6 @@ Route::middleware(['auth:client'])->prefix('nonabonne')->group(function () {
     Route::delete('/mes-reservations/{id}', [MesReservationsController::class, 'destroy'])->name('reservations.destroy');
 
    // routes/web.php
-
-   Route::get('/inscription', [InscriptionController::class, 'showForm'])->name('nonabonne.inscription');
-Route::post('/inscription', [InscriptionController::class, 'submitForm'])->name('nonabonne.inscription.submit');
-
 
 
 

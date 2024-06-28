@@ -1,5 +1,3 @@
-<!-- resources/views/client/nonabonne/confirmation.blade.php -->
-
 @extends('layouts.nonabonne')
 
 @section('content-nonabonne')
@@ -8,7 +6,7 @@
     <p>Merci, votre inscription a été enregistrée avec succès. Voici les détails que vous avez fournis :</p>
 
     <ul>
-        <li><strong>Nom :</strong> {{ $client->nom }}</li>
+        <li><strong>Nom :</strong> {{ $client->name }}</li>
         <li><strong>Date de Naissance :</strong> {{ \Carbon\Carbon::parse($client->date_naissance)->format('d/m/Y') }}</li>
         <li><strong>Sexe :</strong> {{ $client->sexe }}</li>
         <li><strong>Nationalité :</strong> {{ $client->nationalite }}</li>

@@ -9,26 +9,50 @@ use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 
 class Client extends Model implements AuthenticatableContract
 {
-    use Authenticatable;
-    
+    use Authenticatable, HasFactory;
+
     protected $guarded = [];
-    
-    protected $table = 'clients'; // Nom de votre table clients si différent de la convention
-    
+
+    protected $table = 'clients';
+
     protected $fillable = [
-        'name', 'email', 'password', 'numero_telephone', 'status', 'subscription'
-        // Ajoutez d'autres attributs selon votre structure de base de données
+        'nom', 'date_naissance', 'sexe', 'nationalite', 'numero_identite',
+        'expiration_identite', 'email', 'numero_telephone', 'numero_carte_credit',
+        'expiration_carte_credit', 'cvv', 'titulaire_carte'
     ];
 
-    // Relation avec les réservations
     public function reservations()
     {
-        return $this->hasMany(Reservation::class, 'client_id'); // Assurez-vous que le nom de la clé étrangère est correct
+        return $this->hasMany(Reservation::class, 'client_id');
     }
-    
-    // Méthode nécessaire pour l'interface Authenticatable
+
     public function getAuthIdentifierName()
     {
-        return 'id'; // Le nom de la colonne utilisée comme identifiant dans votre table 'clients'
+        return 'id';
+    }
+
+    public function getAuthIdentifier()
+    {
+        return $this->getKey();
+    }
+
+    public function getAuthPassword()
+    {
+        return $this->password;
+    }
+
+    public function getRememberToken()
+    {
+        return $this->remember_token;
+    }
+
+    public function setRememberToken($value)
+    {
+        $this->remember_token = $value;
+    }
+
+    public function getRememberTokenName()
+    {
+        return 'remember_token';
     }
 }

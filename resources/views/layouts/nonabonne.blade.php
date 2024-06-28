@@ -7,12 +7,6 @@
     <link rel="stylesheet" href="{{ asset('css/abonne.css') }}">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-          {{-- <style>
-            .container {
-            display: flex;
-            min-height: 100vh;
-            }
-          </style> --}}
 </head>
 <body>
     <header>
@@ -43,7 +37,7 @@
                         <i class="fa fa-binoculars"></i> Suivre les vols</a></li>
                     
                     <li>
-                      <form action="{{ route('client.logout') }}" method="POST" class="logout-form"id="logout-form">
+                        <form action="{{ route('client.logout') }}" method="POST" class="logout-form"id="logout-form">
                             @csrf
                             <button type="submit" class="nav-link logout-button logout-link" >
                                 <i class="fas fa-sign-out-alt"></i> Se déconnecter
@@ -55,9 +49,7 @@
         </aside>
 
             <main class="content">
-                <section id="main-content">
                     @yield('content-nonabonne')
-                </section>
             </main>
     </div>
     <script>
