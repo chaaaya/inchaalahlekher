@@ -126,8 +126,11 @@ Route::delete('admin/users/{user}', [UserController::class, 'destroy'])->name('a
 Route::put('admin/users/{user}/accept-subscription', [UserController::class, 'acceptSubscription'])->name('admin.users.subscription.accept');
 Route::put('admin/users/{user}/reject-subscription', [UserController::class, 'rejectSubscription'])->name('admin.users.subscription.reject');
 Route::post('admin/users', [UserController::class, 'store'])->name('admin.users.store');
+Route::get('users/{client}/message', [UserController::class, 'showMessageForm'])->name('users.message');
+Route::post('users/{client}/message', [UserController::class, 'sendMessage'])->name('users.send-message');
 
-    
+
+
     Route::resource('offers', OfferController::class)->names([
         'index' => 'admin.offers.index',
         'create' => 'admin.offers.create',
@@ -261,10 +264,7 @@ Route::middleware(['auth:client'])->prefix('nonabonne')->group(function () {
     Route::get('/profil', [nonAbonneController::class, 'showProfile'])->name('nonabonne.profil');
     Route::put('/profil', [nonAbonneController::class, 'updateProfile'])->name('nonabonne.updateProfile');
 
-    Route::get('/nonabonne/notifications', [nonabonne\NonAbonneController::class, 'notifications'])->name('nonabonne.notifications');
-    Route::get('/notifications', [NotificationController::class, 'showNotifications'])->name('nonabonne.notifications');
-    Route::get('/notifications', [NotificationController::class, 'showNotifications'])->name('nonabonne.notifications');
-   
+    Route::get('/nonabonne/notifications', [nonabonneController::class, 'notifications'])->name('nonabonne.notifications');
 
     Route::get('nonabonne/inscription/download/{client}', [InscriptionController::class, 'downloadConfirmation'])
         ->name('nonabonne.inscription.download');

@@ -18,7 +18,7 @@
             @if ($rapports->isEmpty())
                 <p>Aucun rapport disponible pour le moment.</p>
             @else
-                <table class="table">
+                <table class="table" style="text-align: center">
                     <thead>
                         <tr>
                             <th>ID</th>
@@ -35,7 +35,7 @@
                                 <td>{{ $rapport->title }}</td>
                                 <td>{{ $rapport->description }}</td>
                                 <td>{{ $rapport->created_at->format('d/m/Y H:i:s') }}</td>
-                                <td>
+                                <td >
                                     <a href="{{ route('admin.rapports.show', $rapport->id) }}" class="btn btn-sm btn-info">Voir</a>
                                     <a href="{{ route('admin.rapports.edit', $rapport->id) }}" class="btn btn-sm btn-warning">Modifier</a>
                                     <form action="{{ route('admin.rapports.destroy', $rapport->id) }}" method="POST" style="display: inline;">
@@ -52,3 +52,8 @@
         </div>
     </div>
 @endsection
+<style>
+    .table{
+        width: 100%;
+    }
+</style>

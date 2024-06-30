@@ -21,10 +21,16 @@
 
         .services-column {
             width: calc(50% - 10px);
-            padding: 10px;
             box-sizing: border-box;
-            background-color: white;
+            background-color: rgb(224, 231, 235);
             border-radius: 8px;
+        }
+        h3{
+            text-align: center;
+            background-color: #7aaacf;
+            padding: 20px;
+            border-radius: 6px;
+            margin: 0;
         }
     </style>
 

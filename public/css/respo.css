@@ -122,6 +122,9 @@ body {
 .nav-link.logout-button i {
     margin-right: 10px;
 }
+.logout-button {
+    font-size: 1em;
+}
 
 .nav-link.logout-button:hover {
     background-color:#bdd1e0;

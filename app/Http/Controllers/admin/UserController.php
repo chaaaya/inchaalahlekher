@@ -3,49 +3,37 @@
 namespace App\Http\Controllers\Admin;
 
 use Illuminate\Support\Facades\Notification;
-use App\Notifications\SubscriptionAcceptedNotification; // Assurez-vous que cette classe est correctement définie
+use App\Notifications\SubscriptionAcceptedNotification;
 use App\Http\Controllers\Controller;
 use App\Models\Client;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use App\Models\Message;
 
 class UserController extends Controller
 {
-    /**
-     * Affiche la liste des utilisateurs avec abonnement en attente.
-     *
-     * @return \Illuminate\View\View
-     */
+    protected $predefinedMessages = [
+        "Votre abonnement a été accepté avec succès. Merci pour votre confiance.",
+        "Votre abonnement a été refusé. Veuillez nous contacter pour plus de détails.",
+        "Votre réservation a été acceptée. Merci pour votre confiance.",
+        "Votre réservation a été refusée. Veuillez nous contacter pour plus de détails.",
+    ];
+
     public function index()
-{
-    $clients = Client::all(); // Récupère tous les clients pour la gestion générale
-    $clientsPendingApproval = Client::where('subscription_status', 'pending1')->get();
+    {
+        $clients = Client::all();
+        $clientsPendingApproval = Client::where('subscription_status', 'pending')->get();
 
-    return view('admin.users.manage-users', compact('clients', 'clientsPendingApproval'));
-}
+        return view('admin.users.manage-users', compact('clients', 'clientsPendingApproval'));
+    }
 
-
-    /**
-     * Affiche le formulaire d'édition d'un client.
-     *
-     * @param  Client  $user
-     * @return \Illuminate\View\View
-     */
     public function edit(Client $user)
     {
         return view('admin.users.edit', compact('user'));
     }
 
-    /**
-     * Met à jour les informations d'un client.
-     *
-     * @param  Request  $request
-     * @param  Client  $user
-     * @return \Illuminate\Http\RedirectResponse
-     */
     public function update(Request $request, Client $user)
     {
-        // Validation des données du formulaire
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|email|max:255',
@@ -53,7 +41,6 @@ class UserController extends Controller
             'password' => 'nullable|string|min:6|confirmed',
         ]);
 
-        // Mise à jour des propriétés du client
         $user->name = $request->input('name');
         $user->email = $request->input('email');
         $user->numero_telephone = $request->input('numero_telephone');
@@ -67,12 +54,6 @@ class UserController extends Controller
         return redirect()->route('admin.manage-users')->with('success', 'Client mis à jour avec succès.');
     }
 
-    /**
-     * Supprime un client.
-     *
-     * @param  Client  $user
-     * @return \Illuminate\Http\RedirectResponse
-     */
     public function destroy(Client $user)
     {
         $user->delete();
@@ -82,63 +63,40 @@ class UserController extends Controller
         return redirect()->route('admin.manage-users')->with('success', 'Client supprimé avec succès.');
     }
 
-    /**
-     * Crée un nouveau client.
-     *
-     * @param  Request  $request
-     * @return \Illuminate\Http\RedirectResponse
-     */
     public function store(Request $request)
-{
-    // Validation des données du formulaire
-    $request->validate([
-        'name' => 'required|string|max:255',
-        'email' => 'required|email|max:255|unique:clients',
-        'numero_telephone' => 'required|string|max:20',
-        'password' => 'required|string|min:6|confirmed',
-    ]);
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|max:255|unique:clients',
+            'numero_telephone' => 'required|string|max:20',
+            'password' => 'required|string|min:6|confirmed',
+        ]);
 
-    // Création d'un nouveau client avec abonnement en attente (pending subscription)
-    $newClient = new Client();
-    $newClient->name = $request->input('name');
-    $newClient->email = $request->input('email');
-    $newClient->numero_telephone = $request->input('numero_telephone');
-    $newClient->password = bcrypt($request->input('password'));
-    $newClient->subscription_status = 'pending'; // Définition de l'état d'abonnement en attente
-    $newClient->save();
+        $newClient = new Client();
+        $newClient->name = $request->input('name');
+        $newClient->email = $request->input('email');
+        $newClient->numero_telephone = $request->input('numero_telephone');
+        $newClient->password = bcrypt($request->input('password'));
+        $newClient->subscription_status = 'pending';
+        $newClient->save();
 
-    Log::info('Nouveau client créé: ' . $newClient->id);
+        Log::info('Nouveau client créé: ' . $newClient->id);
 
-    return redirect()->route('admin.manage-users')->with('success', 'Nouveau client créé avec succès.');
-}
+        return redirect()->route('admin.manage-users')->with('success', 'Nouveau client créé avec succès.');
+    }
 
+    public function acceptSubscription(Client $user)
+    {
+        $user->subscription_status = 'accepted';
+        $user->save();
 
-    /**
-     * Accepte l'abonnement d'un client.
-     *
-     * @param  Client  $user
-     * @return \Illuminate\Http\RedirectResponse
-     */
-   
-public function acceptSubscription(Client $user)
-{
-    $user->subscription_status = 'accepted';
-    $user->save();
+        $user->notify(new SubscriptionAcceptedNotification());
 
-    // Envoi de la notification
-    $user->notify(new SubscriptionAcceptedNotification());
+        Log::info('Abonnement accepté pour le client: ' . $user->id);
 
-    Log::info('Abonnement accepté pour le client: ' . $user->id);
+        return redirect()->route('admin.manage-users')->with('success', 'Abonnement accepté avec succès pour le client.');
+    }
 
-    return redirect()->route('admin.manage-users')->with('success', 'Abonnement accepté avec succès pour le client.');
-}
-
-    /**
-     * Refuse l'abonnement d'un client.
-     *
-     * @param  Client  $user
-     * @return \Illuminate\Http\RedirectResponse
-     */
     public function rejectSubscription(Client $user)
     {
         $user->subscription_status = 'rejected';
@@ -148,4 +106,39 @@ public function acceptSubscription(Client $user)
 
         return redirect()->route('admin.manage-users')->with('success', 'Abonnement refusé avec succès pour le client.');
     }
-}
+
+    public function showMessageForm(Client $client)
+    {
+        $predefinedMessages = [
+            "Votre abonnement a été accepté avec succès. Merci pour votre confiance.",
+            "Votre abonnement a été refusé. Veuillez contacter le support pour plus d'informations.",
+            "Votre réservation a été confirmée. Merci pour votre confiance.",
+            "Votre réservation a été annulée. Veuillez contacter le support pour plus d'informations."
+        ];
+
+        return view('admin.users.create-message', compact('client', 'predefinedMessages'));
+    }
+    public function sendMessage(Request $request, Client $client)
+    {
+        if ($request->filled('message')) {
+            // Custom message from the form
+            $request->validate([
+                'message' => 'required|string',
+            ]);
+            $message = new Message();
+            $message->client_id = $client->id;
+            $message->content = $request->input('message');
+            $message->save();
+        } else {
+            // Predefined message from the list
+            $predefinedMessage = $request->input('predefined_message');
+            $message = new Message();
+            $message->client_id = $client->id;
+            $message->content = $predefinedMessage;
+            $message->save();
+        }
+    
+        return redirect()->route('admin.manage-users')->with('success', 'Message envoyé avec succès.');
+    }
+    
+}    

@@ -14,14 +14,15 @@ body {
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0,0,0,0.1);
-    width: 300px;
-    text-align: center;
-    margin-top: 40px;
+    width: 350px;
+    text-align: left;
+    margin-top: 50px;
 }
 
 .container h2 {
     margin-bottom: 20px;
     color: #333;
+    text-align: center;
 }
 
 .container form {
@@ -29,17 +30,26 @@ body {
     flex-direction: column;
 }
 
-.container label {
-    margin-bottom: 5px;
-    color: #555;
+.form-group {
+    margin-bottom: 20px;
 }
 
-.container input[type="email"], .container input[type="password"], .container input[type="text"], .container select {
+.form-group label {
+    margin-bottom: 5px;
+    color: #555;
+    display: block;
+}
+
+.form-group input[type="text"], 
+.form-group input[type="email"], 
+.form-group input[type="password"], 
+.form-group select {
+    width: 100%;
     padding: 10px;
-    margin-bottom: 20px;
     border: 1px solid #ccc;
     border-radius: 5px;
     font-size: 16px;
+    box-sizing: border-box;
 }
 
 .container button {
@@ -50,6 +60,10 @@ body {
     border-radius: 5px;
     cursor: pointer;
     font-size: 16px;
+    width: 100%;
+}
+.form-group:last-of-type {
+    margin-bottom: 10px; /* Adjust this value as needed */
 }
 
 .container button:hover {
@@ -59,16 +73,19 @@ body {
 .container p {
     margin-top: 20px;
     color: #555;
+    text-align: center;
 }
 
 .container p a {
-    color: #333;
+    color: #2c72f5;
     text-decoration: none;
+    text-align: center;
 }
 
 .container p a:hover {
     text-decoration: underline;
 }
+
 .error {
     color: red;
 }

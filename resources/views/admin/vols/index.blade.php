@@ -42,11 +42,15 @@
                                 <td>{{ \Illuminate\Support\Carbon::parse($vol->heure_arrivee)->format('d/m/Y H:i') }}</td>
                                 <td>{{ $vol->compagnie }}</td>
                                 <td>
-                                    <a href="{{ route('admin.vols.edit', $vol->id) }}" class="btn btn-sm btn-warning">Modifier</a>
+                                    <a href="{{ route('admin.vols.edit', $vol->id) }}" class="btnI btn-p">
+                                        <i class="fas fa-edit edit-icon"></i>
+                                    </a>
                                     <form action="{{ route('admin.vols.destroy', $vol->id) }}" method="POST" style="display: inline;">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Êtes-vous sûr ?')">Supprimer</button>
+                                        <button type="submit" class="btnI btn-d" onclick="return confirm('Êtes-vous sûr ?')">
+                                            <i class="fas fa-trash-alt delete-icon"></i>
+                                        </button>
                                     </form>
                                 </td>
                             </tr>
@@ -57,3 +61,29 @@
         </div>
     </div>
 @endsection
+<style>
+    .btnI i {
+        margin-right: 5px; 
+    }
+    .btnI {
+        margin-right: 5px;
+    }
+    .edit-icon {
+        color: #007bff; 
+    }
+
+    .delete-icon {
+        color: #dc3545;
+    }
+
+    .btnI i {
+        margin-right: 5px; 
+    }
+    .btnI:hover .edit-icon {
+        color: #0056b3;
+    }
+
+    .btnI:hover .delete-icon {
+        color: #c82333; 
+    }
+</style>

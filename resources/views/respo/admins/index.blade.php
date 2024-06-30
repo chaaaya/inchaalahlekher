@@ -31,7 +31,7 @@
                         <td>{{ $admin->name }}</td>
                         <td>{{ $admin->email }}</td>
                         <td>{{ $admin->numero_telephone }}</td> <!-- Affichage du numéro de téléphone -->
-                        <td class="admin-list-actions">
+                        <td class="admin-list-actions" style="text-align: center;">
                             <a href="{{ route('respo.admins.show', $admin->id) }}" class="btn btn-sm btn-info">Voir</a>
                             <a href="{{ route('respo.admins.edit', $admin->id) }}" class="btn btn-sm btn-primary">Modifier</a>
                             <form action="{{ route('respo.admins.destroy', $admin->id) }}" method="POST" style="display: inline;">

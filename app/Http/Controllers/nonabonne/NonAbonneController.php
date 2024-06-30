@@ -11,6 +11,7 @@ use App\Models\Reservation;
 use App\Models\Offer;
 use App\Models\Hotel;
 use App\Models\Client;
+use App\Models\Message;
 class nonabonneController extends Controller
 {
     public function index()
@@ -20,16 +21,16 @@ class nonabonneController extends Controller
 
     public function notifications()
     {
-        $clientId = Auth::guard('client')->id();
-        $client = Client::with('notifications')->find($clientId);
-
-        if (!$client) {
-            return redirect()->route('nonabonne.index')->with('error', 'Erreur lors de la récupération du client');
+        $client = Auth::guard('client')->user();
+        $messages = [];
+        if ($client) {
+            $messages = $client->messages()->orderBy('created_at', 'desc')->get();
+        } else {
+            // Gérer le cas où le client n'est pas connecté
         }
-
-        return view('client.nonabonne.notifications', ['client' => $client]);
+    
+        return view('client.nonabonne.notifications', compact('messages'));
     }
-
     public function sabonner()
     {
         return view('client.nonabonne.sabonner');

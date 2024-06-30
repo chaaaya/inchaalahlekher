@@ -31,94 +31,94 @@
             align-items: start;
         }
         /* Styles pour le conteneur des boutons */
-.btn-group-custom {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    gap: 10px; /* Espacement entre les boutons */
-    margin-top: 1.5rem; /* Ajout d'une marge supérieure */
-}
+        .btn-group-custom {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 10px; /* Espacement entre les boutons */
+            margin-top: 1.5rem; /* Ajout d'une marge supérieure */
+        }
 
-/* Styles généraux pour les boutons */
-.btn-custom {
-    padding: 10px 20px;
-    font-size: 16px;
-    border-radius: 5px;
-    text-align: center;
-    transition: background-color 0.3s, color 0.3s;
-}
+        /* Styles généraux pour les boutons */
+        .btn-custom {
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 5px;
+            text-align: center;
+            transition: background-color 0.3s, color 0.3s;
+        }
 
-/* Bouton secondaire (Gérer les Utilisateurs) */
-.btn-secondary {
-    background-color: #6c757d;
-    color: #fff;
-    border: none;
-}
+        /* Bouton secondaire (Gérer les Utilisateurs) */
+        .btn-secondary {
+            background-color: #6c757d;
+            color: #fff;
+            border: none;
+        }
 
-.btn-secondary:hover {
-    background-color: #5a6268;
-    color: #fff;
-}
+        .btn-secondary:hover {
+            background-color: #5a6268;
+            color: #fff;
+        }
 
-/* Bouton info (Gérer les Réservations) */
-.btn-info {
-    background-color: #17a2b8;
-    color: #fff;
-    border: none;
-}
+        /* Bouton info (Gérer les Réservations) */
+        .btn-info {
+            background-color: #17a2b8;
+            color: #fff;
+            border: none;
+        }
 
-.btn-info:hover {
-    background-color: #138496;
-    color: #fff;
-}
+        .btn-info:hover {
+            background-color: #138496;
+            color: #fff;
+        }
 
-/* Bouton warning (Gérer les Offres) */
-.btn-warning {
-    background-color: #ffc107;
-    color: #212529;
-    border: none;
-}
+        /* Bouton warning (Gérer les Offres) */
+        .btn-warning {
+            background-color: #ffc107;
+            color: #212529;
+            border: none;
+        }
 
-.btn-warning:hover {
-    background-color: #e0a800;
-    color: #212529;
-}
+        .btn-warning:hover {
+            background-color: #e0a800;
+            color: #212529;
+        }
 
-/* Bouton danger (Gérer les Services) */
-.btn-danger {
-    background-color: #dc3545;
-    color: #fff;
-    border: none;
-}
+        /* Bouton danger (Gérer les Services) */
+        .btn-danger {
+            background-color: #dc3545;
+            color: #fff;
+            border: none;
+        }
 
-.btn-danger:hover {
-    background-color: #c82333;
-    color: #fff;
-}
+        .btn-danger:hover {
+            background-color: #c82333;
+            color: #fff;
+        }
 
-/* Bouton success (Gérer les Vols) */
-.btn-success {
-    background-color: #28a745;
-    color: #fff;
-    border: none;
-}
+        /* Bouton success (Gérer les Vols) */
+        .btn-success {
+            background-color: #28a745;
+            color: #fff;
+            border: none;
+        }
 
-.btn-success:hover {
-    background-color: #218838;
-    color: #fff;
-}
+        .btn-success:hover {
+            background-color: #218838;
+            color: #fff;
+        }
 
-/* Bouton dark (Gérer les Rapports) */
-.btn-dark {
-    background-color: #343a40;
-    color: #fff;
-    border: none;
-}
+        /* Bouton dark (Gérer les Rapports) */
+        .btn-dark {
+            background-color: #343a40;
+            color: #fff;
+            border: none;
+        }
 
-.btn-dark:hover {
-    background-color: #23272b;
-    color: #fff;
-}
+        .btn-dark:hover {
+            background-color: #23272b;
+            color: #fff;
+        }
 
     </style>
 

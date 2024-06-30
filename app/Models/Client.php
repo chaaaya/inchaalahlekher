@@ -1,6 +1,10 @@
 <?php
 namespace App\Models;
 
+
+
+use Illuminate\Database\Eloquent\Relations\MorphMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Auth\Authenticatable as AuthenticableTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -53,5 +57,9 @@ class Client extends Authenticatable
     public function getRememberTokenName()
     {
         return 'remember_token';
+    }
+    public function messages(): HasMany
+    {
+        return $this->hasMany(Message::class);
     }
 }

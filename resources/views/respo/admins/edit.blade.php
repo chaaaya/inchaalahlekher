@@ -27,3 +27,63 @@
         </div>
     </form>
 @endsection
+
+    <style>
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 0.5rem;
+            font-size: 1rem;
+            border: 1px solid #ced4da;
+            border-radius: 0.25rem;
+        }
+
+        .btn {
+            padding: 0.5rem 1rem;
+            font-size: 1rem;
+            border-radius: 0.25rem;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+            color: #fff;
+        }
+
+        .btn-primary:hover {
+            background-color: #0069d9;
+            border-color: #0062cc;
+        }
+
+        .btn-secondary {
+            background-color: #6c757d;
+            border-color: #6c757d;
+            color: #fff;
+        }
+
+        .btn-secondary:hover {
+            background-color: #5a6268;
+            border-color: #545b62;
+        }
+
+        .button-group {
+            margin-top: 1rem;
+        }
+
+        @media (min-width: 768px) {
+            .button-group {
+                display: flex;
+                justify-content: end;
+            }
+
+            .button-group .btn {
+                width: 10%;
+                margin: 6px;
+            }
+        }
+    </style>

@@ -15,7 +15,7 @@
            @if ($rapports->isEmpty())
                <p>Aucune offre disponible pour le moment.</p>
           @else
-            <table class="table">
+            <table class="table" style="text-align: center;">
                 <thead>
                     <tr>
                         <th>ID</th>
@@ -32,7 +32,7 @@
                             <td>{{ $rapport->titre }}</td>
                             <td>{{ $rapport->description }}</td>
                             <td>{{ $rapport->created_at->format('d-m-Y') }}</td>
-                            <td class="rapports-actions">
+                            <td class="rapports-actions" >
                                 <a href="{{ route('respo.reports.show', $rapport->id) }}" class="btn btn-info btn-sm">Voir</a>
                                 <a href="{{ route('respo.reports.edit', $rapport->id) }}" class="btn btn-primary btn-sm">Modifier</a>
                                 <form action="{{ route('respo.reports.destroy', $rapport->id) }}" method="POST" style="display: inline;">

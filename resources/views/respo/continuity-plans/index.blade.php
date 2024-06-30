@@ -18,7 +18,7 @@
                 @if ($plans->isEmpty())
                     <p>Aucune plan de continuité trouvé.</p>
                @else
-                 <table class="table">
+                 <table class="table" style="text-align: center;">
                     <thead>
                         <tr>
                             <th>ID</th>

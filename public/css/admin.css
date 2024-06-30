@@ -2,7 +2,7 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-color:  #7aaace;
+    /* background-color:  #7aaace; */
     display: flex;
     height: 100vh;
 }
@@ -26,9 +26,9 @@ body {
     text-transform: uppercase;
     text-decoration: none;
     font-weight: 900;
-    text-shadow: rgba(0, 0, 0, 0, 7);
     font-size: large;
 }
+
 
 .logo span {
     color:  #7aaace;
@@ -76,8 +76,12 @@ body {
     align-items: center;
     padding: 60px 0;
     border-right: 1px solid #ccc;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    overflow-y: auto;
 }
-
 .sidebar nav ul {
     list-style: none;
     padding: 0;
@@ -118,6 +122,9 @@ body {
     box-sizing: border-box;
     cursor: pointer;
 }
+.logout-button{
+    font-size:1em;
+}
 
 .nav-link.logout-button i {
     margin-right: 10px;
@@ -130,6 +137,7 @@ body {
 .content-admin {
     flex-grow: 1;
     padding: 20px;
+    margin-left: 250px;
 }
 
 .card {
@@ -151,7 +159,7 @@ body {
 }
 
 .card-body {
-    padding: 15px;
+    padding: 10px;
 }
 
 .btn {
@@ -164,7 +172,7 @@ body {
 }
 .btn-sm{
     justify-content: end;
-}
+ }
 .btn-primary {
     background-color:  black;
     color: #fff;
@@ -183,7 +191,7 @@ body {
 .btn-info {
     background-color: #17a2b8;
     color: #fff;
-}
+} */
 
 .table {
     width: 100%;

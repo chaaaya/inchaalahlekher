@@ -21,7 +21,7 @@ body {
 
 .container {
     display: flex;
-    height: 100vh; 
+    height: 400vh; 
     padding-top: 60px;
 }
 
@@ -100,8 +100,7 @@ body {
 .content {
     flex-grow: 1;
     padding: 20px;
-    margin-left: 250px; 
-    /* overflow: auto; */
+    margin-left: 250px;
 }
 
 header {
@@ -114,16 +113,19 @@ header {
     padding: 10px;
     background-color: #2c2c2c;
     z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 header .btn {
     background-color: transparent;
     border: none;
     color: white;
-    padding: 6px 20px;
+    padding: 20px 20px;
     font-size: 16px;
     cursor: pointer;
-    display: inline-block;
+    display:inline-block;
 }
 
 header .btn:hover {

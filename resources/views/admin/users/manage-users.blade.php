@@ -23,6 +23,8 @@
                             <td>{{ $client->email }}</td>
                             <td>
                                 <a href="{{ route('admin.users.edit', $client->id) }}" class="btn btn-sm btn-primary">Modifier</a>
+                                <a href="{{ route('users.message', $client->id) }}" class="btn btn-sm btn-warning">Envoyer un message</a>
+ 
                                 
                                 <form action="{{ route('admin.users.destroy', $client->id) }}" method="POST" style="display: inline;">
                                     @csrf
