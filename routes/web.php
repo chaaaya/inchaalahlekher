@@ -298,8 +298,8 @@ Route::middleware(['auth:client'])->prefix('nonabonne')->group(function () {
 
 
     Route::get('/services-supplementaires', [ServicesSupController::class, 'index'])->name('nonabonne.services.supplementaires');
-    Route::get('/hotels', [Hotel1Controller::class, 'index'])->name('hotels');
-    Route::get('/locations', [location1controller::class, 'showLocations'])->name('car_rentals');
+    Route::get('/hotels', [Hotel1Controller::class, 'index'])->name('nonabonne.hotels');
+    Route::get('/locations', [location1controller::class, 'showLocations'])->name('nonabonne.car_rentals');
     Route::get('/suivre-vols', [Vol1Controller::class, 'suivreVols'])->name('nonabonne.suivre.vols');
     Route::get('/historique-vols', [nonAbonneController::class, 'historiqueVols'])->name('nonabonne.historique.vols');
     Route::get('/consulter-offres', [nonabonne\OffreController::class, 'index'])->name('nonabonne.consulter.offres');
@@ -313,6 +313,16 @@ Route::prefix('abonne')->group(function () {
     Route::get('/', function () {
         return view('client.abonne.index');
     })->name('abonne.index');
+
+
+    Route::get('/profil', [AbonneController::class, 'showProfile'])->name('abonne.profil');
+    Route::put('/profil', [AbonneController::class, 'updateProfile'])->name('abonne.updateProfile');
+
+    Route::get('/abonne/notifications', [abonneController::class, 'notifications'])->name('abonne.notifications');
+
+
+
+
 
     Route::get('/reserver-vol', [ReserverController::class, 'showAvailableFlights'])->name('abonne.reserver.vol');
     Route::get('/reserver-vol/{vol}', [ReserverController::class, 'showReservationForm'])->name('abonne.vols.reservation');

@@ -17,6 +17,8 @@
         </div>
         <button class="btn" onclick="location.href='{{ route('abonne.programme.fidelite') }}'"><i class="fa fa-bell"></i> Programme de fidélité</button>
         <button class="btn" onclick="location.href='{{ route('abonne.services.supplementaires') }}'"><i class="fa fa-gift"></i> Services Supplémentaires</button>
+        <button class="btn" onclick="location.href='{{ route('abonne.notifications') }}'"><i class="fa fa-bell"></i> Notifications</button> <!-- Bouton pour les notifications -->
+    </header>
     </header>
     <div class="container">
         <aside class="sidebar">
@@ -30,6 +32,8 @@
                     <li><a href="{{ route('abonne.historique.vols') }}" class="btn"><i class="fa fa-history"></i> Historique des vols</a></li>
                     <li><a href="{{ route('abonne.consulter.offres') }}" class="btn"><i class="fa fa-briefcase"></i> Consulter nos offres</a></li>
                     <li><a href="{{ route('abonne.suivre.vols') }}" class="btn"><i class="fa fa-binoculars"></i> Suivre les vols</a></li>
+                    <li><a href="{{ route('abonne.profil') }}" class="{{ request()->routeIs('nonabonne.profil') ? 'nav-link active' : 'nav-link' }}">
+                        <i class="fa fa-user"></i> Profil</a></li>
                     <li>
                         <form action="{{ route('client.logout') }}" method="POST" class="logout-form"id="logout-form">
                             @csrf

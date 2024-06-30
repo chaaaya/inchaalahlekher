@@ -1,5 +1,7 @@
 <?php
 namespace App\Providers;
+use Illuminate\Support\Facades\View;
+use Illuminate\Support\Facades\Auth;
 
 use Illuminate\Support\ServiceProvider;
 use Barryvdh\DomPDF\Facade as PDF;
@@ -24,4 +26,5 @@ class AppServiceProvider extends ServiceProvider
     public function register()
     {
     }
+    
 }
