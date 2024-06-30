@@ -46,6 +46,7 @@ use App\Http\Controllers\Abonne\SuivreVol1Controller;
 use App\Http\Controllers\Abonne\hotel11Controller;
 use App\Http\Controllers\Abonne\service1Controller;
 use App\Http\Controllers\Abonne\MesReservations1Controller;
+use App\Http\Controllers\nonabonne\NotificationController;
 
 
 Route::get('/', function () {
@@ -125,6 +126,7 @@ Route::delete('admin/users/{user}', [UserController::class, 'destroy'])->name('a
 Route::put('admin/users/{user}/accept-subscription', [UserController::class, 'acceptSubscription'])->name('admin.users.subscription.accept');
 Route::put('admin/users/{user}/reject-subscription', [UserController::class, 'rejectSubscription'])->name('admin.users.subscription.reject');
 Route::post('admin/users', [UserController::class, 'store'])->name('admin.users.store');
+
     
     Route::resource('offers', OfferController::class)->names([
         'index' => 'admin.offers.index',
@@ -255,13 +257,20 @@ Route::post('client/logout', [ClientAuthController::class, 'logout'])->name('cli
 // Routes pour les abonnés non abonnées
 
 Route::middleware(['auth:client'])->prefix('nonabonne')->group(function () {
+
+    Route::get('/profil', [nonAbonneController::class, 'showProfile'])->name('nonabonne.profil');
+    Route::put('/profil', [nonAbonneController::class, 'updateProfile'])->name('nonabonne.updateProfile');
+
+    Route::get('/nonabonne/notifications', [nonabonne\NonAbonneController::class, 'notifications'])->name('nonabonne.notifications');
+    Route::get('/notifications', [NotificationController::class, 'showNotifications'])->name('nonabonne.notifications');
+    Route::get('/notifications', [NotificationController::class, 'showNotifications'])->name('nonabonne.notifications');
    
-Route::get('/nonabonne/inscription', [InscriptionController::class, 'showForm'])->name('nonabonne.inscription');
-Route::post('/nonabonne/inscription', [InscriptionController::class, 'submitForm'])->name('nonabonne.inscription.submit');
-Route::get('/nonabonne/inscription/confirmation', [InscriptionController::class, 'showConfirmation'])->name('nonabonne.inscription.confirmation');
 
-
-    // Page d'accueil non abonné
+    Route::get('nonabonne/inscription/download/{client}', [InscriptionController::class, 'downloadConfirmation'])
+        ->name('nonabonne.inscription.download');
+      Route::get('/inscription', [InscriptionController::class, 'showForm'])->name('nonabonne.inscription');
+    Route::post('/inscription/submit', [InscriptionController::class, 'submitForm'])->name('nonabonne.inscription.submit');
+    Route::get('/inscription/confirmation/{client}', [InscriptionController::class, 'showConfirmation'])->name('nonabonne.inscription.confirmation');
     Route::get('/', [nonAbonneController::class, 'index'])->name('nonabonne.index');
 
     // Routes pour les réservations de vols

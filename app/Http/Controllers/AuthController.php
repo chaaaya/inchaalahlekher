@@ -106,7 +106,7 @@ class AuthController extends Controller
         } elseif ($user instanceof Responsable) {
             return redirect()->route('respo.welcome');
         } elseif ($user instanceof Client) {
-            return redirect()->route('abonne.index');
+            return redirect()->route('nonabonne.index');
         } else {
             return redirect('/');
         }

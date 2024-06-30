@@ -1,5 +1,5 @@
 <?php
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\Client;
@@ -66,5 +66,23 @@ class ClientController extends Controller
 
         // Retourner la vue avec les réservations du client
         return view('client.mes_reservations', compact('reservations'));
+    }
+    public function downloadSubscriptionForm(Client $client)
+    {
+        // Générez le contenu du formulaire d'abonnement ici
+        $content = "Contenu du formulaire d'abonnement à télécharger";
+
+        // Nom du fichier
+        $filename = 'formulaire_abonnement_' . $client->id . '.pdf';
+
+        // En-têtes pour le téléchargement
+        $headers = [
+            'Content-Type' => 'application/pdf',
+        ];
+
+        // Retourner la réponse pour télécharger le fichier
+        return response()->streamDownload(function () use ($content) {
+            echo $content;
+        }, $filename, $headers);
     }
 }

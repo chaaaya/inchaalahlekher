@@ -1,3 +1,5 @@
+<!-- resources/views/client/nonabonne/sabonner/download.blade.php -->
+
 @extends('layouts.nonabonne')
 
 @section('content-nonabonne')
@@ -27,21 +29,6 @@
         .confirmation-container li strong {
             font-weight: bold;
             color: #333;
-        }
-        .download-button {
-            display: block;
-            width: 100%;
-            padding: 10px;
-            margin-top: 20px;
-            text-align: center;
-            background-color: #007bff;
-            color: white;
-            text-decoration: none;
-            border-radius: 4px;
-            font-size: 16px;
-        }
-        .download-button:hover {
-            background-color: #0056b3;
         }
     </style>
 

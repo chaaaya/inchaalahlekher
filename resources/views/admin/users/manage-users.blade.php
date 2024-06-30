@@ -43,7 +43,7 @@
             Abonnements en attente
         </div>
         <div class="card-body">
-            @if ($clientsPendingSubscription->isEmpty())
+            @if ($clientsPendingApproval->isEmpty())
                 <p>Aucun abonnement en attente.</p>
             @else
                 <table class="table">
@@ -55,7 +55,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($clientsPendingSubscription as $client)
+                        @foreach ($clientsPendingApproval as $client)
                             <tr>
                                 <td>{{ $client->name }}</td>
                                 <td>{{ $client->email }}</td>

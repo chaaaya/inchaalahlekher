@@ -1,51 +1,46 @@
-@extends('layouts.nonabonne')
-
-@section('content-nonabonne')
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Confirmation d'Inscription</title>
     <style>
-        .confirmation-container {
-            max-width: 600px;
-            margin: 0 auto;
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 14px;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
             padding: 20px;
             border: 1px solid #ddd;
             border-radius: 8px;
             background-color: #f9f9f9;
         }
-        .confirmation-container h1 {
+        h1 {
             text-align: center;
             margin-bottom: 20px;
             color: #333;
         }
-        .confirmation-container ul {
+        ul {
             list-style: none;
             padding: 0;
         }
-        .confirmation-container li {
+        li {
             margin-bottom: 10px;
             font-size: 16px;
             color: #555;
         }
-        .confirmation-container li strong {
+        li strong {
             font-weight: bold;
             color: #333;
         }
-        .download-button {
-            display: block;
-            width: 100%;
-            padding: 10px;
-            margin-top: 20px;
-            text-align: center;
-            background-color: #007bff;
-            color: white;
-            text-decoration: none;
-            border-radius: 4px;
-            font-size: 16px;
-        }
-        .download-button:hover {
-            background-color: #0056b3;
-        }
     </style>
-
-    <div class="confirmation-container">
+</head>
+<body>
+    <div class="container">
         <h1>Confirmation d'Inscription</h1>
 
         <p>Merci, votre inscription a été enregistrée avec succès. Voici les détails que vous avez fournis :</p>
@@ -66,7 +61,6 @@
             <li><strong>CVV :</strong> {{ $client->cvv }}</li>
             <li><strong>Titulaire de la Carte :</strong> {{ $client->titulaire_carte }}</li>
         </ul>
-
-        <a href="{{ route('nonabonne.inscription.download', ['client' => $client->id]) }}" class="download-button">Télécharger les informations</a>
     </div>
-@endsection
+</body>
+</html>

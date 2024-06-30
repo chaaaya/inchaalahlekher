@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Admin;
 
+use Illuminate\Support\Facades\Notification;
+use App\Notifications\SubscriptionAcceptedNotification; // Assurez-vous que cette classe est correctement définie
 use App\Http\Controllers\Controller;
 use App\Models\Client;
 use Illuminate\Http\Request;
@@ -15,12 +17,13 @@ class UserController extends Controller
      * @return \Illuminate\View\View
      */
     public function index()
-    {
-        $clients = Client::all(); // Récupère tous les clients pour la gestion générale
-        $clientsPendingSubscription = Client::where('subscription_status', 'pending')->get();
+{
+    $clients = Client::all(); // Récupère tous les clients pour la gestion générale
+    $clientsPendingApproval = Client::where('subscription_status', 'pending1')->get();
 
-        return view('admin.users.manage-users', compact('clients', 'clientsPendingSubscription'));
-    }
+    return view('admin.users.manage-users', compact('clients', 'clientsPendingApproval'));
+}
+
 
     /**
      * Affiche le formulaire d'édition d'un client.
@@ -101,7 +104,7 @@ class UserController extends Controller
     $newClient->email = $request->input('email');
     $newClient->numero_telephone = $request->input('numero_telephone');
     $newClient->password = bcrypt($request->input('password'));
-    $newClient->subscription_status = 'rejected'; // Définition de l'état d'abonnement en attente
+    $newClient->subscription_status = 'pending'; // Définition de l'état d'abonnement en attente
     $newClient->save();
 
     Log::info('Nouveau client créé: ' . $newClient->id);
@@ -116,15 +119,19 @@ class UserController extends Controller
      * @param  Client  $user
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function acceptSubscription(Client $user)
-    {
-        $user->subscription_status = 'accepted';
-        $user->save();
+   
+public function acceptSubscription(Client $user)
+{
+    $user->subscription_status = 'accepted';
+    $user->save();
 
-        Log::info('Abonnement accepté pour le client: ' . $user->id);
+    // Envoi de la notification
+    $user->notify(new SubscriptionAcceptedNotification());
 
-        return redirect()->route('admin.manage-users')->with('success', 'Abonnement accepté avec succès pour le client.');
-    }
+    Log::info('Abonnement accepté pour le client: ' . $user->id);
+
+    return redirect()->route('admin.manage-users')->with('success', 'Abonnement accepté avec succès pour le client.');
+}
 
     /**
      * Refuse l'abonnement d'un client.
