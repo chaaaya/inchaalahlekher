@@ -111,4 +111,9 @@ class nonabonneController extends Controller
     
         return redirect()->route('nonabonne.profil')->with('success', 'Profil mis à jour avec succès.');
     }
+    public function checkin()
+{
+    return view('client.nonabonne.checkin');
+}
+
 }

@@ -305,6 +305,10 @@ Route::middleware(['auth:client'])->prefix('nonabonne')->group(function () {
     Route::get('/consulter-offres', [nonabonne\OffreController::class, 'index'])->name('nonabonne.consulter.offres');
     Route::get('/nonabonne/offres/{id}', [OffreController::class, 'show'])->name('nonabonne.offres.show');
 
+
+    Route::get('/nonabonne/checkin', [NonAbonneController::class, 'checkin'])->name('nonabonne.checkin');
+
+
 Route::post('/offers/{offerId}/calculate-price', [OffreController::class, 'calculatePrice']);
 });
 
@@ -348,5 +352,9 @@ Route::prefix('abonne')->group(function () {
     Route::get('/mes-reservations/{id}/edit', [MesReservations1Controller::class, 'edit'])->name('abonne.reservations.edit');
     Route::put('/mes-reservations/{id}', [MesReservations1Controller::class, 'update'])->name('abonne.reservations.update');
     Route::delete('/mes-reservations/{id}', [MesReservations1Controller::class, 'destroy'])->name('abonne.reservations.destroy');
+
+
+    Route::get('/abonne/checkin', [AbonneController::class, 'checkin'])->name('abonne.checkin');
+
 
 });

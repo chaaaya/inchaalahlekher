@@ -8,7 +8,7 @@
             Clients
         </div>
         <div class="card-body">
-            <table class="table">
+            <table class="table" style="width: 100%; text-align:center;">
                 <thead>
                     <tr>
                         <th>Nom</th>
@@ -24,8 +24,6 @@
                             <td>
                                 <a href="{{ route('admin.users.edit', $client->id) }}" class="btn btn-sm btn-primary">Modifier</a>
                                 <a href="{{ route('users.message', $client->id) }}" class="btn btn-sm btn-warning">Envoyer un message</a>
- 
-                                
                                 <form action="{{ route('admin.users.destroy', $client->id) }}" method="POST" style="display: inline;">
                                     @csrf
                                     @method('DELETE')
@@ -114,3 +112,46 @@
         </div>
     </div>
 @endsection
+
+<style>
+   
+
+    .form-group {
+        display: flex;
+        align-items: center;
+        margin-bottom: 15px;
+    }
+
+    .form-group label {
+        flex: 0 0 150px;
+        margin-bottom: 0;
+        font-weight: bold;
+    }
+
+    .form-control {
+        flex: 1;
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+    }
+
+    .form-control:focus {
+        border-color: #007bff;
+        box-shadow: 0 0 4px rgba(0, 123, 255, 0.25);
+        outline: none;
+    }
+
+    .btn-primary {
+        background-color: #007bff;
+        border-color: #007bff;
+        color: #fff;
+        padding: 10px 15px;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    .btn-primary:hover {
+        background-color: #0056b3;
+        border-color: #004085;
+    }
+</style>

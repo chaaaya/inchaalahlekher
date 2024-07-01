@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Page Client</title>
+    <title>Client Non Abonné</title>
     <link rel="stylesheet" href="{{ asset('css/abonne.css') }}">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -15,7 +15,7 @@
     </div>
     <button class="btn" onclick="location.href='{{ route('nonabonne.services.supplementaires') }}'"><i class="fa fa-gift"></i> Services Supplémentaires</button>
     <button class="btn" onclick="location.href='{{ route('nonabonne.inscription') }}'"><i class="fa fa-user-plus"></i> S'abonner</button>
-    <button class="btn" onclick="location.href='{{ route('nonabonne.notifications') }}'"><i class="fa fa-bell"></i> Notifications</button> <!-- Bouton pour les notifications -->
+    <button class="btn" onclick="location.href='{{ route('nonabonne.notifications') }}'"><i class="fa fa-bell"></i> Notifications</button>
 </header>
 
 <div class="container">
@@ -34,6 +34,8 @@
                     <i class="fa fa-binoculars"></i> Suivre les vols</a></li>
                 <li><a href="{{ route('nonabonne.profil') }}" class="{{ request()->routeIs('nonabonne.profil') ? 'nav-link active' : 'nav-link' }}">
                     <i class="fa fa-user"></i> Profil</a></li>
+                <li><a href="{{ route('nonabonne.checkin') }}" class="{{ request()->routeIs('nonabonne.checkin') ? 'nav-link active' : 'nav-link' }}">
+                    <i class="fa fa-check"></i> Check-in</a></li> <!-- New check-in link -->
                 <li>
                     <form action="{{ route('client.logout') }}" method="POST" class="logout-form" id="logout-form">
                         @csrf

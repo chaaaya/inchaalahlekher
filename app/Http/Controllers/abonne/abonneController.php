@@ -109,5 +109,10 @@ class AbonneController extends Controller
     
         return view('client.abonne.notifications', compact('messages'));
     }
+    public function checkin()
+{
+    return view('client.abonne.checkin');
+}
+
 }
 

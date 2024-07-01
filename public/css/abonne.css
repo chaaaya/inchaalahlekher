@@ -102,6 +102,27 @@ body {
     padding: 20px;
     margin-left: 250px;
 }
+.card {
+    background-color: #fff;
+    border: 1px solid #dee2e6;
+    border-radius: 0.25rem;
+    margin-bottom: 20px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.card-header {
+    background-color:  #527692;
+    color: #fff;
+    padding: 10px 15px;
+    border-bottom: 1px solid #dee2e6;
+    font-weight: bold;
+    border-top-left-radius: 0.25rem;
+    border-top-right-radius: 0.25rem;
+}
+
+.card-body {
+    padding: 10px;
+}
 
 header {
     position: fixed;
