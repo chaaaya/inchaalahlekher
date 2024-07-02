@@ -22,7 +22,7 @@ class UserController extends Controller
     public function index()
     {
         $clients = Client::all();
-        $clientsPendingApproval = Client::where('subscription_status', 'pending')->get();
+        $clientsPendingApproval = Client::where('subscription_status', 'pending1')->get();
 
         return view('admin.users.manage-users', compact('clients', 'clientsPendingApproval'));
     }

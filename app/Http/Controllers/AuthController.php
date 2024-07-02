@@ -58,7 +58,7 @@ class AuthController extends Controller
             }
         }
     
-        return back()->withErrors(['email' => 'Les informations d\'identification fournies ne correspondent pas à nos enregistrements.']);
+        return back()->withErrors(['email' => 'Les données sont incorrectes.']);
     }
     
 

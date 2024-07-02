@@ -1,55 +1,44 @@
 @extends('layouts.nonabonne')
 
 @section('content-nonabonne')
-    <div class="container">
-        <div class="hero-section">
-            <div class="hero-content">
-                <div class="hero-text">
-                    <h1>Bienvenue dans l'Expérience Voyage KCS</h1>
-                    <p>Découvrez notre application pour une gestion facile de vos voyages.</p>
-                </div>
-                <div class="hero-buttons">
-                    <a href="{{ route('nonabonne.reserver.vol') }}" class="btn btn-primary">Réserver un Vol</a>
-                    <a href="{{ route('nonabonne.consulter.offres') }}" class="btn btn-secondary">Découvrir nos Offres</a>
-                </div>
+    <div class="hero-section">
+        <div class="hero-content">
+            <div class="hero-text">
+                <h1>Bienvenue dans l'Expérience Voyage KCS</h1>
+                <p>Découvrez notre application pour une gestion facile de vos voyages.</p>
+            </div>
+            <div class="hero-buttons">
+                <a href="{{ route('abonne.reserver.vol') }}" class="btn btn-primary">Réserver un Vol</a>
+                <a href="{{ route('abonne.consulter.offres') }}" class="btn btn-secondary">Découvrir nos Offres</a>
             </div>
         </div>
+    </div>
 
+    <div class="container">
         <div class="features-section">
             <h2>Nos Fonctionnalités</h2>
-            <div class="row">
-                <div class="col-md-4">
-                    <div class="feature">
-                        <img src="/images/hotel1.jpg" alt="Réserver un Vol" class="img-fluid">
-                        <h3>Réserver un Vol</h3>
-                        <p>Explorez notre large sélection de vols et réservez facilement.</p>
-                    </div>
+            <div class="features-row">
+                <div class="feature">
+                    <img src="/images/reserverVol.jpg" alt="Réserver un Vol" class="img-fluid">
+                    <h3>Réserver un Vol</h3>
+                    <p>Explorez notre large sélection de vols et réservez facilement.</p>
                 </div>
-                <div class="col-md-4">
-                    <div class="feature">
-                        <img src="/images/hotel2.jpg" alt="Suivre les Vols" class="img-fluid">
-                        <h3>Suivre les Vols</h3>
-                        <p>Restez informé sur les vols en temps réel avec notre suivi des vols.</p>
-                    </div>
+                <div class="feature">
+                    <img src="/images/suivreVol.jpg" alt="Suivre les Vols" class="img-fluid">
+                    <h3>Suivre les Vols</h3>
+                    <p>Restez informé sur les vols en temps réel avec notre suivi des vols.</p>
                 </div>
-                <div class="col-md-4">
-                    <div class="feature">
-                        <img src="/images/hotel3.jpg" alt="Historique des Vols" class="img-fluid">
-                        <h3>Historique des Vols</h3>
-                        <p>Consultez facilement votre historique de voyages passés.</p>
-                    </div>
+                <div class="feature">
+                    <img src="/images/historiqueVol.jpg" alt="Historique des Vols" class="img-fluid">
+                    <h3>Historique des Vols</h3>
+                    <p>Consultez facilement votre historique de voyages passés.</p>
                 </div>
             </div>
         </div>
     </div>
 
     <style>
-       @extends('layouts.nonabonne')
-
-@section('content-nonabonne')
-    <style>
         /* Styles spécifiques pour cette page */
-        /* Vous pouvez ajouter des styles personnalisés ici */
         body {
             background-color: #f1f1f1;
             color: #333;
@@ -59,13 +48,14 @@
         .hero-section {
             background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('/images/background.jpg');
             background-size: cover;
-            height: 100vh;
+            height: 30vh;
             display: flex;
             justify-content: center;
             align-items: center;
             text-align: center;
             color: #fff;
             padding: 20px;
+            margin-top: 2px;
         }
 
         .hero-content {
@@ -82,23 +72,25 @@
         }
 
         .hero-text h1 {
-            font-size: 3rem;
-            margin-bottom: 20px;
+            font-size: 2rem;
+            margin-bottom: 15px;
+            margin-top:5px; 
         }
 
         .hero-text p {
             font-size: 1.2rem;
-            margin-bottom: 30px;
+            margin-bottom: 14px;
         }
 
         .hero-buttons {
             display: flex;
             justify-content: center;
-            margin-top: 20px;
+            margin-top: 6px;
+            margin-bottom: 6px;
         }
 
         .btn {
-            padding: 12px 24px;
+            padding: 10px 20px;
             font-size: 1.1rem;
             border-radius: 30px;
             transition: all 0.3s ease;
@@ -124,29 +116,36 @@
         }
 
         .features-section {
-            padding: 40px 0;
+            padding: 5px 0;
             text-align: center;
         }
 
         .features-section h2 {
-            margin-bottom: 30px;
+            margin-bottom: 10px;
             font-size: 2.5rem;
+        }
+
+        .features-row {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
         }
 
         .feature {
             background-color: #fff;
-            padding: 30px;
+            padding: 20px;
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0,0,0,0.1);
             margin-bottom: 30px;
-            text-align: left;
+            width: 30%;
+            box-sizing: border-box;
         }
 
         .feature img {
             width: 100%;
             height: auto;
             border-radius: 10px;
-            margin-bottom: 20px;
+            margin-bottom: 10px;
         }
 
         .feature h3 {
@@ -158,49 +157,5 @@
             font-size: 1.1rem;
             line-height: 1.6;
         }
-    </style>
-
-    <div class="hero-section">
-        <div class="hero-content">
-            <div class="hero-text">
-                <h1>Bienvenue dans l'Expérience Voyage KCS</h1>
-                <p>Découvrez notre application pour une gestion facile de vos voyages.</p>
-            </div>
-            <div class="hero-buttons">
-                <a href="{{ route('nonabonne.reserver.vol') }}" class="btn btn-primary">Réserver un Vol</a>
-                <a href="{{ route('nonabonne.consulter.offres') }}" class="btn btn-secondary">Découvrir nos Offres</a>
-            </div>
-        </div>
-    </div>
-
-    <div class="features-section">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-4">
-                    <div class="feature">
-                        <img src="/images/hotel1.jpg" alt="Réserver un Vol" class="img-fluid">
-                        <h3>Réserver un Vol</h3>
-                        <p>Explorez notre large sélection de vols et réservez facilement.</p>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="feature">
-                        <img src="/images/hotel2.jpg" alt="Suivre les Vols" class="img-fluid">
-                        <h3>Suivre les Vols</h3>
-                        <p>Restez informé sur les vols en temps réel avec notre suivi des vols.</p>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="feature">
-                        <img src="/images/hotel3.jpg" alt="Historique des Vols" class="img-fluid">
-                        <h3>Historique des Vols</h3>
-                        <p>Consultez facilement votre historique de voyages passés.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-@endsection
-
     </style>
 @endsection

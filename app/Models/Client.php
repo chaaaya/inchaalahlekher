@@ -16,10 +16,10 @@ class Client extends Authenticatable
     protected $table = 'clients';
 
     protected $fillable = [
-        'name', 'date_naissance', 'sexe', 'nationalite', 'numero_identite',
+        'name','prenom','password', 'date_naissance', 'sexe', 'nationalite', 'numero_identite',
         'expiration_identite', 'email', 'numero_telephone', 'adresse',
         'numero_carte_credit', 'expiration_carte_credit', 'cvv', 'titulaire_carte',
-        'subscription_status', // Assurez-vous que cet attribut est inclus si nécessaire
+        'subscription_status',
     ];
     
 

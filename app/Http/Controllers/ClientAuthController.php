@@ -64,7 +64,7 @@ class ClientAuthController extends Controller
         }
     
         return back()->withErrors([
-            'email' => 'Les identifiants ne correspondent pas à nos enregistrements.',
+            'email' => 'Les données sont incorrectes.',
         ]);
     }
     public function logout(Request $request)
