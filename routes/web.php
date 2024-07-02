@@ -269,10 +269,11 @@ Route::middleware(['auth:client'])->prefix('nonabonne')->group(function () {
     Route::get('nonabonne/inscription/download/{client}', [InscriptionController::class, 'downloadConfirmation'])
         ->name('nonabonne.inscription.download');
       Route::get('/inscription', [InscriptionController::class, 'showForm'])->name('nonabonne.inscription');
-    Route::post('/inscription/submit', [InscriptionController::class, 'submitForm'])->name('nonabonne.inscription.submit');
+      Route::post('nonabonne/inscription/submit', [InscriptionController::class, 'submitForm'])->name('nonabonne.inscription.submit');
     Route::get('/inscription/confirmation/{client}', [InscriptionController::class, 'showConfirmation'])->name('nonabonne.inscription.confirmation');
     Route::get('/', [nonAbonneController::class, 'index'])->name('nonabonne.index');
-
+    Route::get('/inscription/success', [InscriptionController::class, 'showSuccess'])->name('nonabonne.success');
+    
     // Routes pour les réservations de vols
     Route::prefix('vols')->group(function () {
         // Page principale des vols

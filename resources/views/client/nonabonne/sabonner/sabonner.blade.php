@@ -37,8 +37,7 @@
             <label for="sexe_homme">Homme</label><br>
             <input type="radio" id="sexe_femme" name="sexe" value="femme" {{ old('sexe') == 'femme' ? 'checked' : '' }} required>
             <label for="sexe_femme">Femme</label><br>
-            <input type="radio" id="sexe_autre" name="sexe" value="autre" {{ old('sexe') == 'autre' ? 'checked' : '' }} required>
-            <label for="sexe_autre">Autre</label><br>
+            
         </div>
 
         <div>

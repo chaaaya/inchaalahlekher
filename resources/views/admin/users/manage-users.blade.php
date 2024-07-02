@@ -13,6 +13,7 @@
                     <tr>
                         <th>Nom</th>
                         <th>Email</th>
+                        <th>Statut d'abonnement</th> <!-- Nouvelle colonne pour le statut d'abonnement -->
                         <th>Actions</th>
                     </tr>
                 </thead>
@@ -21,13 +22,13 @@
                         <tr>
                             <td>{{ $client->name }}</td>
                             <td>{{ $client->email }}</td>
+                            <td>{{ $client->subscription_status == 'accepted' ? 'Abonné' : 'Non abonné' }}</td> <!-- Affichage du statut -->
                             <td>
                                 <a href="{{ route('admin.users.edit', $client->id) }}" class="btn btn-sm btn-primary">Modifier</a>
                                 <a href="{{ route('users.message', $client->id) }}" class="btn btn-sm btn-warning">Envoyer un message</a>
                                 <form action="{{ route('admin.users.destroy', $client->id) }}" method="POST" style="display: inline;">
                                     @csrf
                                     @method('DELETE')
-                                    <!-- Bouton pour la suppression -->
                                     <button type="submit" class="btn btn-sm btn-danger">Supprimer</button>
                                 </form>
                             </td>

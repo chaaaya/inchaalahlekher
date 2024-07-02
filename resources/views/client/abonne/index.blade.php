@@ -1,6 +1,6 @@
-@extends('layouts.nonabonne')
+@extends('layouts.abonne')
 
-@section('content-nonabonne')
+@section('content-abonne')
     <div class="hero-section">
         <div class="hero-content">
             <div class="hero-text">
