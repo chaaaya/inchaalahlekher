@@ -365,6 +365,8 @@ Route::get('/abonne/programme-fidelite/points', [ProgrammeFideliteController::cl
 Route::get('/abonne/programme-fidelite/recompenses', [ProgrammeFideliteController::class, 'recompenses'])->name('abonne.programme_fidelite.recompenses');
 Route::get('/abonne/programme-fidelite/avantages', [ProgrammeFideliteController::class, 'avantagesExclusifs'])->name('abonne.programme_fidelite.avantages');
 Route::get('/abonne/programme-fidelite/telecharger-attestation', [ProgrammeFideliteController::class, 'telechargerAttestation'])->name('abonne.programme_fidelite.telecharger_attestation');
+Route::post('/abonne/programme-fidelite/enregistrer-commentaire', [ProgrammeFideliteController::class, 'storeCommentaire'])
+    ->name('abonne.programme_fidelite.commentaires.store');
 
 
     Route::get('/mes-reservations', [MesReservations1Controller::class, 'index'])->name('abonne.mes.reservations');

@@ -47,7 +47,14 @@
                         Feedback et Participation
                     </div>
                     <div class="card-body">
-                        <!-- Formulaire de feedback -->
+                        <p>Aidez-nous à améliorer constamment nos services et nos avantages en nous fournissant vos commentaires.</p>
+                        <form method="POST" action="{{ route('abonne.programme_fidelite.commentaires.store') }}">
+                            @csrf
+                            <div class="form-group">
+                                <textarea class="form-control" name="commentaire" placeholder="Vos commentaires..." required></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary mt-3">Envoyer</button>
+                        </form>
                     </div>
                 </div>
             </div>

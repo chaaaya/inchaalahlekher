@@ -5,7 +5,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Dompdf\Dompdf;
 use Dompdf\Options;
-
+use App\Models\Commentaire;
+use Illuminate\Http\Request;
 class ProgrammeFideliteController extends Controller
 {
     /**
@@ -25,6 +26,11 @@ class ProgrammeFideliteController extends Controller
      */
     public function telechargerAttestation()
     {
+        // Vérification de l'authentification
+        if (!Auth::guard('client')->check()) {
+            return redirect()->route('login')->withErrors(['Vous devez être connecté pour accéder à cette ressource.']);
+        }
+
         // Récupération des informations du client connecté
         $client = Auth::guard('client')->user();
 
@@ -50,7 +56,7 @@ class ProgrammeFideliteController extends Controller
                 <h1>Attestation pour les salons VIP</h1>
             </div>
             <div class="content">
-                <p>Nous certifions que <strong>' . $client->name . '</strong> (Email : ' . $client->email . '), titulaire de l\'identifiant ' . $client->id . ', est membre du programme de fidélité et bénéficie d\'un accès aux salons VIP.</p>
+                <p>Nous certifions que <strong>' . htmlspecialchars($client->name, ENT_QUOTES, 'UTF-8') . '</strong> (Email : ' . htmlspecialchars($client->email, ENT_QUOTES, 'UTF-8') . '), titulaire de l\'identifiant ' . htmlspecialchars($client->id, ENT_QUOTES, 'UTF-8') . ', est membre du programme de fidélité et bénéficie d\'un accès aux salons VIP.</p>
                 <p>Date de délivrance : ' . date('d/m/Y') . '</p>
             </div>
             <div class="footer">
@@ -68,51 +74,29 @@ class ProgrammeFideliteController extends Controller
         // Téléchargement du fichier PDF
         return $dompdf->stream('attestation_vip.pdf');
     }
-
-    /**
-     * Affiche les récompenses disponibles pour les points accumulés.
-     *
-     * @return \Illuminate\View\View
-     */
-    public function recompenses()
+    public function storeCommentaire(Request $request)
     {
-        // Logique pour déterminer les récompenses disponibles pour les points accumulés
-        $recompenses = [
-            [
-                'titre' => 'Réduction de 10% sur les vols futurs',
-                'description' => 'Utilisez vos points pour obtenir une réduction de 10% sur les vols futurs.'
-            ],
-            [
-                'titre' => 'Surclassement gratuit sur les vols',
-                'description' => 'Échangez vos points pour bénéficier d\'un surclassement gratuit sur les vols.'
-            ],
-            [
-                'titre' => 'Accès à des offres spéciales et exclusives',
-                'description' => 'Accédez à des offres spéciales et exclusives réservées aux membres du programme de fidélité.'
-            ],
-        ];
-
-        return view('abonne.programme_fidelite.recompenses', [
-            'recompenses' => $recompenses,
+        // Vérification si l'utilisateur est connecté
+        if (!Auth::guard('client')->check()) {
+            return redirect()->route('login')->withErrors(['Vous devez être connecté pour ajouter un commentaire.']);
+        }
+    
+        // Récupération de l'identifiant du client connecté
+        $clientId = Auth::guard('client')->id();
+    
+        // Validation des données
+        $request->validate([
+            'commentaire' => 'required|string|max:1000',
         ]);
-    }
-
-    /**
-     * Affiche les avantages exclusifs pour les membres du programme de fidélité.
-     *
-     * @return \Illuminate\View\View
-     */
-    public function avantagesExclusifs()
-    {
-        // Logique pour récupérer et afficher les avantages exclusifs pour les membres du programme
-        $avantages = [
-            'Tarifs réduits sur certains services',
-            'Services de conciergerie à l\'aéroport',
-            'Accès à des offres spéciales et exclusives'
-        ];
-
-        return view('abonne.programme_fidelite.avantages', [
-            'avantages' => $avantages,
+    
+        // Création du commentaire avec client_id récupéré
+        Commentaire::create([
+            'client_id' => $clientId,
+            'commentaire' => $request->commentaire,
         ]);
+    
+        // Redirection avec un message de succès
+        return redirect()->route('abonne.programme_fidelite.index')->with('success', 'Commentaire ajouté avec succès.');
     }
+    
 }
