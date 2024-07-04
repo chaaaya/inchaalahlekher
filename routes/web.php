@@ -47,6 +47,8 @@ use App\Http\Controllers\Abonne\hotel11Controller;
 use App\Http\Controllers\Abonne\service1Controller;
 use App\Http\Controllers\Abonne\MesReservations1Controller;
 use App\Http\Controllers\nonabonne\NotificationController;
+use App\Http\Controllers\abonne\CheckInController;
+
 
 
 Route::get('/', function () {
@@ -327,12 +329,21 @@ Route::prefix('abonne')->group(function () {
 
 
 
-
-
     Route::get('/reserver-vol', [ReserverController::class, 'showAvailableFlights'])->name('abonne.reserver.vol');
     Route::get('/reserver-vol/{vol}', [ReserverController::class, 'showReservationForm'])->name('abonne.vols.reservation');
     Route::post('/process-reservation', [ReserverController::class, 'processReservation'])->name('abonne.process.reservation');
-    Route::get('/reservation/{vol}/{reservation}/details', [ReserverController::class, 'showReservationDetails'])->name('abonne.reservation.details');
+    Route::get('/abonne/reservation/{vol}/{reservation}', [ReserverController::class, 'showReservationDetails'])
+    ->name('abonne.reservation.details');
+
+    Route::get('abonne/reservation/details/{vol}/{reservation}', [ReserverController::class, 'showReservationDetails'])->name('abonne.reservation.details');
+
+
+
+
+    Route::get('/mes-reservations', [MesReservations1Controller::class, 'index'])->name('abonne.mes.reservations');
+    Route::get('/mes-reservations/{id}/edit', [MesReservations1Controller::class, 'edit'])->name('abonne.reservations.edit');
+    Route::put('/mes-reservations/{id}', [MesReservations1Controller::class, 'update'])->name('abonne.reservations.update');
+    Route::delete('/mes-reservations/{id}', [MesReservations1Controller::class, 'destroy'])->name('abonne.reservations.destroy');
 
 
     Route::get('/services-supplementaires', [Service1Controller::class, 'index'])->name('abonne.services.supplementaires');
@@ -353,9 +364,8 @@ Route::prefix('abonne')->group(function () {
     Route::get('/mes-reservations/{id}/edit', [MesReservations1Controller::class, 'edit'])->name('abonne.reservations.edit');
     Route::put('/mes-reservations/{id}', [MesReservations1Controller::class, 'update'])->name('abonne.reservations.update');
     Route::delete('/mes-reservations/{id}', [MesReservations1Controller::class, 'destroy'])->name('abonne.reservations.destroy');
-
-
-    Route::get('/abonne/checkin', [AbonneController::class, 'checkin'])->name('abonne.checkin');
-
-
+   
+    Route::get('/checkin', [CheckInController::class, 'showCheckInForm'])->name('abonne.checkin.form');
+    Route::post('/checkin', [CheckInController::class, 'processCheckIn'])->name('abonne.checkin.process');
+    
 });

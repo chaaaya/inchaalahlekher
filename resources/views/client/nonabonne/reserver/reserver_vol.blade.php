@@ -67,7 +67,7 @@
 
                                 @else
                                     <!-- Lien vers la page de réservation avec le formulaire -->
-                                    <a href="{{ route('nonabonne.vols.reservation', ['vol' => $vol->id]) }}" class="btn btn-success">Réserver</a>
+                                    <a href="{{ route('abonne.information_personnelle', ['vol' => $vol->id]) }}" class="btn btn-success">Réserver</a>
 
                                 @endif
                                 

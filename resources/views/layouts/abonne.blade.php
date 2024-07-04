@@ -34,7 +34,7 @@
                         <i class="fa fa-binoculars"></i> Suivre les vols</a></li>
                     <li><a href="{{ route('abonne.profil') }}" class="{{ request()->routeIs('abonne.profil') ? 'nav-link active' : 'nav-link' }}">
                         <i class="fa fa-user"></i> Profil</a></li>
-                    <li><a href="{{ route('abonne.checkin') }}" class="{{ request()->routeIs('abonne.checkin') ? 'nav-link active' : 'nav-link' }}">
+                    <li><a href="{{ route('abonne.checkin.form') }}" class="{{ request()->routeIs('abonne.checkin') ? 'nav-link active' : 'nav-link' }}">
                         <i class="fa fa-check"></i> Check-in</a></li> <!-- Nouveau lien pour le check-in -->
                     <li>
                         <form action="{{ route('client.logout') }}" method="POST" class="logout-form" id="logout-form">

@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers\abonne;
 
 use App\Http\Controllers\Controller;
@@ -35,33 +34,48 @@ class ReserverController extends Controller
     {
         return view('client.abonne.reserver.reservation_form', compact('vol'));
     }
-
     public function processReservation(Request $request)
     {
+        // Validate the request data
         $validatedData = $request->validate([
-            // Valider les données de réservation ici
+            'email' => 'required|email',
+            'telephone' => 'required',
+            'sexe' => 'required',
+            'nationalite' => 'required',
+            'num_identite' => 'required',
+            'date_expiration_identite' => 'required',
+            'pays_delivrance_identite' => 'required',
+            'tarif_calculé' => 'required',
+            'num_carte' => 'required',
+            'date_expiration_carte' => 'required',
+            'cvv' => 'required',
+            'nom_titulaire_carte' => 'required',
         ]);
-
-        // Convertir la date de naissance au format YYYY-MM-DD
-        $dateNaissanceParts = explode('/', $validatedData['date_naissance']);
-        $validatedData['date_naissance'] = $dateNaissanceParts[2] . '-' . $dateNaissanceParts[1] . '-' . $dateNaissanceParts[0];
-
-        // Récupérer l'utilisateur abonné connecté
-        $abonne = Auth::guard('abonne')->user();
-
-        if (!$abonne) {
-            abort(403, 'Action non autorisée.');
-        }
-
-        $validatedData['abonne_id'] = $abonne->id;
-        $validatedData['status'] = 'en attente';
-
-        $reservation = Reservation::create($validatedData);
-
-        return redirect()->route('abonne.reservation.details', ['vol' => $validatedData['vol_id'], 'reservation' => $reservation->id])
-                         ->with('success', 'Réservation effectuée avec succès.');
+    
+        // Create a new reservation instance
+        $reservation = new Reservation();
+        $reservation->vol_id = $request->input('vol_id');
+        $reservation->email = $validatedData['email'];
+        $reservation->telephone = $validatedData['telephone'];
+        $reservation->sexe = $validatedData['sexe'];
+        $reservation->nationalite = $validatedData['nationalite'];
+        $reservation->num_identite = $validatedData['num_identite'];
+        $reservation->date_expiration_identite = $validatedData['date_expiration_identite'];
+        $reservation->pays_delivrance_identite = $validatedData['pays_delivrance_identite'];
+        $reservation->tarif_calculé = $validatedData['tarif_calculé'];
+        $reservation->num_carte = $validatedData['num_carte'];
+        $reservation->date_expiration_carte = $validatedData['date_expiration_carte'];
+        $reservation->cvv = $validatedData['cvv'];
+        $reservation->nom_titulaire_carte = $validatedData['nom_titulaire_carte'];
+        $reservation->client_id = Auth::guard('client')->id(); // Set the client_id field to the current client's ID
+    
+        // Save the reservation to the database
+        $reservation->save();
+    
+        // Redirect to a success page
+        return redirect()->route('reservation.success');
     }
-
+    
     public function showReservationDetails($vol, $reservation)
     {
         $reservation = Reservation::with('vol')->findOrFail($reservation);
