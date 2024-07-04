@@ -8,7 +8,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Auth\Authenticatable as AuthenticableTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;;
+use Illuminate\Notifications\Notifiable;
+
 class Client extends Authenticatable
 {
     use HasFactory, AuthenticableTrait ,  Notifiable;
@@ -23,7 +24,7 @@ class Client extends Authenticatable
     ];
     
 
-    public function reservations()
+    public function reservations(): HasMany
     {
         return $this->hasMany(Reservation::class, 'client_id');
     }

@@ -39,6 +39,9 @@
                         <th>Heure de départ</th>
                         <th>Heure d'arrivée</th>
                         <th>Compagnie</th>
+                        @if ($fromOffer1)
+                            <th>Prix</th>
+                        @endif
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -50,27 +53,28 @@
                             <td>{{ $vol->heure_depart }}</td>
                             <td>{{ $vol->heure_arrivee }}</td>
                             <td>{{ $vol->compagnie->nom }}</td>
-                            <td>
-                               
-
+                            @if ($fromOffer1)
+                                <td>
+                                    @if ($isFirstReservation)
+                                        <del class="strike-through">{{ $vol->prix }} €</del>
+                                        <span class="discounted-price">{{ number_format($vol->prix * (1 - $percentage_discount/100), 2) }} €</span>
+                                        <span class="discount-info"> (-{{ $percentage_discount }}%)</span>
+                                    @else
+                                        {{ $vol->prix }} €
+                                    @endif
+                                </td>
+                            @else
+                                <td>{{ $vol->prix }} €</td>
+                            @endif
+                            <td style="text-align: center;">
                                 @php
-                                    // Vérifier si le client a une réservation pour ce vol
                                     $reservation = Auth::guard('client')->user()->reservations()->where('vol_id', $vol->id)->first();
                                 @endphp
-                                
                                 @if ($reservation)
-                                    <!-- Lien vers la page de confirmation de réservation -->
                                     <a href="{{ route('abonne.reservation.details', ['vol' => $vol->id, 'reservation' => $reservation->id]) }}" class="btn btn-info">Voir la réservation</a>
-
-
-
-
                                 @else
-                                    <!-- Lien vers la page de réservation avec le formulaire -->
                                     <a href="{{ route('abonne.vols.reservation', ['vol' => $vol->id]) }}" class="btn btn-success">Réserver</a>
-
                                 @endif
-                                
                             </td>
                         </tr>
                     @endforeach
@@ -80,6 +84,8 @@
     @else
         <p>Aucun vol disponible pour les critères de recherche spécifiés.</p>
     @endif
+@endsection
+
 
     <!-- CSS intégré -->
     <style>
@@ -163,5 +169,15 @@
         .table-striped tbody tr:nth-of-type(odd) {
             background-color: rgba(0, 0, 0, 0.05);
         }
+        .strike-through {
+            text-decoration: line-through;
+            color: red;
+        }
+
+        .discounted-price {
+            color: green;
+        }
+        .discount-info {
+            color: blue; /* Couleur de votre choix pour la réduction */
+        }
     </style>
-@endsection

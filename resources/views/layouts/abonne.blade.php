@@ -13,7 +13,7 @@
         <div class="logo">
             <a href="#">Voyage<span> KCS</span></a>
         </div>
-        <button class="btn" onclick="location.href='{{ route('abonne.programme.fidelite') }}'"><i class="fa fa-star"></i> Programme de fidélité</button>
+        <button class="btn" onclick="location.href='{{ route('abonne.programme_fidelite.index') }}'"><i class="fa fa-star"></i> Programme de fidélité</button>
         <button class="btn" onclick="location.href='{{ route('abonne.services.supplementaires') }}'"><i class="fa fa-gift"></i> Services Supplémentaires</button>
         <button class="btn" onclick="location.href='{{ route('abonne.notifications') }}'"><i class="fa fa-bell"></i> Notifications</button>
     </header>
@@ -34,9 +34,12 @@
                         <i class="fa fa-binoculars"></i> Suivre les vols</a></li>
                     <li><a href="{{ route('abonne.profil') }}" class="{{ request()->routeIs('abonne.profil') ? 'nav-link active' : 'nav-link' }}">
                         <i class="fa fa-user"></i> Profil</a></li>
-                    <li><a href="{{ route('abonne.checkin.form') }}" class="{{ request()->routeIs('abonne.checkin') ? 'nav-link active' : 'nav-link' }}">
-                        <i class="fa fa-check"></i> Check-in</a></li> <!-- Nouveau lien pour le check-in -->
-                    <li>
+                        <li>
+                            <a href="{{ route('abonne.checkin.form', ['reservationId' => $reservation->id ?? 0]) }}" class="{{ request()->routeIs('abonne.checkin.form') ? 'nav-link active' : 'nav-link' }}">
+                                <i class="fa fa-check"></i> Check-in
+                            </a>
+                        </li>
+                           <li>
                         <form action="{{ route('client.logout') }}" method="POST" class="logout-form" id="logout-form">
                             @csrf
                             <button type="submit" class="nav-link logout-button logout-link">

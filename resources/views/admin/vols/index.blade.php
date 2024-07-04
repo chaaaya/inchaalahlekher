@@ -21,35 +21,35 @@
                 <table class="table">
                     <thead>
                         <tr>
-                            <th>ID</th>
                             <th>Numéro de Vol</th>
                             <th>Ville de Départ</th>
                             <th>Ville d'Arrivée</th>
                             <th>Heure de Départ</th>
                             <th>Heure d'Arrivée</th>
+                            <th>Prix</th>
                             <th>Compagnie</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach ($vols as $vol)
-                            <tr>
-                                <td>{{ $vol->id }}</td>
+                            <tr @if ($vol->hasOffer()) class="vol-associated" @endif>
                                 <td>{{ $vol->numero_vol }}</td>
                                 <td>{{ $vol->ville_depart }}</td>
                                 <td>{{ $vol->ville_arrivee }}</td>
                                 <td>{{ \Illuminate\Support\Carbon::parse($vol->heure_depart)->format('d/m/Y H:i') }}</td>
                                 <td>{{ \Illuminate\Support\Carbon::parse($vol->heure_arrivee)->format('d/m/Y H:i') }}</td>
-                                <td>{{ $vol->compagnie }}</td>
+                                <td>{{ $vol->prix }} €</td>
+                                <td>{{ $vol->compagnie->nom }}</td>
                                 <td>
-                                    <a href="{{ route('admin.vols.edit', $vol->id) }}" class="btnI btn-p">
-                                        <i class="fas fa-edit edit-icon"></i>
+                                    <a href="{{ route('admin.vols.edit', $vol->id) }}" class="btn btn-sm btn-warning">
+                                        Modifier
                                     </a>
                                     <form action="{{ route('admin.vols.destroy', $vol->id) }}" method="POST" style="display: inline;">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" class="btnI btn-d" onclick="return confirm('Êtes-vous sûr ?')">
-                                            <i class="fas fa-trash-alt delete-icon"></i>
+                                        <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Êtes-vous sûr ?')">
+                                            Supprimer
                                         </button>
                                     </form>
                                 </td>
@@ -61,6 +61,9 @@
         </div>
     </div>
 @endsection
+
+
+
 <style>
     .btnI i {
         margin-right: 5px; 
@@ -86,4 +89,7 @@
     .btnI:hover .delete-icon {
         color: #c82333; 
     }
+    /* .table .vol-associated {
+    background-color: #f3e1e1;
+} */
 </style>

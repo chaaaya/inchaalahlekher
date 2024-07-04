@@ -3,7 +3,7 @@
 @section('title', 'Modifier une offre')
 
 @section('content')
-    <h1>Modifier une offre</h1>
+    <h1>Modifier l'offre</h1>
 
     @if ($errors->any())
         <div class="alert alert-danger">
@@ -15,30 +15,46 @@
         </div>
     @endif
 
-    <form action="{{ route('admin.offers.update', $offer->id) }}" method="POST">
+    <form action="{{ route('admin.offers.update', $offer->id) }}" method="POST" enctype="multipart/form-data">
         @csrf
         @method('PUT')
-
         <div class="form-group">
-            <label for="title">Titre :</label>
-            <input type="text" id="title" name="title" class="form-control" value="{{ old('title', $offer->title) }}">
+            <label for="title">Titre</label>
+            <input type="text" name="title" id="title" class="form-control" value="{{ $offer->title }}" required>
         </div>
-
         <div class="form-group">
-            <label for="description">Description :</label>
-            <textarea id="description" name="description" class="form-control">{{ old('description', $offer->description) }}</textarea>
+            <label for="description">Description</label>
+            <textarea name="description" id="description" class="form-control" required>{{ $offer->description }}</textarea>
         </div>
-
         <div class="form-group">
-            <label for="price">Prix :</label>
-            <input type="number" step="0.01" id="price" name="price" class="form-control" value="{{ old('price', $offer->price) }}">
+            <label for="percentage_discount">Réduction</label>
+            <input type="number" name="percentage_discount" id="percentage_discount" class="form-control" value="{{ $offer->percentage_discount }}" required>
         </div>
-
-        <button type="submit" class="btn btn-primary">Modifier l'offre</button>
+        <div class="form-group">
+            <label for="image">Image</label>
+            <input type="file" name="image" id="image" class="form-control">
+            @if ($offer->image)
+                <img src="{{ asset('images/'.$offer->image) }}" alt="{{ $offer->title }}" width="100">
+            @endif
+        </div>
+        {{-- <div class="form-group">
+            <label for="vols">Vols associés</label>
+            <select name="vols[]" id="vols" class="form-control" multiple>
+                @foreach ($vols as $vol)
+                    <option value="{{ $vol->id }}" {{ in_array($vol->id, $offer->vols->pluck('id')->toArray()) ? 'selected' : '' }}>
+                        {{ $vol->numero_vol }} - {{ $vol->ville_depart }} à {{ $vol->ville_arrivee }}
+                    </option>
+                @endforeach
+            </select>
+        </div> --}}
+        <button type="submit" class="btn btn-primary">Mettre à jour</button>
     </form>
 @endsection
+
+
 <style>
-    .form-group {
+
+.form-group {
     margin-bottom: 1.5rem;
 }
 
@@ -103,5 +119,4 @@
         margin-right: 0;
     }
 }
-
 </style>

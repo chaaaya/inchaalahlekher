@@ -13,7 +13,8 @@ class Vol extends Model{
         'ville_arrivee',
         'heure_depart',
         'heure_arrivee',
-        'compagnie',
+        'prix',
+        'compagnie_id',
     ];
 
     protected $casts = [
@@ -22,11 +23,15 @@ class Vol extends Model{
     ];
     public function compagnie()
     {
-        return $this->belongsTo(Compagnie::class);
+        return $this->belongsTo(Compagnie::class, 'compagnie_id');
     }
     public function offers()
     {
-        return $this->hasMany(Offer::class);
+        return $this->belongsToMany(Offer::class, 'offer_vol', 'vol_id', 'offer_id');
     }
+     // Méthode pour vérifier si le vol a des offres associées
+     public function hasOffer()
+     {
+         return $this->offers()->exists();
+     }
 }
-

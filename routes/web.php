@@ -48,7 +48,7 @@ use App\Http\Controllers\Abonne\service1Controller;
 use App\Http\Controllers\Abonne\MesReservations1Controller;
 use App\Http\Controllers\nonabonne\NotificationController;
 use App\Http\Controllers\abonne\CheckInController;
-
+use App\Http\Controllers\Abonne\ProgrammeFideliteController;
 
 
 Route::get('/', function () {
@@ -311,8 +311,7 @@ Route::middleware(['auth:client'])->prefix('nonabonne')->group(function () {
 
     Route::get('/nonabonne/checkin', [NonAbonneController::class, 'checkin'])->name('nonabonne.checkin');
 
-
-Route::post('/offers/{offerId}/calculate-price', [OffreController::class, 'calculatePrice']);
+    Route::get('/offres/{id}', [Vol1Controller::class, 'showOffer'])->name('nonabonne.offres.show');
 });
 
 
@@ -352,20 +351,29 @@ Route::prefix('abonne')->group(function () {
 
     Route::get('/historique-vols', [HistoriqueVol1Controller::class, 'historiqueVols'])->name('abonne.historique.vols');
 
-
-    Route::get('/consulter-offres', [abonne\Offre1Controller::class, 'index'])->name('abonne.consulter.offres');
-    Route::get('/abonne/offres/{id}', [Offre1Controller::class, 'show'])->name('abonne.offres.show');
-
+   
+    Route::get('/consulter-offres', [Offre1Controller::class, 'index'])->name('abonne.consulter.offres');
+    Route::get('/offres/{id}', [ReserverController::class, 'showOffer'])->name('abonne.offres.show');
     Route::get('/suivre-vols', [SuivreVol1Controller::class, 'index'])->name('abonne.suivre.vols');
-    Route::get('/programme-fidelite', function () {
-        return view('client.abonne.programme_fidelite');
-    })->name('abonne.programme.fidelite');
+    
+    // routes/web.php
+
+
+
+Route::get('/abonne/programme-fidelite', [ProgrammeFideliteController::class, 'index'])->name('abonne.programme_fidelite.index');
+Route::get('/abonne/programme-fidelite/points', [ProgrammeFideliteController::class, 'pointsAccumules'])->name('abonne.programme_fidelite.points');
+Route::get('/abonne/programme-fidelite/recompenses', [ProgrammeFideliteController::class, 'recompenses'])->name('abonne.programme_fidelite.recompenses');
+Route::get('/abonne/programme-fidelite/avantages', [ProgrammeFideliteController::class, 'avantagesExclusifs'])->name('abonne.programme_fidelite.avantages');
+Route::get('/abonne/programme-fidelite/telecharger-attestation', [ProgrammeFideliteController::class, 'telechargerAttestation'])->name('abonne.programme_fidelite.telecharger_attestation');
+
+
     Route::get('/mes-reservations', [MesReservations1Controller::class, 'index'])->name('abonne.mes.reservations');
     Route::get('/mes-reservations/{id}/edit', [MesReservations1Controller::class, 'edit'])->name('abonne.reservations.edit');
     Route::put('/mes-reservations/{id}', [MesReservations1Controller::class, 'update'])->name('abonne.reservations.update');
     Route::delete('/mes-reservations/{id}', [MesReservations1Controller::class, 'destroy'])->name('abonne.reservations.destroy');
-   
-    Route::get('/checkin', [CheckInController::class, 'showCheckInForm'])->name('abonne.checkin.form');
-    Route::post('/checkin', [CheckInController::class, 'processCheckIn'])->name('abonne.checkin.process');
+
     
-});
+        Route::get('/checkin/{reservationId}', [CheckInController::class, 'showCheckInForm'])->name('abonne.checkin.form');
+        Route::post('/checkin', [CheckInController::class, 'processCheckIn'])->name('abonne.process.checkin');
+        Route::get('/checkin/success/{reservationId}', [CheckInController::class, 'showSuccessPage'])->name('abonne.checkin.success');
+    });

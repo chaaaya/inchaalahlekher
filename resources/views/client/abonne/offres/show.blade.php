@@ -1,48 +1,104 @@
-@extends('layouts.abonne') <!-- Assurez-vous d'avoir un layout de base défini pour votre application -->
+@extends('layouts.abonne')
 
 @section('content-abonne')
     <div class="container">
-        <h1>Détails de l'offre {{ $offer->title }}</h1>
-        <div class="card mb-3">
-            <img class="card-img-top" src="{{ asset('images/' . $offer->image) }}" alt="{{ $offer->title }}">
+        <h1>Détails de l'offre</h1>
+        <div class="card mb-4 shadow-sm">
             <div class="card-body">
-                <h5 class="card-title">{{ $offer->title }}</h5>
-                <p class="card-text">{{ $offer->description }}</p>
+                <h2>{{ $offer->title }}</h2>
+                @if($offer->image)
+                    <img class="card-img-top" src="{{ asset('images/' . $offer->image) }}" alt="{{ $offer->title }}">
+                @else
+                    <img class="card-img-top" src="path/to/default-image.jpg" alt="Default Image">
+                @endif
+                <p>{{ $offer->description }}</p>
                 @if($offer->percentage_discount)
-                    <p class="card-text reduction">Réduction : {{ $offer->percentage_discount }}%</p>
+                    <p>Réduction : <span class="reduction-color">{{ $offer->percentage_discount }}%</span></p>
+                @elseif($offer->amount_discount)
+                    <p>Réduction : <span class="reduction-color">{{ $offer->amount_discount }} €</span></p>
                 @endif
-                @if($offer->amount_discount)
-                    <p class="card-text reduction">Réduction : {{ $offer->amount_discount }}€</p>
-                @endif
-                <p class="card-text price">Prix : {{ $offer->price }}€</p>
             </div>
         </div>
 
-        <h2>Vols associés à cette offre :</h2>
-        @if($reservations->isNotEmpty())
-            <ul>
-                @foreach($reservations as $reservation)
-                    <li>
-                        Vol numéro {{ $reservation->vol->numero_vol }}
-                        <br>
-                        Ville de départ : {{ $reservation->vol->ville_depart }}
-                        <br>
-                        Ville d'arrivée : {{ $reservation->vol->ville_arrivee }}
-                        <br>
-                        Heure de départ : {{ $reservation->vol->heure_depart }}
-                        <br>
-                        Heure d'arrivée : {{ $reservation->vol->heure_arrivee }}
-                    </li>
-                    <hr>
-                @endforeach
-            </ul>
-        @else
-            <p>Aucun vol réservé pour cette offre.</p>
-        @endif
-
-        <div id="calculatePrice">
-            <!-- Formulaire ou déclencheur pour calculer le nouveau prix -->
-            <!-- Par exemple, un formulaire avec un bouton ou une action AJAX -->
-        </div>
     </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+
 @endsection
+
+<style>
+    .old-price-color {
+        color: red;
+        text-decoration: line-through;
+    }
+    .new-price-color {
+        color: green;
+        font-weight: bold;
+    }
+    .reduction-color {
+        color: blue;
+        font-weight: bold;
+    }
+    .container {
+        margin-top: 20px;
+    }
+    .card {
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        overflow: hidden;
+        transition: box-shadow 0.3s;
+    }
+    .card:hover {
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+    .card-body {
+        padding: 20px;
+    }
+    h1, h2, h5.card-title {
+        color: #333;
+        font-family: 'Arial', sans-serif;
+    }
+    h1 {
+        font-size: 2.5rem;
+        margin-bottom: 20px;
+    }
+    h2 {
+        font-size: 2rem;
+        margin-bottom: 15px;
+    }
+    h5.card-title {
+        font-size: 1.5rem;
+        margin-bottom: 10px;
+    }
+    p {
+        color: #555;
+        font-family: 'Arial', sans-serif;
+    }
+    .btn-primary {
+        background-color: #007bff;
+        border-color: #007bff;
+        color: #fff;
+        transition: background-color 0.3s, border-color 0.3s;
+    }
+    .btn-primary:hover {
+        background-color: #0056b3;
+        border-color: #004085;
+    }
+    @media (max-width: 768px) {
+        .card {
+            margin-bottom: 20px;
+        }
+        .card-body {
+            padding: 15px;
+        }
+        h1 {
+            font-size: 2rem;
+        }
+        h2 {
+            font-size: 1.5rem;
+        }
+        h5.card-title {
+            font-size: 1.25rem;
+        }
+    }
+</style>

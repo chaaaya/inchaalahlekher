@@ -18,25 +18,30 @@
             @if ($offers->isEmpty())
                 <p>Aucune offre disponible pour le moment.</p>
             @else
-                <table class="table">
+                <table class="table" style="text-align: center; width:100%;">
                     <thead>
                         <tr>
-                            <th>ID</th>
                             <th>Titre</th>
                             <th>Description</th>
-                            <th>Prix</th>
-                            <th>Date de création</th>
+                            <th>Réduction</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach ($offers as $offer)
                             <tr>
-                                <td>{{ $offer->id }}</td>
                                 <td>{{ $offer->title }}</td>
                                 <td>{{ $offer->description }}</td>
-                                <td>{{ $offer->price }}</td>
-                                <td>{{ $offer->created_at->format('d/m/Y H:i:s') }}</td>
+                                <td>{{ $offer->percentage_discount }} %</td>
+                                {{-- <td>
+                                    @if ($offer->vols)
+                                        @foreach ($offer->vols as $vol)
+                                            <span>{{ $vol->numero_vol }} - {{ $vol->ville_depart }} à {{ $vol->ville_arrivee }}</span><br>
+                                        @endforeach
+                                    @else
+                                        <span>Aucun vol associé</span>
+                                    @endif
+                                </td> --}}
                                 <td>
                                     <a href="{{ route('admin.offers.edit', $offer->id) }}" class="btn btn-sm btn-warning">Modifier</a>
                                     <form action="{{ route('admin.offers.destroy', $offer->id) }}" method="POST" style="display: inline;">

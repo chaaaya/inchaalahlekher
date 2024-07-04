@@ -1,12 +1,11 @@
 <?php
-
 namespace App\Http\Controllers\nonabonne;
 
 use App\Http\Controllers\Controller;
-
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Reservation;
+use App\Models\vol; // Assurez-vous d'importer le modèle vol
 
 class MesReservationsController extends Controller
 {
@@ -66,5 +65,40 @@ class MesReservationsController extends Controller
         $reservation->delete();
 
         return redirect()->route('nonabonne.mes.reservations')->with('success', 'Réservation supprimée avec succès.');
+    }
+
+    // Méthode pour afficher la confirmation de réservation
+    public function showConfirmation()
+    {
+        return view('client.nonabonne.mes_reservations.confirmation');
+    }
+
+    // Méthode pour réserver un vol
+    public function reserver(Request $request, $volId)
+    {
+        $client = Auth::guard('client')->user();
+        if (!$client) {
+            abort(404, 'Client not found');
+        }
+
+        $vol = vol::findOrFail($volId);
+
+        // Vérifier si l'utilisateur a déjà réservé un vol
+        $existingReservation = Reservation::where('user_id', $client->id)->first();
+
+        // Appliquer la réduction si c'est la première réservation
+        $discountedPrice = $vol->price;
+        if (!$existingReservation) {
+            $discountedPrice *= 0.90; // Exemple de réduction de 10%
+        }
+
+        // Créer une nouvelle réservation
+        $reservation = new Reservation();
+        $reservation->user_id = $client->id;
+        $reservation->vol_id = $vol->id;
+        $reservation->price = $discountedPrice;
+        $reservation->save();
+
+        return redirect()->route('nonabonne.mes.reservations')->with('success', 'Réservation effectuée avec succès.');
     }
 }

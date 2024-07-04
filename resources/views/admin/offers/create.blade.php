@@ -1,42 +1,47 @@
 <link rel="stylesheet" href="{{ asset('css/content.css') }}">
-
 @extends('layouts.admin')
 
-@section('title', 'Créer une Offre')
+@section('title', 'Créer une nouvelle offre')
 
 @section('content')
-    <h1>Créer une Offre</h1>
+    <h1>Créer une nouvelle offre</h1>
 
-    @if (session('success'))
-        <div class="alert alert-success">{{ session('success') }}</div>
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
     @endif
 
     <form action="{{ route('admin.offers.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
-
         <div class="form-group">
-            <label for="title">Titre :</label>
-            <input type="text" id="title" name="title" class="form-control" value="{{ old('title') }}" required>
+            <label for="title">Titre</label>
+            <input type="text" name="title" id="title" class="form-control" required>
         </div>
-
         <div class="form-group">
-            <label for="description">Description :</label>
-            <textarea id="description" name="description" class="form-control" required>{{ old('description') }}</textarea>
+            <label for="description">Description</label>
+            <textarea name="description" id="description" class="form-control" required></textarea>
         </div>
-
         <div class="form-group">
-            <label for="price">Prix :</label>
-            <input type="text" id="price" name="price" class="form-control" value="{{ old('price') }}" required>
+            <label for="percentage_discount">Réduction</label>
+            <input type="number" name="percentage_discount" id="percentage_discount" class="form-control" required>
         </div>
-
         <div class="form-group">
-            <label for="image">Image :</label>
-            <input type="file" id="image" name="image" class="form-control">
+            <label for="image">Image</label>
+            <input type="file" name="image" id="image" class="form-control">
         </div>
-        <div class="button-group">
-            <button type="submit" class="btn btn-primary btn-small">Créer Offre</button>
-            <a href="{{ route('admin.offers.index') }}" class="btn btn-secondary btn-small">Annuler</a>
-        </div>
-
-       </form>
+        {{-- <div class="form-group">
+            <label for="vols">Vols associés</label>
+            <select name="vols[]" id="vols" class="form-control" multiple>
+                @foreach ($vols as $vol)
+                    <option value="{{ $vol->id }}">{{ $vol->numero_vol }} - {{ $vol->ville_depart }} à {{ $vol->ville_arrivee }}</option>
+                @endforeach
+            </select>
+        </div> --}}
+        <button type="submit" class="btn btn-primary">Créer</button>
+    </form>
 @endsection

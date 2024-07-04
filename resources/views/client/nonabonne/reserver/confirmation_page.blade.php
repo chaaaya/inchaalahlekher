@@ -13,7 +13,7 @@
         <p><strong>Date d'Expiration de l'Identité :</strong> {{ $reservation->date_expiration_identite }}</p>
         <p><strong>Pays de Délivrance de l'Identité :</strong> {{ $reservation->pays_delivrance_identite }}</p>
         <p><strong>Date de Départ :</strong> {{ $reservation->date_depart }}</p>
-        <p><strong>Date de Retour :</strong> {{ $reservation->date_retour }}</p>
+        <p><strong>Date d'arrivé :</strong> {{ $reservation->date_arrive }}</p>
         <p><strong>Email :</strong> {{ $reservation->email }}</p>
         <p><strong>Téléphone :</strong> {{ $reservation->telephone }}</p>
         <p><strong>Numéro de Carte :</strong> {{ $reservation->num_carte }}</p>
