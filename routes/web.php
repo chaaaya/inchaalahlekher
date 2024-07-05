@@ -329,7 +329,7 @@ Route::prefix('abonne')->group(function () {
     Route::get('/abonne/notifications', [abonneController::class, 'notifications'])->name('abonne.notifications');
 
 
-
+    Route::get('/reservation-confirmation', [ReserverController::class, 'showConfirmationPage'])->name('abonne.reservation.confirmation');
     Route::get('/reserver-vol', [ReserverController::class, 'showAvailableFlights'])->name('abonne.reserver.vol');
     Route::get('/reserver-vol/{vol}', [ReserverController::class, 'showReservationForm'])->name('abonne.vols.reservation');
     Route::post('/process-reservation', [ReserverController::class, 'processReservation'])->name('abonne.process.reservation');
@@ -348,8 +348,8 @@ Route::prefix('abonne')->group(function () {
 
 
     Route::get('/services-supplementaires', [Service1Controller::class, 'index'])->name('abonne.services.supplementaires');
-    Route::get('/hotels', [abonne\Hotel11Controller::class, 'index'])->name('hotels');
-    Route::get('/locations', [abonne\locationcontroller::class, 'showLocations'])->name('car_rentals');
+    Route::get('/hotels', [abonne\Hotel11Controller::class, 'index'])->name('abonne.hotels');
+    Route::get('/locations', [abonne\locationcontroller::class, 'showLocations'])->name('abonne.car_rentals');
 
     Route::get('/historique-vols', [HistoriqueVol1Controller::class, 'historiqueVols'])->name('abonne.historique.vols');
 

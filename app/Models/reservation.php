@@ -10,31 +10,31 @@ class Reservation extends Model
 
   
     protected $fillable = [
-        'offer_id',
-        'nom',
-        'prenom',
-        'date_naissance',
+        'vol_id',
+        'client_id',
+        'email',
+        'telephone',
         'sexe',
         'nationalite',
         'num_identite',
         'date_expiration_identite',
         'pays_delivrance_identite',
-        'date_depart',
-        'date_retour',
-        'email',
-        'telephone',
+        'tarif',
+        'type_bagage',
+        'nombre_bagages',
+        'poids_bagage',
+        'longueur_bagage',
+        'largeur_bagage',
+        'hauteur_bagage',
+        'contenu_bagage',
+        'equipement_sportif',
+        'instrument_musique',
         'num_carte',
         'date_expiration_carte',
         'cvv',
         'nom_titulaire_carte',
-        'ville_depart',
-        'ville_arrivee',
-        'client_id',
         'status',
-        'vol_id'
     ];
-
-   
 public function vol()
 {
     return $this->belongsTo(Vol::class, 'vol_id');

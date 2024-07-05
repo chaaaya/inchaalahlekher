@@ -165,7 +165,7 @@
                             </div>
                         </div>
 
-                        <button type="submit" class="btn btn-primary">Réserver</button>
+                        <a href="{{ route('abonne.reservation.confirmation') }}" class="btn btn-primary">eserver</a>
                     </form>
                 </div>
             </div>

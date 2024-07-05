@@ -6,8 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\Vol;
 use App\Models\Offer;
 use App\Models\Reservation;
-use App\Models\Client;
 use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
 
 class ReserverController extends Controller
 {
@@ -45,63 +45,68 @@ class ReserverController extends Controller
         return view('client.abonne.reserver.reservation_form', compact('vol'));
     }
     public function processReservation(Request $request)
-    {
-        $validatedData = $request->validate([
-            'vol_id' => 'required|exists:vols,id',
-            'email' => 'required|email',
-            'telephone' => 'required|string|max:20',
-            'sexe' => 'required|in:Homme,Femme',
-            'nationalite' => 'required|string|max:255',
-            'num_identite' => 'nullable|string|max:255',
-            'date_expiration_identite' => 'nullable|date',
-            'pays_delivrance_identite' => 'nullable|string|max:255',
-            'tarif_calculé' => 'required|numeric',
-            'type_bagage' => 'required|string',
-            'nombre_bagages' => 'required|integer',
-            'poids_bagage' => 'required|numeric',
-            'longueur_bagage' => 'required|numeric',
-            'largeur_bagage' => 'required|numeric',
-            'hauteur_bagage' => 'required|numeric',
-            'contenu_bagage' => 'nullable|string',
-            'equipement_sportif' => 'nullable|boolean',
-            'instrument_musique' => 'nullable|boolean',
-            'num_carte' => 'required|string|max:20',
-            'date_expiration_carte' => 'required|date',
-            'cvv' => 'required|string|max:4',
-            'nom_titulaire_carte' => 'required|string|max:255',
-        ]);
-    
-        $clientId = Auth::guard('client')->id();
-        $client = Client::find($clientId);
+{
+    // Validation des données du formulaire
+    $validatedData = $request->validate([
+        'vol_id' => 'required|exists:vols,id',
+        'nom' => 'required|string|max:255',
+        'prenom' => 'required|string|max:255',
+        'date_naissance' => 'required|date',
+        'sexe' => 'required|in:Homme,Femme',
+        'nationalite' => 'required|string|max:255',
+        'num_identite' => 'nullable|string|max:255',
+        'date_expiration_identite' => 'nullable|date',
+        'pays_delivrance_identite' => 'nullable|string|max:255',
+        'date_depart' => 'required|date',
+        'date_retour' => 'required|date',
+        'email' => 'required|email|max:255',
+        'telephone' => 'required|string|max:255',
+        'num_carte' => 'required|string|max:255',
+        'date_expiration_carte' => 'required|date',
+        'cvv' => 'required|string|max:255',
+        'nom_titulaire_carte' => 'required|string|max:255',
+        'ville_depart' => 'required|string|max:255',
+        'ville_arrivee' => 'required|string|max:255',
+        'tarif_calcule' => 'required|numeric',
+    ]);
 
-        if (!$client) {
-            return redirect()->back()->with('error', 'Client non trouvé');
-        }
-    $reservation = new Reservation();
-    $reservation->vol_id = $validatedData['vol_id'];
-    $reservation->client_id = $client->id;
-    $reservation->nom = $validatedData['nom']; // add this line
-    $reservation->prenom = $validatedData['prenom']; // add this line
-    $reservation->date_naissance = $validatedData['date_naissance']; // add this line
-    $reservation->email = $validatedData['email'];
-    $reservation->telephone = $validatedData['telephone'];
-    $reservation->sexe = $validatedData['sexe'];
-    $reservation->nationalite = $validatedData['nationalite'];
-    $reservation->num_identite = $validatedData['num_identite'];
-    $reservation->date_expiration_identite = $validatedData['date_expiration_identite'];
-    $reservation->pays_delivrance_identite = $validatedData['pays_delivrance_identite'];
-    $reservation->tarif = $validatedData['tarif_calculé'];
-    $reservation->num_carte = $validatedData['num_carte'];
-    $reservation->date_expiration_carte = $validatedData['date_expiration_carte'];
-    $reservation->cvv = $validatedData['cvv'];
-    $reservation->nom_titulaire_carte = $validatedData['nom_titulaire_carte'];
-    $reservation->status = 'en attente';
-    $reservation->save();
+    // Récupération de l'utilisateur authentifié
+    $client = Auth::guard('client')->user();
 
-    return redirect()->route('abonne.reservation.details', [
-        'vol' => $validatedData['vol_id'],
+    // Création d'une nouvelle réservation avec les données validées
+    $reservation = Reservation::create([
+        'vol_id' => $validatedData['vol_id'],
+        'nom' => $validatedData['nom'],
+        'prenom' => $validatedData['prenom'],
+        'date_naissance' => $validatedData['date_naissance'],
+        'sexe' => $validatedData['sexe'],
+        'nationalite' => $validatedData['nationalite'],
+        'num_identite' => $validatedData['num_identite'],
+        'date_expiration_identite' => $validatedData['date_expiration_identite'],
+        'pays_delivrance_identite' => $validatedData['pays_delivrance_identite'],
+        'date_depart' => $validatedData['date_depart'],
+        'date_retour' => $validatedData['date_retour'],
+        'email' => $validatedData['email'],
+        'telephone' => $validatedData['telephone'],
+        'num_carte' => $validatedData['num_carte'],
+        'date_expiration_carte' => $validatedData['date_expiration_carte'],
+        'cvv' => $validatedData['cvv'],
+        'nom_titulaire_carte' => $validatedData['nom_titulaire_carte'],
+        'ville_depart' => $validatedData['ville_depart'],
+        'ville_arrivee' => $validatedData['ville_arrivee'],
+        'client_id' => $client->id,
+        'status' => 'en attente',
+        'tarif_calcule' => $validatedData['tarif_calcule'],
+    ]);
+
+    // Redirection vers une page de confirmation avec un message de succès
+    return redirect()->route('abonne.reservation.confirmation', [
         'reservation' => $reservation->id
     ])->with('success', 'Réservation effectuée avec succès.');
+}
+public function showConfirmationPage()
+{
+    return view('client.abonne.reserver.confirmation_page');
 }
     public function showOffer($id)
     {
