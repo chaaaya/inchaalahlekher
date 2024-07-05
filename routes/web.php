@@ -49,6 +49,7 @@ use App\Http\Controllers\Abonne\MesReservations1Controller;
 use App\Http\Controllers\nonabonne\NotificationController;
 use App\Http\Controllers\abonne\CheckInController;
 use App\Http\Controllers\Abonne\ProgrammeFideliteController;
+use App\Http\Controllers\nonabonne\CheckIn1Controller;
 
 
 Route::get('/', function () {
@@ -308,8 +309,9 @@ Route::middleware(['auth:client'])->prefix('nonabonne')->group(function () {
     Route::get('/consulter-offres', [nonabonne\OffreController::class, 'index'])->name('nonabonne.consulter.offres');
     Route::get('/nonabonne/offres/{id}', [OffreController::class, 'show'])->name('nonabonne.offres.show');
 
-
-    Route::get('/nonabonne/checkin', [NonAbonneController::class, 'checkin'])->name('nonabonne.checkin');
+    Route::get('/checkin/{reservationId}', [CheckIn1Controller::class, 'showCheckInForm'])->name('nonabonne.checkin.form');
+    Route::post('/checkin', [CheckIn1Controller::class, 'processCheckIn'])->name('nonabonne.process.checkin');
+    Route::get('/checkin/success/{reservationId}', [CheckIn1Controller::class, 'showSuccessPage'])->name('nonabonne.checkin.success');
 
     Route::get('/offres/{id}', [Vol1Controller::class, 'showOffer'])->name('nonabonne.offres.show');
 });

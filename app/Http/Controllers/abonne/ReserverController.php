@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Vol;
 use App\Models\Offer;
 use App\Models\Reservation;
+use App\Models\Client;
 use Illuminate\Support\Facades\Auth;
 
 class ReserverController extends Controller
@@ -43,70 +44,65 @@ class ReserverController extends Controller
     {
         return view('client.abonne.reserver.reservation_form', compact('vol'));
     }
-
     public function processReservation(Request $request)
     {
         $validatedData = $request->validate([
-            'nom' => 'required|string|max:255',
-            'prenom' => 'required|string|max:255',
-            'date_naissance' => 'required|regex:/\d{2}\/\d{2}\/\d{4}/',
+            'vol_id' => 'required|exists:vols,id',
+            'email' => 'required|email',
+            'telephone' => 'required|string|max:20',
             'sexe' => 'required|in:Homme,Femme',
             'nationalite' => 'required|string|max:255',
             'num_identite' => 'nullable|string|max:255',
             'date_expiration_identite' => 'nullable|date',
             'pays_delivrance_identite' => 'nullable|string|max:255',
-            'date_depart' => 'nullable|date',
-            'date_retour' => 'nullable|date|after_or_equal:date_depart',
-            'email' => 'required|email',
-            'telephone' => 'required|string|max:20',
-            'num_carte' => 'nullable|string|max:255',
-            'date_expiration_carte' => 'nullable|date',
-            'cvv' => 'nullable|string|max:10',
-            'nom_titulaire_carte' => 'nullable|string|max:255',
-            'ville_depart' => 'required|string|max:255',
-            'ville_arrivee' => 'required|string|max:255',
-            'vol_id' => 'required|exists:vols,id',
+            'tarif_calculé' => 'required|numeric',
+            'type_bagage' => 'required|string',
+            'nombre_bagages' => 'required|integer',
+            'poids_bagage' => 'required|numeric',
+            'longueur_bagage' => 'required|numeric',
+            'largeur_bagage' => 'required|numeric',
+            'hauteur_bagage' => 'required|numeric',
+            'contenu_bagage' => 'nullable|string',
+            'equipement_sportif' => 'nullable|boolean',
+            'instrument_musique' => 'nullable|boolean',
+            'num_carte' => 'required|string|max:20',
+            'date_expiration_carte' => 'required|date',
+            'cvv' => 'required|string|max:4',
+            'nom_titulaire_carte' => 'required|string|max:255',
         ]);
+    
+        $clientId = Auth::guard('client')->id();
+        $client = Client::find($clientId);
 
-        // Convertir la date de naissance au format YYYY-MM-DD
-        $dateNaissanceParts = explode('/', $validatedData['date_naissance']);
-        $validatedData['date_naissance'] = $dateNaissanceParts[2] . '-' . $dateNaissanceParts[1] . '-' . $dateNaissanceParts[0];
-
-        // Récupérer l'utilisateur abonné connecté
-        $abonne = Auth::guard('abonne')->user();
-
-        if (!$abonne) {
-            abort(403, 'Action non autorisée.');
+        if (!$client) {
+            return redirect()->back()->with('error', 'Client non trouvé');
         }
+    $reservation = new Reservation();
+    $reservation->vol_id = $validatedData['vol_id'];
+    $reservation->client_id = $client->id;
+    $reservation->nom = $validatedData['nom']; // add this line
+    $reservation->prenom = $validatedData['prenom']; // add this line
+    $reservation->date_naissance = $validatedData['date_naissance']; // add this line
+    $reservation->email = $validatedData['email'];
+    $reservation->telephone = $validatedData['telephone'];
+    $reservation->sexe = $validatedData['sexe'];
+    $reservation->nationalite = $validatedData['nationalite'];
+    $reservation->num_identite = $validatedData['num_identite'];
+    $reservation->date_expiration_identite = $validatedData['date_expiration_identite'];
+    $reservation->pays_delivrance_identite = $validatedData['pays_delivrance_identite'];
+    $reservation->tarif = $validatedData['tarif_calculé'];
+    $reservation->num_carte = $validatedData['num_carte'];
+    $reservation->date_expiration_carte = $validatedData['date_expiration_carte'];
+    $reservation->cvv = $validatedData['cvv'];
+    $reservation->nom_titulaire_carte = $validatedData['nom_titulaire_carte'];
+    $reservation->status = 'en attente';
+    $reservation->save();
 
-        // Vérifier si c'est la première réservation de l'utilisateur
-        $existingReservation = Reservation::where('abonne_id', $abonne->id)->first();
-        $vol = Vol::find($validatedData['vol_id']);
-
-        // Appliquer la réduction si c'est la première réservation et si l'utilisateur vient de l'offre 1
-        if ($request->input('fromOffer1', false) && !$existingReservation) {
-            $percentage_discount = Offer::find(1)->percentage_discount; // Assurez-vous que l'offre avec id 1 existe
-            $validatedData['prix'] = $vol->prix * (1 - ($percentage_discount / 100));
-        } else {
-            $validatedData['prix'] = $vol->prix;
-        }
-
-        $validatedData['abonne_id'] = $abonne->id;
-        $validatedData['status'] = 'en attente';
-
-        $reservation = Reservation::create($validatedData);
-
-        return redirect()->route('abonne.reservation.details', ['vol' => $validatedData['vol_id'], 'reservation' => $reservation->id])
-                         ->with('success', 'Réservation effectuée avec succès.');
-    }
-
-    public function showReservationDetails($vol, $reservation)
-    {
-        $reservation = Reservation::with('vol')->findOrFail($reservation);
-
-        return view('client.abonne.reserver.confirmation_page', compact('reservation'));
-    }
-
+    return redirect()->route('abonne.reservation.details', [
+        'vol' => $validatedData['vol_id'],
+        'reservation' => $reservation->id
+    ])->with('success', 'Réservation effectuée avec succès.');
+}
     public function showOffer($id)
     {
         $offer = Offer::findOrFail($id);

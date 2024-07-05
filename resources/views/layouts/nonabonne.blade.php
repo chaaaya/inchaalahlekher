@@ -34,9 +34,9 @@
                     <i class="fa fa-binoculars"></i> Suivre les vols</a></li>
                 <li><a href="{{ route('nonabonne.profil') }}" class="{{ request()->routeIs('nonabonne.profil') ? 'nav-link active' : 'nav-link' }}">
                     <i class="fa fa-user"></i> Profil</a></li>
-                <li><a href="{{ route('nonabonne.checkin') }}" class="{{ request()->routeIs('nonabonne.checkin') ? 'nav-link active' : 'nav-link' }}">
-                    <i class="fa fa-check"></i> Check-in</a></li> <!-- New check-in link -->
-                <li>
+                <li><a href="{{ route('nonabonne.checkin.form', ['reservationId' => $reservation->id ?? 0]) }}" class="{{ request()->routeIs('abonne.checkin.form') ? 'nav-link active' : 'nav-link' }}">
+                    <i class="fa fa-check"></i> Check-in
+                </a> <li>
                     <form action="{{ route('client.logout') }}" method="POST" class="logout-form" id="logout-form">
                         @csrf
                         <button type="submit" class="nav-link logout-button logout-link">
